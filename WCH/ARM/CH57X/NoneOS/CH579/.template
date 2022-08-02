@@ -1,0 +1,15 @@
+Mcu Type=CH57x
+Address=0x08000000
+Target Path=obj/CH579.hex
+Erase All=true
+Program=true
+Verify=true
+Reset=true
+
+Vendor=WCH
+Link=WCH-Link
+Toolchain=ARM
+Series=CH57X
+Description=Website: http://www.wch.cn/products/CH579.html\nCH579 is an ARM 32-bit Cortex-M0 microcontroller that integrates BLE wireless communication. The system on chip has integrated rich peripheral resources such as Bluetooth Low Energy (BLE) communication module, Ethernet controller and transceiver, USB2.0 full-speed host/device controller and transceiver, segment LCD driver module, ADC, Touchkey detection module ,RTC ,etc.
+
+PeripheralVersion=2.4

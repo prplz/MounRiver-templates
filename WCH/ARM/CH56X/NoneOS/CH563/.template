@@ -1,0 +1,16 @@
+Mcu Type=CH56x
+Address=0x08000000
+Target Path=obj/CH563.hex
+Erase All=true
+Program=true
+Verify=true
+Reset=true
+
+Vendor=WCH
+Link=WCH-Link
+Toolchain=ARM
+Series=CH56X
+Description=Website: http://www.wch.cn/products/CH563.html\nThe CH563 series MCU is a 32-bit RISC simplified instruction set CPU, the instruction set is compatible with ARMv5TE, and it supports 16-bit Thumb instructions and enhanced DSP instructions. The default system frequency is 100MHZ, which is up to 130MHZ. Highly integrated peripherals and high performance make it widely used in various embedded applications.
+The peripheral components of CH563 include 224K of FLASH flash memory, 64K of SRAM, 28K of DataFlash, 100M Ethernet, high-speed/full-speed USB host/slave interface, 2 SPI interfaces, 2 UART interfaces, 3-channel 10-bit ADC , 4 general-purpose timers, 8-bit slave parallel interface, 8/16/32-bit Intel timing bus interface, in-system programming ISP interface and 74 general-purpose I/O pins.
+
+PeripheralVersion=1.5

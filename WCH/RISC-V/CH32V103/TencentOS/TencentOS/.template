@@ -1,0 +1,16 @@
+Mcu Type=CH32V10x
+Address=0x08000000
+Target Path=obj/TencentOS.hex
+Erase All=true
+Program=true
+Verify=true
+Reset=true
+
+Vendor=WCH
+Link=WCH-Link
+Toolchain=RISC-V
+Series=CH32V103
+Description=TencentOS is a series of operating systems independently developed by Tencent, mainly including TS (TencentOS server operating system), TT (TencentOS tiny Internet of things operating system) and te (TencentOS edge computing operating system). It provides a full stack OS layout based on business scenarios for the three subsystems of computing storage network (cloud data center, edge and Internet of things)
+
+PeripheralVersion=1.7
+

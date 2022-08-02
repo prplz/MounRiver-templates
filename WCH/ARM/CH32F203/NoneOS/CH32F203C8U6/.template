@@ -1,0 +1,15 @@
+Mcu Type=CH32F20x
+Address=0x08000000
+Target Path=obj/CH32F203C8U6.hex
+Erase All=true
+Program=true
+Verify=true
+Reset=true
+
+Vendor=WCH
+Link=WCH-Link
+Toolchain=ARM
+Series=CH32F203
+Description=Website: http://www.wch.cn/products/CH32F203.html\nROM(byte): 64K, SRAM(byte): 20K, CHIP PINS: 48, GPIO PORTS: 37.\nWCH CH32F2 series of mainstream MCUs covers the needs of a large variety of applications in the industrial,medical and consumer markets. High performance with first-class peripherals and low-power,low-voltage operation is paired with a high level of integration at accessible prices with a simple architecture and easy-to-use tools.
+
+PeripheralVersion=1.5

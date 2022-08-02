@@ -1,0 +1,13 @@
+Mcu Type=GD32VF103
+Address=0x08000000
+Target Path=obj/GD32VF103CBT6.hex
+Erase All=false
+Program=true
+Verify=true
+Reset=true
+
+Vendor=GD
+Link=GDLink
+Toolchain=RISC-V
+Series=GD32VF103
+Description=ROM(byte): 128K, SRAM(byte): 32K, CHIP PINS: 48, GPIO PORTS: 37.\nThe GD32VF103 device is a 32-bit general-purpose microcontroller based on the RISC-V core with best ratio in terms of processing power, reduced power consumption and peripheral set.

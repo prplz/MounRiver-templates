@@ -1,0 +1,13 @@
+Mcu Type=
+Address=
+Target Path=obj/RV32EMAC.hex
+Erase All=true
+Program=true
+Verify=true
+Reset=true
+
+Vendor=Others
+Link=Others
+Toolchain=RISC-V
+Series=RV32E
+Description=RV32E base integer instruction set, which is a reduced version of RV32I designed for embedded systems. The only change is to reduce the number of integer registers to 16. (The detailed properties can be set by the "Project Build Setting" button in the shortcut toolbar after the project is created)
