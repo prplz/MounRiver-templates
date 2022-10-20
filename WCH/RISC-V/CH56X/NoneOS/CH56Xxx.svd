@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<device schemaVersion="1.1" xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
+<device schemaVersion="1.1"
+xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="CMSIS-SVD.xsd">
   <vendor>WCH Ltd.</vendor>                                       <!-- device vendor name -->
   <vendorID>WCH</vendorID>                                        <!-- device vendor short name -->
   <name>CH569</name>
@@ -15,8 +16,9 @@
   <size>0x40</size>
   <resetValue>0x0</resetValue>
   <resetMask>0xFFFFFFFF</resetMask>
+ 
+  <peripherals>
   
- <peripherals>
 	<peripheral>   
 		<name>SYS</name>
 		<description>SYS register</description>
@@ -33,18 +35,19 @@
 				<description>safe accessing sign register</description>
 				<addressOffset>0x00</addressOffset>
 				<size>8</size>
-				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
 						<name>RB_SAFE_ACC_MODE</name>
 						<description>current safe accessing mode</description>
-						<bitRange>[1:0]</bitRange>		
+						<bitRange>[1:0]</bitRange>	
+						<access>read-only</access>	
 					</field>
 					<field>
 						<name>RB_SAFE_ACC_TIMER</name>
 						<description>safe accessing timer bit mask</description>
-						<bitRange>[6:4]</bitRange>		
+						<bitRange>[6:4]</bitRange>
+						<access>read-only</access>		
 					</field>
 				</fields>
 			</register>
@@ -98,33 +101,37 @@
 				<description>flash ROM configuration register</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read-write</access>
                 <resetValue>0x80</resetValue>
 				<fields>
 					<field>
 						<name>RB_ROM_EXT_RE</name>
 						<description>enable flash ROM being read by external programmer</description>
-						<bitRange>[0:0]</bitRange>		
+						<bitRange>[0:0]</bitRange>
+						<access>read-only</access>		
 					</field>
 					<field>
 						<name>RB_CODE_RAM_WE</name>
 						<description>enable code RAM being write</description>
-						<bitRange>[1:1]</bitRange>		
+						<bitRange>[1:1]</bitRange>
+						<access>read-write</access>		
 					</field>	
 					<field>
 						<name>RB_ROM_DATA_WE</name>
 						<description>enable flash ROM data area being erase/write</description>
-						<bitRange>[2:2]</bitRange>		
+						<bitRange>[2:2]</bitRange>
+						<access>read-write</access>		
 					</field>	
 					<field>
 						<name>RB_ROM_CODE_WE</name>
-						<description>enable flash ROM code and data area being erase or write</description>
-						<bitRange>[3:3]</bitRange>		
+						<description>enable flash ROM code_data area being erase/write</description>
+						<bitRange>[3:3]</bitRange>
+						<access>read-write</access>		
 					</field>						
 					<field>
 						<name>RB_ROM_CODE_OFS</name>
 						<description>Config the start offset address of user code in Flash</description>
-						<bitRange>[4:4]</bitRange>		
+						<bitRange>[4:4]</bitRange>	
+						<access>read-write</access>	
 					</field>					
 				</fields>
 			</register>							
@@ -168,28 +175,31 @@
 				<description>reset and watch-dog control</description>
 				<addressOffset>0x06</addressOffset>
 				<size>8</size>
-				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
 						<name>RB_SOFTWARE_RESET</name>
 						<description>global software reset</description>
-						<bitRange>[0:0]</bitRange>		
+						<bitRange>[0:0]</bitRange>
+						<access>write-only</access>		
 					</field>
 					<field>
 						<name>RB_WDOG_RST_EN</name>
 						<description>enable watch-dog reset if watch-dog timer overflow: 0=as timer only, 1=enable reset if timer overflow</description>
-						<bitRange>[1:1]</bitRange>		
+						<bitRange>[1:1]</bitRange>
+						<access>read-write</access>		
 					</field>	
 					<field>
 						<name>RB_WDOG_INT_EN</name>
 						<description>watch-dog interrupt enable or INT_ID_WDOG interrupt source selection: 0=software interrupt</description>
-						<bitRange>[2:2]</bitRange>		
+						<bitRange>[2:2]</bitRange>
+						<access>read-write</access>		
 					</field>	
 					<field>
 						<name>RB_WDOG_INT_FLAG</name>
 						<description>watch-dog timer overflow interrupt flag</description>
-						<bitRange>[3:3]</bitRange>		
+						<bitRange>[3:3]</bitRange>
+						<access>read-write</access>		
 					</field>											
 				</fields>
 			</register>
@@ -328,48 +338,55 @@
 				<description>sleep clock off control byte 1</description>
 				<addressOffset>0x0D</addressOffset>
 				<size>8</size>
-				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
 						<name>RB_SLP_CLK_SPI0</name>
 						<description>sleep SPI0 clock</description>
-						<bitRange>[0:0]</bitRange>		
+						<bitRange>[0:0]</bitRange>
+						<access>read-write</access>		
 					</field>
 					<field>
 						<name>RB_SLP_CLK_SPI1</name>
 						<description>sleep SPI1 clock</description>
-						<bitRange>[1:1]</bitRange>		
+						<bitRange>[1:1]</bitRange>
+						<access>read-write</access>		
 					</field>
 					<field>
 						<name>RB_SLP_CLK_EMMC</name>
 						<description>sleep EMMC clock</description>
-						<bitRange>[2:2]</bitRange>		
+						<bitRange>[2:2]</bitRange>
+						<access>read-write</access>		
 					</field>
 					<field>
 						<name>RB_SLP_CLK_HSPI</name>
 						<description>sleep HSPI clock</description>
-						<bitRange>[3:3]</bitRange>		
+						<bitRange>[3:3]</bitRange>	
+						<access>read-write</access>	
 					</field>
 					<field>
 						<name>RB_SLP_CLK_USBHS</name>
 						<description>sleep USBHS clock</description>
-						<bitRange>[4:4]</bitRange>		
+						<bitRange>[4:4]</bitRange>	
+						<access>read-write</access>	
 					</field>	
 					<field>
 						<name>RB_SLP_CLK_USBSS</name>
 						<description>sleep USBSS clock</description>
-						<bitRange>[5:5]</bitRange>		
+						<bitRange>[5:5]</bitRange>	
+						<access>read-write</access>	
 					</field>
 					<field>
 						<name>RB_SLP_CLK_SERD</name>
 						<description>sleep SERD clock</description>
-						<bitRange>[6:6]</bitRange>		
+						<bitRange>[6:6]</bitRange>	
+						<access>read-write</access>	
 					</field>
 					<field>
 						<name>RB_SLP_CLK_DVP</name>
 						<description>sleep DVP clock</description>
-						<bitRange>[7:7]</bitRange>		
+						<bitRange>[7:7]</bitRange>	
+						<access>read-only</access>	
 					</field>					
 				</fields>
 			</register>	
@@ -429,6 +446,41 @@
 				</fields>
 			</register>
 			<register>
+				<name>R8_XBUS_CONFIG</name>
+				<description>external bus configuration</description>
+				<addressOffset>0x10</addressOffset>
+				<size>8</size>
+				<access>read-write</access>
+                <resetValue>0x00</resetValue>
+				<fields>
+					<field>
+						<name>RB_XBUS_ENABLE</name>
+						<description>external bus enable</description>
+						<bitRange>[0:0]</bitRange>		
+					</field>
+					<field>
+						<name>RB_XBUS_ADDR_OE</name>
+						<description>external bus address output enable</description>
+						<bitRange>[3:2]</bitRange>		
+					</field>
+					<field>
+						<name>RB_XBUS_WIDTH</name>
+						<description>external bus access pulse width</description>
+						<bitRange>[5:4]</bitRange>		
+					</field>
+					<field>
+						<name>RB_XBUS_HOLD</name>
+						<description>external bus hold time</description>
+						<bitRange>[6:6]</bitRange>		
+					</field>
+					<field>
+						<name>RB_XBUS_SETUP</name>
+						<description>external bus setup time</description>
+						<bitRange>[7:7]</bitRange>		
+					</field>				
+				</fields>
+			</register>	
+			<register>
 				<name>R16_SERD_ANA_CFG1</name>
 				<description>Serdes Analog parameter configuration1</description>
 				<addressOffset>0x20</addressOffset>
@@ -447,7 +499,7 @@
 						<bitRange>[8:8]</bitRange>		
 					</field>
 					<field>
-						<name>RB_SERD_DN_SEL</name>
+						<name>RB_SERD_DN_TST</name>
 						<description>Enable SerDes PHY GXM test pin</description>
 						<bitRange>[9:9]</bitRange>		
 					</field>					
@@ -801,7 +853,7 @@
 			</register>					
 			<register>
 				<name>R32_PA_PD</name>
-				<description>GPIO PA output open-drain and input pulldown resistance enable</description>
+				<description>GPIO PA output open-drain_input pulldown resistance enable</description>
 				<addressOffset>0x54</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -809,7 +861,7 @@
 				<fields>
 					<field>
 						<name>R32_PA_PD</name>
-						<description>GPIO PA output open-drain and input pulldown resistance enable</description>
+						<description>GPIO PA output open-drain_input pulldown resistance enable</description>
 						<bitRange>[23:0]</bitRange>		
 					</field>				
 				</fields>							
@@ -831,7 +883,7 @@
 			</register>	
 			<register>
 				<name>R32_PA_SMT</name>
-				<description>GPIO PA output slew rate and input schmitt trigger</description>
+				<description>GPIO PA output slew rate_input schmitt trigger</description>
 				<addressOffset>0x5C</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -839,7 +891,7 @@
 				<fields>
 					<field>
 						<name>R32_PA_SMT</name>
-						<description>GPIO PA output slew rate and input schmitt trigger</description>
+						<description>GPIO PA output slew rate_input schmitt trigger</description>
 						<bitRange>[23:0]</bitRange>		
 					</field>				
 				</fields>							
@@ -921,7 +973,7 @@
 			</register>					
 			<register>
 				<name>R32_PB_PD</name>
-				<description>GPIO PB output open-drain and input pulldown resistance enable</description>
+				<description>GPIO PB output open-drain_input pulldown resistance enable</description>
 				<addressOffset>0x74</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -929,7 +981,7 @@
 				<fields>
 					<field>
 						<name>R32_PB_PD</name>
-						<description>GPIO PB output open-drain and input pulldown resistance enable</description>
+						<description>GPIO PB output open-drain_input pulldown resistance enable</description>
 						<bitRange>[24:0]</bitRange>		
 					</field>				
 				</fields>							
@@ -951,7 +1003,7 @@
 			</register>	
 			<register>
 				<name>R32_PB_SMT</name>
-				<description>GPIO PB output slew rate and input schmitt trigger</description>
+				<description>GPIO PB output slew rate_input schmitt trigger</description>
 				<addressOffset>0x7C</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -959,7 +1011,7 @@
 				<fields>
 					<field>
 						<name>R32_PB_SMT</name>
-						<description>GPIO PB output slew rate and input schmitt trigger</description>
+						<description>GPIO PB output slew rate_input schmitt trigger</description>
 						<bitRange>[24:0]</bitRange>		
 					</field>				
 				</fields>							
@@ -1039,12 +1091,12 @@
 					</field>
 					<field>
 						<name>RB_TMR_OUT_POLAR_RB_TMR_CAP_COUNT</name>
-						<description>timer PWM output polarity _ Count sub-mode</description>
+						<description>timer PWM output polarity / Count sub-mode</description>
 						<bitRange>[4:4]</bitRange>		
 					</field>
 					<field>
 						<name>RB_TMR_PWM_REPEAT_RB_TMR_CAP_EDGE</name>
-						<description>timer PWM repeat mode _ timer capture edge mode</description>
+						<description>timer PWM repeat mode / timer capture edge mode</description>
 						<bitRange>[7:6]</bitRange>		
 					</field>					
 				</fields>
@@ -1139,7 +1191,7 @@
 				<description>TMR0 current count</description>
 				<addressOffset>0x08</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
@@ -1224,12 +1276,12 @@
 					</field>
 					<field>
 						<name>RB_TMR_OUT_POLAR_RB_TMR_CAP_COUNT</name>
-						<description>timer PWM output polarity _ Count sub-mode</description>
+						<description>timer PWM output polarity / Count sub-mode</description>
 						<bitRange>[4:4]</bitRange>		
 					</field>
 					<field>
 						<name>RB_TMR_PWM_REPEAT_RB_TMR_CAP_EDGE</name>
-						<description>timer PWM repeat mode _ timer capture edge mode</description>
+						<description>timer PWM repeat mode / timer capture edge mode</description>
 						<bitRange>[7:6]</bitRange>		
 					</field>					
 				</fields>
@@ -1294,7 +1346,7 @@
 					</field>
 					<field>
 						<name>RB_TMR_IF_DMA_END</name>
-						<description>interrupt flag for timer1_2 DMA completion</description>
+						<description>interrupt flag for timer1/2 DMA completion</description>
 						<bitRange>[3:3]</bitRange>		
 					</field>
 					<field>
@@ -1309,7 +1361,7 @@
 				<description>TMR1 FIFO count status</description>
 				<addressOffset>0x07</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -1324,7 +1376,7 @@
 				<description>TMR1 current count</description>
 				<addressOffset>0x08</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
@@ -1474,12 +1526,12 @@
 					</field>
 					<field>
 						<name>RB_TMR_OUT_POLAR_RB_TMR_CAP_COUNT</name>
-						<description>timer PWM output polarity _ Count sub-mode</description>
+						<description>timer PWM output polarity / Count sub-mode</description>
 						<bitRange>[4:4]</bitRange>		
 					</field>
 					<field>
 						<name>RB_TMR_PWM_REPEAT_RB_TMR_CAP_EDGE</name>
-						<description>timer PWM repeat mode _timer capture edge mode</description>
+						<description>timer PWM repeat mode / timer capture edge mode</description>
 						<bitRange>[7:6]</bitRange>		
 					</field>					
 				</fields>
@@ -1509,7 +1561,7 @@
 					</field>
 					<field>
 						<name>RB_TMR_IE_DMA_END</name>
-						<description>enable interrupt for timer1_2 DMA completion</description>
+						<description>enable interrupt for timer1/2 DMA completion</description>
 						<bitRange>[3:3]</bitRange>		
 					</field>
 					<field>
@@ -1544,7 +1596,7 @@
 					</field>
 					<field>
 						<name>RB_TMR_IF_DMA_END</name>
-						<description>interrupt flag for timer1_2 DMA completion</description>
+						<description>interrupt flag for timer1/2 DMA completion</description>
 						<bitRange>[3:3]</bitRange>		
 					</field>
 					<field>
@@ -1574,7 +1626,7 @@
 				<description>TMR2 current count</description>
 				<addressOffset>0x08</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
@@ -1604,7 +1656,7 @@
 				<description>TMR2 end count value, only low 26 bit</description>
 				<addressOffset>0x10</addressOffset>
 				<size>32</size>
-				<access>read-write</access>
+				<access>read-only/write-only</access>
                 <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
@@ -1624,12 +1676,12 @@
 				<fields>
 					<field>
 						<name>RB_TMR_DMA_ENABLE</name>
-						<description>timer1_2 DMA enable</description>
+						<description>timer1/2 DMA enable</description>
 						<bitRange>[0:0]</bitRange>		
 					</field>	
 					<field>
 						<name>RB_TMR_DMA_LOOP</name>
-						<description>timer1_2 DMA address loop enable</description>
+						<description>timer1/2 DMA address loop enable</description>
 						<bitRange>[2:2]</bitRange>		
 					</field>					
 				</fields>
@@ -1863,7 +1915,7 @@
 					</field>
 					<field>
 						<name>RB_LCR_DLAB_RB_LCR_GP_BIT</name>
-						<description>UART reserved bit _UART general purpose bit</description>
+						<description>UART reserved bit / UART general purpose bit</description>
 						<bitRange>[7:7]</bitRange>		
 					</field>					
 				</fields>
@@ -1873,7 +1925,7 @@
 				<description>UART0 interrupt identification</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x01</resetValue>
 				<fields>
 					<field>
@@ -1898,7 +1950,7 @@
 				<description>UART0 line status</description>
 				<addressOffset>0x05</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0xC0</resetValue>
 				<fields>
 					<field>
@@ -1948,7 +2000,7 @@
 				<description>UART0 modem status</description>
 				<addressOffset>0x06</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -1995,15 +2047,15 @@
 			</register>				
 			<register>
 				<name>R8_UART0_RBR_R8_UART0_THR</name>
-				<description>UART0 receiver buffer, receiving byte _ UART0 transmitter holding, transmittal byte</description>
+				<description>UART0 receiver buffer, receiving byte / UART0 transmitter holding, transmittal byte</description>
 				<addressOffset>0x08</addressOffset>
 				<size>8</size>
-				<access>read/write</access>
+				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
 						<name>R8_UART0_RBR_R8_UART0_THR</name>
-						<description>UART receiver buffer, receiving byte_ UART transmitter holding, transmittal byte</description>
+						<description>UART receiver buffer, receiving byte / UART transmitter holding, transmittal byte</description>
 						<bitRange>[7:0]</bitRange>		
 					</field>					
 				</fields>
@@ -2013,7 +2065,7 @@
 				<description>UART0 receiver FIFO count</description>
 				<addressOffset>0x0A</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2028,7 +2080,7 @@
 				<description>UART0 transmitter FIFO count</description>
 				<addressOffset>0x0B</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2110,7 +2162,12 @@
 						<name>RB_MCR_OUT2</name>
 						<description>UART1 control OUT2</description>
 						<bitRange>[3:3]</bitRange>		
-					</field>																																				
+					</field>
+				    <field>
+						<name>RB_MCR_AU_FLOW_EN</name>
+						<description>UART0 enable autoflow control</description>
+						<bitRange>[5:5]</bitRange>		
+					</field>					
 				</fields>
 			</register>		
 			<register>
@@ -2140,7 +2197,7 @@
 						<name>RB_IER_TXD_EN</name>
 						<description>UART TXD pin enable</description>
 						<bitRange>[6:6]</bitRange>		
-					</field>					
+					</field>
 					<field>
 						<name>RB_IER_RESET</name>
 						<description>UART software reset control, high action, auto clear</description>
@@ -2175,7 +2232,7 @@
 						<name>RB_FCR_FIFO_TRIG</name>
 						<description>UART receiver FIFO trigger level</description>
 						<bitRange>[7:6]</bitRange>		
-					</field>											
+					</field>					
 									
 				</fields>
 			</register>			
@@ -2214,7 +2271,7 @@
 					</field>
 					<field>
 						<name>RB_LCR_DLAB_RB_LCR_GP_BIT</name>
-						<description>UART reserved bit _ UART general purpose bit</description>
+						<description>UART reserved bit / UART general purpose bit</description>
 						<bitRange>[7:7]</bitRange>		
 					</field>					
 				</fields>
@@ -2224,7 +2281,7 @@
 				<description>UART1 interrupt identification</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x01</resetValue>
 				<fields>
 					<field>
@@ -2249,7 +2306,7 @@
 				<description>UART1 line status</description>
 				<addressOffset>0x05</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0xC0</resetValue>
 				<fields>
 					<field>
@@ -2296,15 +2353,15 @@
 			</register>				
 			<register>
 				<name>R8_UART1_RBR_R8_UART1_THR</name>
-				<description>UART1 receiver buffer, receiving byte _ UART1 transmitter holding, transmittal byte</description>
+				<description>UART1 receiver buffer, receiving byte / UART1 transmitter holding, transmittal byte</description>
 				<addressOffset>0x08</addressOffset>
 				<size>8</size>
-				<access>read/write</access>
+				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
 						<name>R8_UART1_RBR_R8_UART1_THR</name>
-						<description>UART receiver buffer, receiving byte_ UART transmitter holding, transmittal byte</description>
+						<description>UART receiver buffer, receiving byte / UART transmitter holding, transmittal byte</description>
 						<bitRange>[7:0]</bitRange>		
 					</field>					
 				</fields>
@@ -2314,7 +2371,7 @@
 				<description>UART1 receiver FIFO count</description>
 				<addressOffset>0x0A</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2329,7 +2386,7 @@
 				<description>UART1 transmitter FIFO count</description>
 				<addressOffset>0x0B</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2346,7 +2403,7 @@
 				<size>16</size>
 				<access>read-write</access>
                 <resetValue>0x0000</resetValue>
-				<fields>
+			    <fields>
 					<field>
 						<name>R16_UART1_DL</name>
 						<description>UART divisor latch</description>
@@ -2394,9 +2451,14 @@
 				<fields>					
 					<field>
 						<name>RB_MCR_OUT2</name>
-						<description>UART control OUT2</description>
+						<description>UART2 control OUT2</description>
 						<bitRange>[3:3]</bitRange>		
-					</field>																				
+					</field>
+					<field>
+						<name>RB_MCR_AU_FLOW_EN</name>
+						<description>UART0 enable autoflow control</description>
+						<bitRange>[5:5]</bitRange>		
+					</field>	
 				</fields>
 			</register>		
 			<register>
@@ -2500,7 +2562,7 @@
 					</field>
 					<field>
 						<name>RB_LCR_DLAB_RB_LCR_GP_BIT</name>
-						<description>UART reserved bit _ UART general purpose bit</description>
+						<description>UART reserved bit / UART general purpose bit</description>
 						<bitRange>[7:7]</bitRange>		
 					</field>					
 				</fields>
@@ -2510,7 +2572,7 @@
 				<description>UART2 interrupt identification</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x01</resetValue>
 				<fields>
 					<field>
@@ -2535,7 +2597,7 @@
 				<description>UART2 line status</description>
 				<addressOffset>0x05</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0xC0</resetValue>
 				<fields>
 					<field>
@@ -2582,15 +2644,15 @@
 			</register>				
 			<register>
 				<name>R8_UART2_RBR_R8_UART2_THR</name>
-				<description>UART2 receiver buffer, receiving byte _ UART2 transmitter holding, transmittal byte</description>
+				<description>UART2 receiver buffer, receiving byte / UART2 transmitter holding, transmittal byte</description>
 				<addressOffset>0x08</addressOffset>
 				<size>8</size>
-				<access>read/write</access>
+				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
-						<name>R8_UART_RBR_R8_UART_THR</name>
-						<description>UART receiver buffer, receiving byte_ UART transmitter holding, transmittal byte</description>
+						<name>R8_UART2_RBR_R8_UART2_THR</name>
+						<description>UART receiver buffer, receiving byte / UART transmitter holding, transmittal byte</description>
 						<bitRange>[7:0]</bitRange>		
 					</field>					
 				</fields>
@@ -2600,7 +2662,7 @@
 				<description>UART2 receiver FIFO count</description>
 				<addressOffset>0x0A</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2615,7 +2677,7 @@
 				<description>UART2 transmitter FIFO count</description>
 				<addressOffset>0x0B</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2680,9 +2742,14 @@
 				<fields>					
 					<field>
 						<name>RB_MCR_OUT2</name>
-						<description>UART control OUT2</description>
+						<description>UART3 control OUT2</description>
 						<bitRange>[3:3]</bitRange>		
-					</field>																				
+					</field>
+                    <field>
+						<name>RB_MCR_AU_FLOW_EN</name>
+						<description>UART0 enable autoflow control</description>
+						<bitRange>[5:5]</bitRange>		
+					</field>						
 				</fields>
 			</register>		
 			<register>
@@ -2785,7 +2852,7 @@
 					</field>
 					<field>
 						<name>RB_LCR_DLAB_RB_LCR_GP_BIT</name>
-						<description>UART reserved bit and  UART general purpose bit</description>
+						<description>UART reserved bit / UART general purpose bit</description>
 						<bitRange>[7:7]</bitRange>		
 					</field>					
 				</fields>
@@ -2795,7 +2862,7 @@
 				<description>UART3 interrupt identification</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x01</resetValue>
 				<fields>
 					<field>
@@ -2820,7 +2887,7 @@
 				<description>UART3 line status</description>
 				<addressOffset>0x05</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0xC0</resetValue>
 				<fields>
 					<field>
@@ -2867,7 +2934,7 @@
 			</register>				
 			<register>
 				<name>R8_UART3_RBR_R8_UART3_THR</name>
-				<description>UART3 receiver buffer, receiving byte _ UART3 transmitter holding, transmittal byte</description>
+				<description>UART3 receiver buffer, receiving byte / UART3 transmitter holding, transmittal byte</description>
 				<addressOffset>0x08</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -2875,7 +2942,7 @@
 				<fields>
 					<field>
 						<name>R8_UART3_RBR_R8_UART3_THR</name>
-						<description>UART receiver buffer, receiving byte _ UART transmitter holding, transmittal byte</description>
+						<description>UART receiver buffer, receiving byte / UART transmitter holding, transmittal byte</description>
 						<bitRange>[7:0]</bitRange>		
 					</field>					
 				</fields>
@@ -2885,7 +2952,7 @@
 				<description>UART3 receiver FIFO count</description>
 				<addressOffset>0x0A</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2900,7 +2967,7 @@
 				<description>UART3 transmitter FIFO count</description>
 				<addressOffset>0x0B</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -2980,7 +3047,7 @@
 					</field>					
 					<field>
 						<name>RB_SPI_MST_SCK_MOD_RB_SPI_SLV_CMD_MOD</name>
-						<description>SPI master clock mode _SPI slave command mode</description>
+						<description>SPI master clock mode _ SPI slave command mode</description>
 						<bitRange>[3:3]</bitRange>		
 					</field>
 					<field>
@@ -3025,7 +3092,7 @@
 					</field>					
 					<field>
 						<name>RB_SPI_AUTO_IF</name>
-						<description>enable buffer or FIFO accessing to auto clear RB_SPI_IF_BYTE_END interrupt flag</description>
+						<description>enable buffer/FIFO accessing to auto clear RB_SPI_IF_BYTE_END interrupt flag</description>
 						<bitRange>[4:4]</bitRange>		
 					</field>
 					<field>
@@ -3077,7 +3144,7 @@
 			</register>	
 			<register>
 				<name>R8_SPI0_CLOCK_DIV_R8_SPI0_SLAVE_PRE</name>
-				<description>SPI0 master clock divisor_ SPI0 slave preset value</description>
+				<description>SPI0 master clock divisor / SPI0 slave preset value</description>
 				<addressOffset>0x03</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -3085,7 +3152,7 @@
 				<fields>
 					<field>
 						<name>R8_SPI0_CLOCK_DIV_R8_SPI0_SLAVE_PRE</name>
-						<description>master clock divisor _ SPI0 slave preset value</description>
+						<description>master clock divisor / SPI0 slave preset value</description>
 						<bitRange>[7:0]</bitRange>		
 					</field>					
 				</fields>
@@ -3095,7 +3162,7 @@
 				<description>SPI0 data buffer</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -3110,7 +3177,7 @@
 				<description>SPI0 work flag</description>
 				<addressOffset>0x05</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-only</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -3141,7 +3208,7 @@
 				<addressOffset>0x06</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
-                <resetValue>0x00</resetValue>
+                <resetValue>0x40</resetValue>
 				<fields>
 					<field>
 						<name>RB_SPI_IF_CNT_END</name>
@@ -3325,7 +3392,7 @@
 					</field>					
 					<field>
 						<name>RB_SPI_MST_SCK_MOD_RB_SPI_SLV_CMD_MOD</name>
-						<description>SPI master clock mode _ SPI slave command mode</description>
+						<description>SPI master clock mode / SPI slave command mode</description>
 						<bitRange>[3:3]</bitRange>		
 					</field>
 					<field>
@@ -3370,7 +3437,7 @@
 					</field>					
 					<field>
 						<name>RB_SPI_AUTO_IF</name>
-						<description>enable buffer or FIFO accessing to auto clear RB_SPI_IF_BYTE_END interrupt flag</description>
+						<description>enable buffer/FIFO accessing to auto clear RB_SPI_IF_BYTE_END interrupt flag</description>
 						<bitRange>[4:4]</bitRange>		
 					</field>
 					<field>
@@ -3422,15 +3489,15 @@
 			</register>	
 			<register>
 				<name>R8_SPI1_CLOCK_DIV_R8_SPI1_SLAVE_PRE</name>
-				<description>SPI1 master clock divisor _ SPI1 slave preset value</description>
+				<description>SPI1 master clock divisor / SPI0 slave preset value</description>
 				<addressOffset>0x03</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
                 <resetValue>0x10</resetValue>
 				<fields>
 					<field>
-						<name>R8_SPI1_CLOCK_DIV_R8_SPI1_SLAVE_PRE</name>
-						<description>master clock divisor _ SPI1 slave preset value</description>
+						<name>R8_SPI1_CLOCK_DIV_R8_SPI1_SLAVE_PRESET</name>
+						<description>master clock divisor / SPI0 slave preset value</description>
 						<bitRange>[7:0]</bitRange>		
 					</field>					
 				</fields>
@@ -3440,7 +3507,7 @@
 				<description>SPI1 data buffer</description>
 				<addressOffset>0x04</addressOffset>
 				<size>8</size>
-				<access>read</access>
+				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
@@ -3486,7 +3553,7 @@
 				<addressOffset>0x06</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
-                <resetValue>0x00</resetValue>
+                <resetValue>0x40</resetValue>
 				<fields>
 					<field>
 						<name>RB_SPI_IF_CNT_END</name>
@@ -3591,7 +3658,7 @@
 				<addressOffset>0x14</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
-                <resetValue>0x0000</resetValue>
+                <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
 						<name>R16_SPI1_DMA_NOW</name>
@@ -3606,7 +3673,7 @@
 				<addressOffset>0x18</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
-                <resetValue>0x0000</resetValue>
+                <resetValue>0x00000</resetValue>
 				<fields>
 					<field>
 						<name>R16_SPI1_DMA_BEG</name>
@@ -3621,7 +3688,7 @@
 				<addressOffset>0x1C</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
-                <resetValue>0x0000</resetValue>
+                <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
 						<name>R16_SPI1_DMA_END</name>
@@ -3726,65 +3793,35 @@
 				</fields>
 			</register>	
 			<register>
-				<name>R8_PWM0_DATA</name>
+				<name>R32_PWM_DATA</name>
 				<description>PWM data holding</description>
 				<addressOffset>0x04</addressOffset>
-				<size>8</size>
+				<size>0x20</size>
 				<access>read-write</access>
-                <resetValue>0x00</resetValue>
+                <resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
 						<name>R8_PWM0_DATA</name>
 						<description>PWM0 data holding</description>
 						<bitRange>[7:0]</bitRange>		
-					</field>					
-				</fields>
-			</register>	
-			<register>
-				<name>R8_PWM1_DATA</name>
-				<description>PWM1 data holding</description>
-				<addressOffset>0x05</addressOffset>
-				<size>8</size>
-				<access>read-write</access>
-                <resetValue>0x00</resetValue>
-				<fields>
+					</field>
 					<field>
 						<name>R8_PWM1_DATA</name>
 						<description>PWM1 data holding</description>
 						<bitRange>[15:8]</bitRange>		
-					</field>					
-				</fields>
-			</register>	
-			<register>
-				<name>R8_PWM2_DATA</name>
-				<description>PWM2 data holding</description>
-				<addressOffset>0x06</addressOffset>
-				<size>8</size>
-				<access>read-write</access>
-                <resetValue>0x00</resetValue>
-				<fields>
+					</field>
 					<field>
 						<name>R8_PWM2_DATA</name>
 						<description>PWM2 data holding</description>
 						<bitRange>[23:16]</bitRange>		
-					</field>					
-				</fields>
-			</register>	
-			<register>
-				<name>R8_PWM3_DATA</name>
-				<description>PWM3 data holding</description>
-				<addressOffset>0x07</addressOffset>
-				<size>8</size>
-				<access>read-write</access>
-                <resetValue>0x00</resetValue>
-				<fields>
+					</field>
 					<field>
 						<name>R8_PWM3_DATA</name>
 						<description>PWM3 data holding</description>
 						<bitRange>[31:24]</bitRange>		
-					</field>					
+					</field>
 				</fields>
-			</register>		
+			</register>	
 		</registers>
 	</peripheral>
 
@@ -3802,7 +3839,7 @@
 		<registers>
 			<register>
 				<name>R8_HSPI_CFG</name>
-				<description>parallel if tx or rx cfg</description>
+				<description>parallel if tx/rx cfg</description>
 				<addressOffset>0x00</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -3842,7 +3879,7 @@
 			</register>		
 			<register>
 				<name>R8_HSPI_CTRL</name>
-				<description>parallel if tx or rx control</description>
+				<description>parallel if tx/rx control</description>
 				<addressOffset>0x01</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -4230,58 +4267,67 @@
 				<description>ECED AES/SM4 register</description>
 				<addressOffset>0x00</addressOffset>
 				<size>16</size>
-				<access>read-write</access>
                 <resetValue>0x0020</resetValue>
 				<fields>
 					<field>
 						<name>RB_ECDC_KEYEX_EN</name>
 						<description>enable key expansion</description>
-						<bitRange>[0:0]</bitRange>		
+						<bitRange>[0:0]</bitRange>	
+						<access>read-write</access>	
 					</field>
 					<field>
 						<name>RB_ECDC_RDPERI_EN</name>
 						<description>when write data to dma</description>
 						<bitRange>[1:1]</bitRange>		
+						<access>read-write</access>
 					</field>
 					<field>
 						<name>RB_ECDC_WRPERI_EN</name>
 						<description>when read data from dma</description>
-						<bitRange>[2:2]</bitRange>		
+						<bitRange>[2:2]</bitRange>
+						<access>read-write</access>		
 					</field>
 					<field>
 						<name>RB_ECDC_MODE_SEL</name>
 						<description>ECDC mode select</description>
-						<bitRange>[3:3]</bitRange>		
+						<bitRange>[3:3]</bitRange>
+						<access>read-write</access>		
 					</field>
 					<field>
 						<name>RB_ECDC_CLKDIV_MASK</name>
 						<description>Clock divide factor</description>
-						<bitRange>[6:4]</bitRange>		
+						<bitRange>[6:4]</bitRange>
+						<access>read-write</access>		
 					</field>
 					<field>
 						<name>RB_ECDC_WRSRAM_EN</name>
 						<description>module dma enable</description>
 						<bitRange>[7:7]</bitRange>		
+						<access>read-write</access>
 					</field>
 					<field>
 						<name>RB_ECDC_ALGRM_MOD</name>
 						<description>Encryption and decryption algorithm mode selection</description>
-						<bitRange>[8:8]</bitRange>		
+						<bitRange>[8:8]</bitRange>	
+						<access>read-write</access>	
 					</field>
 					<field>
 						<name>RB_ECDC_CIPHER_MOD</name>
 						<description>Block cipher mode selection</description>
 						<bitRange>[9:9]</bitRange>		
+						<access>read-write</access>
 					</field>					
 					<field>
 						<name>RB_ECDC_KLEN_MASK</name>
 						<description>Key length setting</description>
-						<bitRange>[11:10]</bitRange>		
+						<bitRange>[11:10]</bitRange>	
+						<access>read-write</access>	
 					</field>
 					<field>
 						<name>RB_ECDC_DAT_MOD</name>
 						<description>source data and result data is bit endian</description>
-						<bitRange>[13:13]</bitRange>		
+						<bitRange>[13:13]</bitRange>
+						<access>write-only</access>		
 					</field>									
 				</fields>
 			</register>		
@@ -4290,23 +4336,25 @@
 				<description>Interupt enable register</description>
 				<addressOffset>0x02</addressOffset>
 				<size>8</size>
-				<access>read-write</access>
                 <resetValue>0x00</resetValue>
 				<fields>
 					<field>
 						<name>RB_ECDC_IE_EKDONE</name>
 						<description>Key extension completion interrupt enable</description>
 						<bitRange>[0:0]</bitRange>		
+						<access>read-write</access>
 					</field>
 					<field>
 						<name>RB_ECDC_IE_SINGLE</name>
 						<description>Single encryption and decryption completion interrupt enable</description>
 						<bitRange>[1:1]</bitRange>		
+						<access>read-write</access>
 					</field>
 					<field>
 						<name>RB_ECDC_IE_WRSRAM</name>
 						<description>Memory to memory encryption and decryption completion interrupt enable</description>
-						<bitRange>[2:2]</bitRange>		
+						<bitRange>[2:2]</bitRange>	
+						<access>write-only</access>	
 					</field>							
 				</fields>
 			</register>	
@@ -4661,7 +4709,7 @@
 					<field>
 						<name>RB_ECDC_SRAM_LEN</name>
 						<description>encryption and decryption sram size register</description>
-						<bitRange>[16:0]</bitRange>		
+						<bitRange>[12:0]</bitRange>		
 					</field>							
 				</fields>
 			</register>
@@ -4678,12 +4726,9 @@
 			<offset>0x00</offset>
 			<size>0x400</size>
 			<usage>registers</usage>
-		</addressBlock>	
+		</addressBlock>
 		<registers>
-			<register>
-
-			</register>	
-		</registers>	
+		</registers>
 	</peripheral>	
  
  
@@ -4783,7 +4828,7 @@
 				<fields>
 					<field>
 						<name>RB_USB_IE_BUSRST_RB_USB_IE_DETECT</name>
-						<description>enable interrupt for USB bus reset event for USB device mode _ enable interrupt for USB device detected event for USB host mode</description>
+						<description>enable interrupt for USB bus reset event for USB device mode / enable interrupt for USB device detected event for USB host mode</description>
 						<bitRange>[0:0]</bitRange>
 					</field>
 					<field>
@@ -5023,7 +5068,7 @@
 			</register>
 			<register>
 				<name>R8_UEP4_1_MOD</name>
-				<description>endpoint 1(9) 4(8,12) mode</description>
+				<description>endpoint 1(9)/4(8/12) mode</description>
 				<addressOffset>0x10</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -5031,17 +5076,17 @@
 				<fields>
 					<field>
 						<name>RB_UEP4_BUF_MOD</name>
-						<description>buffer mode of USB endpoint 4(8,12)</description>
+						<description>buffer mode of USB endpoint 4(8/12)</description>
 						<bitRange>[0:0]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP4_TX_EN</name>
-						<description>enable USB endpoint 4(8,12) transmittal (IN)</description>
+						<description>enable USB endpoint 4(8/12) transmittal (IN)</description>
 						<bitRange>[2:2]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP4_RX_EN</name>
-						<description>enable USB endpoint 4(8,12) receiving (OUT)</description>
+						<description>enable USB endpoint 4(8/12) receiving (OUT)</description>
 						<bitRange>[3:3]</bitRange>
 					</field>
 					<field>
@@ -5063,7 +5108,7 @@
 			</register>
 			<register>
 				<name>R8_UEP2_3_MOD_R8_UH_EP_MOD</name>
-				<description>endpoint 2(10) 3(11) mode and  USB host endpoint mode control register</description>
+				<description>endpoint 2(10)/3(11) mode / USB host endpoint mode control register</description>
 				<addressOffset>0x11</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -5071,7 +5116,7 @@
 				<fields>
 					<field>
 						<name>RB_UEP2_BUF_MOD_RB_UH_RX_EN</name>
-						<description>buffer mode of USB endpoint 2(10) and  USB host receive endpoint (IN) enable</description>
+						<description>buffer mode of USB endpoint 2(10) / USB host receive endpoint (IN) enable</description>
 						<bitRange>[0:0]</bitRange>
 					</field>
 					<field>
@@ -5091,7 +5136,7 @@
 					</field>
 					<field>
 						<name>RB_UEP3_TX_EN_RB_UH_TX_EN</name>
-						<description>enable USB endpoint 3(11) transmittal (IN) and  USB host send endpoint (SETUP/OUT) enable</description>
+						<description>enable USB endpoint 3(11) transmittal (IN) / USB host send endpoint (SETUP/OUT) enable</description>
 						<bitRange>[6:6]</bitRange>
 					</field>
 					<field>
@@ -5103,7 +5148,7 @@
 			</register>
 			<register>        
 				<name>R8_UEP5_6_MOD</name>
-				<description>endpoint 5(13) 6(14) mode</description>
+				<description>endpoint 5(13)/6(14) mode</description>
 				<addressOffset>0x12</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -5198,7 +5243,7 @@
 			</register>
 			<register>
 				<name>R32_UEP2_RX_DMA_R32_UH_RX_DMA</name>
-				<description>endpoint 2 DMA buffer address _ host rx endpoint buffer start address</description>
+				<description>endpoint 2 DMA buffer address / host rx endpoint buffer start address</description>
 				<addressOffset>0x1C</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -5206,7 +5251,7 @@
 				<fields>
 					<field>
 						<name>UEP2_RX_DMA_UH_RX_DMA</name>
-						<description>endpoint 2 DMA buffer address _ host rx endpoint buffer start address</description>
+						<description>endpoint 2 DMA buffer address / host rx endpoint buffer start address</description>
 						<bitRange>[16:0]</bitRange>
 					</field>
 				</fields>					
@@ -5318,7 +5363,7 @@
 			</register>			
 			<register>
 				<name>R32_UEP3_TX_DMA_R32_UH_TX_DMA</name>
-				<description>endpoint 3 DMA TX buffer address and  host tx endpoint buffer start address</description>
+				<description>endpoint 3 DMA TX buffer address / host tx endpoint buffer start address</description>
 				<addressOffset>0x3C</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -5326,7 +5371,7 @@
 				<fields>
 					<field>
 						<name>UEP3_TX_DMA_UH_TX_DMA</name>
-						<description>endpoint 3 DMA TX buffer address and  host tx endpoint buffer start address</description>
+						<description>endpoint 3 DMA TX buffer address / host tx endpoint buffer start address</description>
 						<bitRange>[16:0]</bitRange>
 					</field>
 				</fields>					
@@ -5363,7 +5408,7 @@
 			</register>	
 			<register>
 				<name>R32_UEP6_TX_DMA</name>
-				<description>endpoint 4 DMA TX buffer address</description>
+				<description>endpoint 6 DMA TX buffer address</description>
 				<addressOffset>0x48</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
@@ -5423,7 +5468,7 @@
 			</register>					
 			<register>
 				<name>R16_UEP2_MAX_LEN_R16_UH_MAX_LEN</name>
-				<description>endpoint 2 receive max length and USB host receive max packet length register</description>
+				<description>endpoint 2 receive max length / USB host receive max packet length register</description>
 				<addressOffset>0x58</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
@@ -5431,7 +5476,7 @@
 				<fields>
 					<field>
 						<name>UEP2_MAX_LEN_UH_MAX_LEN</name>
-						<description>endpoint 2 receive max length and  USB host receive max packet length register</description>
+						<description>endpoint 2 receive max length / USB host receive max packet length register</description>
 						<bitRange>[15:0]</bitRange>
 					</field>
 				</fields>					
@@ -5663,26 +5708,26 @@
 			</register>	
 			<register>
 				<name>R16_UEP2_T_LEN_R16_UH_EP_PID</name>
-				<description>endpoint 2 transmittal length and  Set usb host token register</description>
+				<description>endpoint 2 transmittal length / Set usb host token register</description>
 				<addressOffset>0x78</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
 				<resetValue>0x0000</resetValue>
 				<fields>
 					<field>
-						<name>RB_UH_EPNUM_MASK</name>
+						<name>RB_UH_EPNUM_MASK_UEP2_T_LEN_0_3</name>
 						<description>The endpoint number of the target of this operation</description>
 						<bitRange>[3:0]</bitRange>
 					</field>
 					<field>
-						<name>RB_UH_TOKEN_MASK</name>
+						<name>RB_UH_TOKEN_MASK_UEP2_T_LEN_4_7</name>
 						<description>The token PID packet identification of this USB transfer transaction</description>
 						<bitRange>[7:4]</bitRange>
 					</field>
 					<field>
-						<name>UEP2_T_LEN</name>
+						<name>UEP2_T_LEN_8_15</name>
 						<description>endpoint 2 transmittal length</description>
-						<bitRange>[15:0]</bitRange>
+						<bitRange>[15:8]</bitRange>
 					</field>
 				</fields>					
 			</register>				
@@ -5718,7 +5763,7 @@
 			</register>	
 			<register>
 				<name>R8_UEP2_RX_CTRL_R8_UH_RX_CTRL</name>
-				<description>endpoint 2 rx control  and  USb host receive endpoint control register</description>
+				<description>endpoint 2 rx control / USb host receive endpoint control register</description>
 				<addressOffset>0x7B</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -5726,22 +5771,22 @@
 				<fields>
 					<field>
 						<name>RB_UEP_RRES_MASK_RB_UH_RRES_MASK</name>
-						<description> bit mask of handshake response type for USB endpoint X receiving (OUT) and  Host reeiver response control bit</description>
+						<description> bit mask of handshake response type for USB endpoint X receiving (OUT) / Host reeiver response control bit</description>
 						<bitRange>[1:0]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP_RRES_NO_RB_UH_RRES_NO</name>
-						<description>Prepared no response and  Response control bit of host receiver</description>
+						<description>prepared no response / Response control bit of host receiver</description>
 						<bitRange>[2:2]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP_R_TOG_MASK_RB_UH_R_TOG_MASK</name>
-						<description>expected data toggle flag of USB endpoint X receiving and  expected data toggle flag of host receiving (IN)</description>
+						<description>expected data toggle flag of USB endpoint X receiving /  expected data toggle flag of host receiving (IN)</description>
 						<bitRange>[4:3]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP_R_AUTOTOG_RB_UH_R_AUTOTOG</name>
-						<description>enable automatic toggle after successful transfer completion on endpoint and  enable automatic toggle after successful receiver completion</description>
+						<description>enable automatic toggle after successful transfer completion on endpoint / enable automatic toggle after successful receiver completion</description>
 						<bitRange>[5:5]</bitRange>
 					</field>
 					<field>
@@ -5753,22 +5798,22 @@
 			</register>				
 			<register>
 				<name>R16_UEP3_T_LEN_R16_UH_TX_LEN</name>
-				<description>endpoint 3 transmittal length and  host transmittal endpoint transmittal length</description>
+				<description>endpoint 3 transmittal length / host transmittal endpoint transmittal length</description>
 				<addressOffset>0x7C</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
-				<resetValue>0x00</resetValue>
+				<resetValue>0x0000</resetValue>
 				<fields>
 					<field>
 						<name>UEP3_T_LEN_UH_TX_LEN</name>
-						<description>endpoint 3 transmittal length and  host transmittal endpoint transmittal length</description>
+						<description>endpoint 3 transmittal length / host transmittal endpoint transmittal length</description>
 						<bitRange>[15:0]</bitRange>
 					</field>
 				</fields>					
 			</register>				
 			<register>
 				<name>R8_UEP3_TX_CTRL_R8_UH_TX_CTRL</name>
-				<description>endpoint 3 tx control and host transmittal endpoint control</description>
+				<description>endpoint 3 tx control / host transmittal endpoint control</description>
 				<addressOffset>0x7E</addressOffset>
 				<size>8</size>
 				<access>read-write</access>
@@ -5776,22 +5821,22 @@
 				<fields>
 					<field>
 						<name>RB_UEP_TRES_MASK_RB_UH_TRES_MASK</name>
-						<description> bit mask of handshake response type for USB endpoint X transmittal (IN) and expected handshake response type for host transmittal (SETUP/OUT)</description>
+						<description> bit mask of handshake response type for USB endpoint X transmittal (IN) / expected handshake response type for host transmittal (SETUP/OUT)</description>
 						<bitRange>[1:0]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP_TRES_NO_RB_UH_TRES_NO</name>
-						<description>expected no response and expected no response, 1=enable, 0=disable, for non-zero endpoint isochronous transactions</description>
+						<description>expected no response / expected no response, 1=enable, 0=disable, for non-zero endpoint isochronous transactions</description>
 						<bitRange>[2:2]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP_T_TOG_MASK_RB_UH_T_TOG_MASK</name>
-						<description>prepared data toggle flag of USB endpoint X transmittal and prepared data toggle flag of host transmittal (SETUP/OUT)</description>
+						<description>prepared data toggle flag of USB endpoint X transmittal / prepared data toggle flag of host transmittal (SETUP/OUT)</description>
 						<bitRange>[4:3]</bitRange>
 					</field>
 					<field>
 						<name>RB_UEP_T_AUTOTOG_RB_UH_T_AUTOTOG</name>
-						<description>enable automatic toggle after successful transfer completion on endpoint 0 and enable automatic toggle after successful transfer completion</description>
+						<description>enable automatic toggle after successful transfer completion on endpoint 0 / enable automatic toggle after successful transfer completion</description>
 						<bitRange>[5:5]</bitRange>
 					</field>
 					<field>
@@ -5833,15 +5878,15 @@
 			</register>	
 			<register>
 				<name>R16_UEP4_T_LEN_R16_UH_SPLIT_DATA</name>
-				<description>endpoint 4 transmittal length and  USB host Tx SPLIT packet data</description>
+				<description>endpoint 4 transmittal length / USB host Tx SPLIT packet data</description>
 				<addressOffset>0x80</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
-				<resetValue>0x00</resetValue>
+				<resetValue>0x0000</resetValue>
 				<fields>
 					<field>
 						<name>UEP4_T_LEN_UH_SPLIT_DATA</name>
-						<description>endpoint 4 transmittal length and USB host Tx SPLIT packet data</description>
+						<description>endpoint 4 transmittal length / USB host Tx SPLIT packet data</description>
 						<bitRange>[15:0]</bitRange>
 					</field>
 				</fields>					
@@ -5912,7 +5957,7 @@
 				<addressOffset>0x84</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
-				<resetValue>0x00</resetValue>
+				<resetValue>0x0000</resetValue>
 				<fields>
 					<field>
 						<name>UEP5_T_LEN</name>
@@ -5987,7 +6032,7 @@
 				<addressOffset>0x88</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
-				<resetValue>0x00</resetValue>
+				<resetValue>0x0000</resetValue>
 				<fields>
 					<field>
 						<name>UEP6_T_LEN</name>
@@ -6062,7 +6107,7 @@
 				<addressOffset>0x8C</addressOffset>
 				<size>16</size>
 				<access>read-write</access>
-				<resetValue>0x00</resetValue>
+				<resetValue>0x0000</resetValue>
 				<fields>
 					<field>
 						<name>UEP7_T_LEN</name>
@@ -6132,9 +6177,7 @@
 				</fields>
 			</register>				
 		</registers>
-	</peripheral>	
- 
- 
+	</peripheral>			
 	
 	
 	<peripheral>   
@@ -6148,15 +6191,12 @@
 			<usage>registers</usage>
 		</addressBlock>
 		<registers>
-			 <register>
-
-			 </register>
 		
 		</registers>
 	</peripheral>
- 
- 
- 	<peripheral>   
+ 	
+	
+	<peripheral>   
 		<name>ETH</name>
 		<description>ETH register (Please refer to subprogram library)</description>
 		<groupName>ETH</groupName>
@@ -6167,9 +6207,7 @@
 			<usage>registers</usage>
 		</addressBlock>
 		<registers>
-		     <register>
 
-			 </register>
 		</registers>
 	</peripheral>
  
@@ -6466,7 +6504,7 @@
 	    </addressBlock>
 	    <registers>
 		    <register>
-		        <name>R32_PFIC_ISR1</name>
+		        <name>ISR1</name>
 		        <displayName>ISR1</displayName>
 		        <description>Interrupt Status Register</description>
 		        <addressOffset>0x0</addressOffset>
@@ -6483,7 +6521,7 @@
 		        </fields>
 		    </register>
 		    <register>
-		        <name>R32_PFIC_ISR2</name>
+		        <name>ISR2</name>
 		  		<displayName>ISR2</displayName>
 		  		<description>Interrupt Status Register</description>
 		 		<addressOffset>0x04</addressOffset>
@@ -6500,7 +6538,7 @@
 		        </fields>
 		    </register>
 		    <register>
-		        <name>R32_PFIC_IPR1</name>
+		        <name>IPR1</name>
 		        <displayName>IPR1</displayName>
 		  		<description>Interrupt Pending Register</description>
 		  		<addressOffset>0x20</addressOffset>
@@ -6517,7 +6555,7 @@
 		  		</fields>
 			</register>
 			<register>
-		 	 	<name>R32_PFIC_IPR2</name>
+		 	 	<name>IPR2</name>
 		  		<displayName>IPR2</displayName>
 		  		<description>Interrupt Pending Register</description>
 		 	 	<addressOffset>0x24</addressOffset>
@@ -6534,7 +6572,7 @@
 		  		</fields>
 			</register>
 			<register>
-		  		<name>R32_PFIC_ITHRESDR</name>
+		  		<name>ITHRESDR</name>
 		  		<displayName>ITHRESDR</displayName>
 		  		<description>Interrupt Priority Register</description>
 		  		<addressOffset>0x40</addressOffset>
@@ -6551,7 +6589,7 @@
 		  		</fields>
 			</register>
 			<register>
-		  		<name>R32_PFIC_FIBADDRR</name>
+		  		<name>FIBADDRR</name>
 		  		<displayName>FIBADDRR</displayName>
 		  		<description>Interrupt Fast Address Register</description>
 		  		<addressOffset>0x44</addressOffset>
@@ -6568,7 +6606,7 @@
 		  		</fields>
 			</register>
 			<register>
-		  		<name>R32_PFIC_CFGR</name>
+		  		<name>CFGR</name>
 		  		<displayName>CFGR</displayName>
 		  		<description>Interrupt Config Register</description>
 		  		<addressOffset>0x48</addressOffset>
@@ -6618,7 +6656,7 @@
 						<bitWidth>1</bitWidth>
 					</field>
 					<field>
-						<name>PFICRESET</name>
+						<name>PFICRSET</name>
 						<description>PFICRSET</description>
 						<access>write-only</access>
 						<bitOffset>6</bitOffset>
@@ -6641,7 +6679,7 @@
 		   		</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_GISR</name>
+			<name>GISR</name>
 			<displayName>GISR</displayName>
 			<description>Interrupt Global Register</description>
 			<addressOffset>0x4C</addressOffset>
@@ -6670,7 +6708,7 @@
 		  		</fields>
 		</register>
 		<register>
-		  	    <name>R32_PFIC_FIFOADDRR0</name>
+		  	    <name>FIFOADDRR0</name>
 		 	    <displayName>FIFOADDRR0</displayName>
 		 	    <description>Interrupt 0 address Register</description>
 		 	    <addressOffset>0x60</addressOffset>
@@ -6693,7 +6731,7 @@
 		  		</fields>
 		</register>
 		<register>
-			 <name>R32_PFIC_FIFOADDRR1</name>
+			 <name>FIFOADDRR1</name>
 			 <displayName>FIFOADDRR1</displayName>
 			 <description>Interrupt 1 address Register</description>
 			 <addressOffset>0x64</addressOffset>
@@ -6716,7 +6754,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_FIFOADDRR2</name>
+			<name>FIFOADDRR2</name>
 			<displayName>FIFOADDRR2</displayName>
 			<description>Interrupt 2 address Register</description>
 			<addressOffset>0x68</addressOffset>
@@ -6739,7 +6777,7 @@
 		    </fields>
 		</register>
 		<register>
-			<name>R32_PFIC_FIFOADDRR3</name>
+			<name>FIFOADDRR3</name>
 			<displayName>FIFOADDRR3</displayName>
 			<description>Interrupt 3 address Register</description>
 			<addressOffset>0x6C</addressOffset>
@@ -6762,7 +6800,7 @@
 		    </fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IENR1</name>
+			<name>IENR1</name>
 			<displayName>IENR1</displayName>
 			<description>Interrupt Setting Register</description>
 			<addressOffset>0x100</addressOffset>
@@ -6779,7 +6817,7 @@
 		    </fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IENR2</name>
+			<name>IENR2</name>
 			<displayName>IENR2</displayName>
 			<description>Interrupt Setting Register</description>
 			<addressOffset>0x104</addressOffset>
@@ -6796,7 +6834,7 @@
 		    </fields>
 		</register>
 		 <register>
-			<name>R32_PFIC_IRER1</name>
+			<name>IRER1</name>
 			<displayName>IRER1</displayName>
 			<description>Interrupt Clear Register</description>
 			<addressOffset>0x180</addressOffset>
@@ -6805,15 +6843,15 @@
 			<resetValue>0x00000000</resetValue>
 			<fields>
 				<field>
-					<name>INTRESET</name>
-					<description>INTRESET</description>
+					<name>INTRSET</name>
+					<description>INTRSET</description>
 					<bitOffset>12</bitOffset>
 					<bitWidth>20</bitWidth>
 				</field>
 			</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IRER2</name>
+			<name>IRER2</name>
 			<displayName>IRER2</displayName>
 			<description>Interrupt Clear Register</description>
 			<addressOffset>0x184</addressOffset>
@@ -6822,15 +6860,15 @@
 			<resetValue>0x00000000</resetValue>
 			<fields>
 				<field>
-					<name>INTRESET</name>
-					<description>INTRESET</description>
+					<name>INTRSET</name>
+					<description>INTRSET</description>
 					<bitOffset>0</bitOffset>
 					<bitWidth>28</bitWidth>
 				</field>
 		    </fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPSR1</name>
+			<name>IPSR1</name>
 			<displayName>IPSR1</displayName>
 			<description>Interrupt Pending Register</description>
 			<addressOffset>0x200</addressOffset>
@@ -6847,7 +6885,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPSR2</name>
+			<name>IPSR2</name>
 			<displayName>IPSR2</displayName>
 			<description>Interrupt Pending Register</description>
 			<addressOffset>0x204</addressOffset>
@@ -6864,7 +6902,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPRR1</name>
+			<name>IPRR1</name>
 			<displayName>IPRR1</displayName>
 			<description>Interrupt Pending Clear Register</description>
 			<addressOffset>0x280</addressOffset>
@@ -6881,7 +6919,7 @@
 		  </fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPRR2</name>
+			<name>IPRR2</name>
 			<displayName>IPRR2</displayName>
 			<description>Interrupt Pending Clear Register</description>
 			<addressOffset>0x284</addressOffset>
@@ -6898,7 +6936,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IACTR1</name>
+			<name>IACTR1</name>
 			<displayName>IACTR1</displayName>
 			<description>Interrupt ACTIVE Register</description>
 			<addressOffset>0x300</addressOffset>
@@ -6915,7 +6953,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IACTR2</name>
+			<name>IACTR2</name>
 			<displayName>IACTR2</displayName>
 			<description>Interrupt ACTIVE Register</description>
 			<addressOffset>0x304</addressOffset>
@@ -6932,7 +6970,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPRIOR0</name>
+			<name>IPRIOR0</name>
 			<displayName>IPRIOR0</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x400</addressOffset>
@@ -6949,7 +6987,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPRIOR1</name>
+			<name>IPRIOR1</name>
 			<displayName>IPRIOR1</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x420</addressOffset>
@@ -6966,7 +7004,7 @@
 			</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPRIOR2</name>
+			<name>IPRIOR2</name>
 			<displayName>IPRIOR2</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x440</addressOffset>
@@ -6983,7 +7021,7 @@
 		  	</fields>
 		</register>
 		<register>
-			<name>R32_PFIC_IPRIOR3</name>
+			<name>IPRIOR3</name>
 			<displayName>IPRIOR3</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x460</addressOffset>
@@ -7000,7 +7038,7 @@
 		 	</fields>
 		</register>		
 		<register>
-			<name>R32_PFIC_IPRIOR4</name>
+			<name>IPRIOR4</name>
 			<displayName>IPRIOR4</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x480</addressOffset>
@@ -7017,7 +7055,7 @@
 		  	</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR5</name>
+			<name>IPRIOR5</name>
 			<displayName>IPRIOR5</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x4A0</addressOffset>
@@ -7034,7 +7072,7 @@
 		  	</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR6</name>
+			<name>IPRIOR6</name>
 			<displayName>IPRIOR6</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x4C0</addressOffset>
@@ -7051,7 +7089,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR7</name>
+			<name>IPRIOR7</name>
 			<displayName>IPRIOR7</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x4E0</addressOffset>
@@ -7068,7 +7106,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR8</name>
+			<name>IPRIOR8</name>
 			<displayName>IPRIOR8</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x500</addressOffset>
@@ -7085,7 +7123,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR9</name>
+			<name>IPRIOR9</name>
 			<displayName>IPRIOR9</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x520</addressOffset>
@@ -7102,7 +7140,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR10</name>
+			<name>IPRIOR10</name>
 			<displayName>IPRIOR10</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x540</addressOffset>
@@ -7119,7 +7157,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR11</name>
+			<name>IPRIOR11</name>
 			<displayName>IPRIOR11</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x560</addressOffset>
@@ -7136,7 +7174,7 @@
 		  	</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR12</name>
+			<name>IPRIOR12</name>
 			<displayName>IPRIOR12</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x580</addressOffset>
@@ -7153,7 +7191,7 @@
 		  	</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR13</name>
+			<name>IPRIOR13</name>
 			<displayName>IPRIOR13</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x5A0</addressOffset>
@@ -7170,7 +7208,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR14</name>
+			<name>IPRIOR14</name>
 			<displayName>IPRIOR14</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x5C0</addressOffset>
@@ -7187,7 +7225,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR15</name>
+			<name>IPRIOR15</name>
 			<displayName>IPRIOR15</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x5E0</addressOffset>
@@ -7204,7 +7242,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR16</name>
+			<name>IPRIOR16</name>
 			<displayName>IPRIOR16</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x600</addressOffset>
@@ -7221,7 +7259,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR17</name>
+			<name>IPRIOR17</name>
 			<displayName>IPRIOR17</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x620</addressOffset>
@@ -7238,7 +7276,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR18</name>
+			<name>IPRIOR18</name>
 			<displayName>IPRIOR18</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x640</addressOffset>
@@ -7255,7 +7293,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR19</name>
+			<name>IPRIOR19</name>
 			<displayName>IPRIOR19</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x660</addressOffset>
@@ -7272,7 +7310,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR20</name>
+			<name>IPRIOR20</name>
 			<displayName>IPRIOR20</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x680</addressOffset>
@@ -7289,7 +7327,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR21</name>
+			<name>IPRIOR21</name>
 			<displayName>IPRIOR21</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x6A0</addressOffset>
@@ -7306,7 +7344,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR22</name>
+			<name>IPRIOR22</name>
 			<displayName>IPRIOR22</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x6C0</addressOffset>
@@ -7323,7 +7361,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR23</name>
+			<name>IPRIOR23</name>
 			<displayName>IPRIOR23</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x6E0</addressOffset>
@@ -7340,7 +7378,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR24</name>
+			<name>IPRIOR24</name>
 			<displayName>IPRIOR24</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x700</addressOffset>
@@ -7357,7 +7395,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR25</name>
+			<name>IPRIOR25</name>
 			<displayName>IPRIOR25</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x720</addressOffset>
@@ -7374,7 +7412,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR26</name>
+			<name>IPRIOR26</name>
 			<displayName>IPRIOR26</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x740</addressOffset>
@@ -7391,7 +7429,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR27</name>
+			<name>IPRIOR27</name>
 			<displayName>IPRIOR27</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x760</addressOffset>
@@ -7408,7 +7446,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR28</name>
+			<name>IPRIOR28</name>
 			<displayName>IPRIOR28</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x780</addressOffset>
@@ -7425,7 +7463,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR29</name>
+			<name>IPRIOR29</name>
 			<displayName>IPRIOR29</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x7A0</addressOffset>
@@ -7442,7 +7480,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR30</name>
+			<name>IPRIOR30</name>
 			<displayName>IPRIOR30</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x7C0</addressOffset>
@@ -7459,7 +7497,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR31</name>
+			<name>IPRIOR31</name>
 			<displayName>IPRIOR31</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x7E0</addressOffset>
@@ -7476,7 +7514,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR32</name>
+			<name>IPRIOR32</name>
 			<displayName>IPRIOR32</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x800</addressOffset>
@@ -7493,7 +7531,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR33</name>
+			<name>IPRIOR33</name>
 			<displayName>IPRIOR33</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x820</addressOffset>
@@ -7510,7 +7548,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR34</name>
+			<name>IPRIOR34</name>
 			<displayName>IPRIOR34</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x840</addressOffset>
@@ -7527,7 +7565,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR35</name>
+			<name>IPRIOR35</name>
 			<displayName>IPRIOR35</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x860</addressOffset>
@@ -7544,7 +7582,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR36</name>
+			<name>IPRIOR36</name>
 			<displayName>IPRIOR36</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x880</addressOffset>
@@ -7561,7 +7599,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR37</name>
+			<name>IPRIOR37</name>
 			<displayName>IPRIOR37</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x8A0</addressOffset>
@@ -7578,7 +7616,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR38</name>
+			<name>IPRIOR38</name>
 			<displayName>IPRIOR38</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x8C0</addressOffset>
@@ -7595,7 +7633,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR39</name>
+			<name>IPRIOR39</name>
 			<displayName>IPRIOR39</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x8E0</addressOffset>
@@ -7612,7 +7650,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR40</name>
+			<name>IPRIOR40</name>
 			<displayName>IPRIOR40</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x900</addressOffset>
@@ -7629,7 +7667,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR41</name>
+			<name>IPRIOR41</name>
 			<displayName>IPRIOR41</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x920</addressOffset>
@@ -7646,7 +7684,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR42</name>
+			<name>IPRIOR42</name>
 			<displayName>IPRIOR42</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x940</addressOffset>
@@ -7663,7 +7701,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR43</name>
+			<name>IPRIOR43</name>
 			<displayName>IPRIOR43</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x960</addressOffset>
@@ -7680,7 +7718,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR44</name>
+			<name>IPRIOR44</name>
 			<displayName>IPRIOR44</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x980</addressOffset>
@@ -7697,7 +7735,7 @@
 		  	</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR45</name>
+			<name>IPRIOR45</name>
 			<displayName>IPRIOR45</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x9A0</addressOffset>
@@ -7714,7 +7752,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR46</name>
+			<name>IPRIOR46</name>
 			<displayName>IPRIOR46</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x9C0</addressOffset>
@@ -7731,7 +7769,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR47</name>
+			<name>IPRIOR47</name>
 			<displayName>IPRIOR47</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0x9E0</addressOffset>
@@ -7748,7 +7786,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR48</name>
+			<name>IPRIOR48</name>
 			<displayName>IPRIOR48</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xA00</addressOffset>
@@ -7765,7 +7803,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR49</name>
+			<name>IPRIOR49</name>
 			<displayName>IPRIOR49</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xA20</addressOffset>
@@ -7782,7 +7820,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR50</name>
+			<name>IPRIOR50</name>
 			<displayName>IPRIOR50</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xA40</addressOffset>
@@ -7799,7 +7837,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR51</name>
+			<name>IPRIOR51</name>
 			<displayName>IPRIOR51</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xA60</addressOffset>
@@ -7816,7 +7854,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR52</name>
+			<name>IPRIOR52</name>
 			<displayName>IPRIOR52</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xA80</addressOffset>
@@ -7833,7 +7871,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR53</name>
+			<name>IPRIOR53</name>
 			<displayName>IPRIOR53</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xAA0</addressOffset>
@@ -7850,10 +7888,10 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR54</name>
+			<name>IPRIOR54</name>
 			<displayName>IPRIOR54</displayName>
 			<description>Interrupt Priority configuration Register</description>
-			<addressOffset>0xAD0</addressOffset>
+			<addressOffset>0xAC0</addressOffset>
 			<size>0x20</size>
 			<access>read-write</access>
 			<resetValue>0x00000000</resetValue>
@@ -7867,7 +7905,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR55</name>
+			<name>IPRIOR55</name>
 			<displayName>IPRIOR55</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xAE0</addressOffset>
@@ -7884,7 +7922,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR56</name>
+			<name>IPRIOR56</name>
 			<displayName>IPRIOR56</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xB00</addressOffset>
@@ -7901,7 +7939,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR57</name>
+			<name>IPRIOR57</name>
 			<displayName>IPRIOR57</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xB20</addressOffset>
@@ -7918,7 +7956,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR58</name>
+			<name>IPRIOR58</name>
 			<displayName>IPRIOR58</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xB40</addressOffset>
@@ -7935,7 +7973,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR59</name>
+			<name>IPRIOR59</name>
 			<displayName>IPRIOR59</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xB60</addressOffset>
@@ -7952,7 +7990,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR60</name>
+			<name>IPRIOR60</name>
 			<displayName>IPRIOR60</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xB80</addressOffset>
@@ -7969,7 +8007,7 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR61</name>
+			<name>IPRIOR61</name>
 			<displayName>IPRIOR61</displayName>
 			<description>Interrupt Priority configuration Register</description>
 			<addressOffset>0xBA0</addressOffset>
@@ -7986,10 +8024,10 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR62</name>
+			<name>IPRIOR62</name>
 			<displayName>IPRIOR62</displayName>
 			<description>Interrupt Priority configuration Register</description>
-			<addressOffset>0xBE0</addressOffset>
+			<addressOffset>0xBC0</addressOffset>
 			<size>0x20</size>
 			<access>read-write</access>
 			<resetValue>0x00000000</resetValue>
@@ -8003,10 +8041,10 @@
 			</fields>
 		</register>	
 		<register>
-			<name>R32_PFIC_IPRIOR63</name>
+			<name>IPRIOR63</name>
 			<displayName>IPRIOR63</displayName>
 			<description>Interrupt Priority configuration Register</description>
-			<addressOffset>0xC00</addressOffset>
+			<addressOffset>0xBE0</addressOffset>
 			<size>0x20</size>
 			<access>read-write</access>
 			<resetValue>0x00000000</resetValue>
@@ -8021,7 +8059,7 @@
 		</register>	
 				
 		<register>
-			<name>R32_PFIC_SCTLR</name>
+			<name>SCTLR</name>
 			<displayName>SCTLR</displayName>
 			<description>System Control Register</description>
 			<addressOffset>0xD10</addressOffset>
@@ -8077,7 +8115,7 @@
 	  	</addressBlock>
 		 <registers>
 			<register>
-				<name>R32_STK_CTLR</name>
+				<name>STK_CTLR</name>
 				<displayName>STK_CTLR</displayName>
 				<description>Systick counter control register</description>
 				<addressOffset>0x00</addressOffset>
@@ -8115,7 +8153,7 @@
 		 		</fields>
 		</register> 
 		<register>
-			<name>R32_STK_CNTL</name>
+			<name>STK_CNTL</name>
 			<description>Systick counter low register</description>
 			<addressOffset>0x04</addressOffset>
 			<size>0x20</size>
@@ -8131,7 +8169,7 @@
 				</fields>
 		</register>   
 		<register>
-			<name>R32_STK_CNTH</name>
+			<name>STK_CNTH</name>
 			<description>Systick counter high register</description>
 			<addressOffset>0x08</addressOffset>
 			<size>0x20</size>
@@ -8147,7 +8185,7 @@
 			</fields>
 		</register> 
 		<register>
-			<name>R32_STK_CMPLR</name>
+			<name>STK_CMPLR</name>
 			<description>Systick compare low register</description>
 			<addressOffset>0x0C</addressOffset>
 			<size>0x20</size>
@@ -8163,7 +8201,7 @@
 			</fields>
 		</register>    
 		<register>
-			<name>R32_STK_CMPHR</name>
+			<name>STK_CMPHR</name>
 			<description>Systick compare high register</description>
 			<addressOffset>0x10</addressOffset>
 			<size>0x20</size>
@@ -8179,7 +8217,7 @@
 		  	</fields>
 		</register>        
 		<register>
-			<name>R32_STK_CNTFG</name>
+			<name>STK_CNTFG</name>
 			<description>Systick counter flag</description>
 			<addressOffset>0x14</addressOffset>
 			<size>0x20</size>
@@ -8294,9 +8332,9 @@
 				<description>SD 128bits response register, [31:0] 32bits </description>
 				<addressOffset>0x08</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
 				<resetValue>0x00000000</resetValue>
-				<fields>
+                <fields>
 				    <field>
 						<name>R32_EMMC_RESPONSE0</name>
 						<description>response parameter register</description>
@@ -8309,59 +8347,60 @@
 				<description>SD 128bits response register, [63:32] 32bits </description>
 				<addressOffset>0x0C</addressOffset>
 				<size>32</size>
-				<access>read</access>
-				<fields>
+				<access>read-only</access>
+                <resetValue>0x00000000</resetValue>
+                <fields>
 					<field>
 						<name>R32_EMMC_RESPONSE1</name>
 						<description>response parameter register</description>
-						<bitRange>[63:32]</bitRange>
+						<bitRange>[31:0]</bitRange>
 					</field>
-				</fields>	
+                </fields>
 			</register>
 			<register>
 				<name>R32_EMMC_RESPONSE2</name>
 				<description>SD 128bits response register, [95:64] 32bits </description>
 				<addressOffset>0x10</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
 				<resetValue>0x00000000</resetValue>
-				<fields>
+                <fields>
 					<field>
 						<name>R32_EMMC_RESPONSE2</name>
 						<description>response parameter register</description>
-						<bitRange>[95:64]</bitRange>
+						<bitRange>[31:0]</bitRange>
 					</field>
-				</fields>	
+                </fields>
 			</register>
             <register>
 				<name>R32_EMMC_RESPONSE3</name>
 				<description>SD 128bits response register, [127:96] 32bits </description>
 				<addressOffset>0x14</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
 				<resetValue>0x00000000</resetValue>
-				<fields>
+                <fields>
 					<field>
 						<name>R32_EMMC_RESPONSE3</name>
 						<description>response parameter register</description>
-						<bitRange>[127:96]</bitRange>
+						<bitRange>[31:0]</bitRange>
 					</field>
-				</fields>	
+                </fields>
 			</register>
 			<register>
 				<name>R32_EMMC_WRITE_CONT</name>
 				<description>Multiplexing register of the EMMC_RESPONSE3,[127:96] 32bits</description>
 				<addressOffset>0x14</addressOffset>
 				<size>32</size>
-				<access>write</access>
+				<access>write-only</access>
 				<resetValue>0x00000000</resetValue>
-				<fields>
+                <fields>
 					<field>
 						<name>R32_EMMC_WRITE_CONT</name>
 						<description>response parameter register</description>
-						<bitRange>[127:96]</bitRange>
+						<bitRange>[31:0]</bitRange>
 					</field>
-				</fields>
+                </fields>
 			</register>
  			<register>
 				<name>R8_EMMC_CONTROL</name>
@@ -8383,7 +8422,7 @@
 					</field>
 					<field>
 						<name>RB_EMMC_DMAEN</name>
-						<description>enable the dma </description>
+						<description>enable the dma</description>
 						<bitRange>[3:3]</bitRange>
 					</field>
 					<field>
@@ -8408,7 +8447,7 @@
 				<fields>
 					<field>
 						<name>RB_EMMC_TOCNT_MASK</name>
-						<description>response /data timeout configuration  </description>
+						<description>response data timeout configuration  </description>
 						<bitRange>[3:0]</bitRange>
 					</field>
 				</fields>
@@ -8418,7 +8457,7 @@
 				<description>SD status</description>
 				<addressOffset>0x20</addressOffset>
 				<size>32</size>
-				<access>read</access>
+				<access>read-only</access>
 				<resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
@@ -8483,7 +8522,7 @@
 					</field>
                     <field>
 						<name>RB_EMMC_IF_BKGAP</name>
-						<description>every block gap interrupt when multiple read or write, allow drive change the DMA address at this moment  </description>
+						<description>every block gap interrupt when multiple read/write, allow drive change the DMA address at this moment  </description>
 						<bitRange>[7:7]</bitRange>
 					</field>
 					<field>
@@ -8599,7 +8638,7 @@
 				<addressOffset>0x34</addressOffset>
 				<size>32</size>
 				<access>read-write</access>
-				<resetValue>0x00</resetValue>
+				<resetValue>0x00000000</resetValue>
 				<fields>
 					<field>
 						<name>RB_EMMC_DMA_DIR</name>
@@ -8648,12 +8687,12 @@
 				<fields>
 					<field>
 						<name>RB_EMMC_DMAAD2_MASK</name>
-						<description>block DMA start address register</description>
+						<description>start address of read-write data buffer,the lower 4 bits are fixed to 0</description>
 						<bitRange>[16:0]</bitRange>
 					</field>
 				</fields>
 			</register>
 		</registers>
     </peripheral>
- </peripherals>
+  </peripherals>
 </device>
