@@ -1,0 +1,15 @@
+Mcu Type=SSU
+Address=0x8000000
+Target Path=obj\SSU9383-FreeRTOS.bin
+Erase All=true
+Program=true
+Verify=true
+Reset=true
+
+Vendor=SSTAR
+Link=JLink
+Toolchain=RISC-V
+Series=SSU
+Description=ROM(byte):48K,SRAM(byte):232K,CHIP PINS:536.\nSSU9383 is a platform SOC with Risc-v core integrated inside, providing a variety of peripheral interfaces and achieving the best balance in power consumption and performance.
+MCU=SSU9383-FreeRTOS
+RTOS=FreeRTOS

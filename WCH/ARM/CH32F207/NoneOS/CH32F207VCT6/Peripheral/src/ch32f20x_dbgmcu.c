@@ -9,7 +9,7 @@
 ****************************************************************************************/
 #include "ch32f20x_dbgmcu.h"
 
-#define IDCODE_DEVID_MASK    ((uint32_t)0x00000FFF)
+#define IDCODE_DEVID_MASK    ((uint32_t)0x0000FFFF)
 
 /*********************************************************************
  * @fn      DBGMCU_GetREVID

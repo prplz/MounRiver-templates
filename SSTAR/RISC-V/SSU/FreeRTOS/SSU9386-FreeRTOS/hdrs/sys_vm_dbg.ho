@@ -1,0 +1,32 @@
+/* SigmaStar trade secret */
+/* Copyright (c) [2019~2020] SigmaStar Technology.
+All rights reserved.
+
+Unless otherwise stipulated in writing, any and all information contained
+herein regardless in any format shall remain the sole proprietary of
+SigmaStar and be kept in strict confidence
+(SigmaStar Confidential Information) by the recipient.
+Any unauthorized act including without limitation unauthorized disclosure,
+copying, use, reproduction, sale, distribution, modification, disassembling,
+reverse engineering and compiling of the contents of SigmaStar Confidential
+Information is unlawful and strictly prohibited. SigmaStar hereby reserves the
+rights to any and all damages, losses, costs and expenses resulting therefrom.
+*/
+
+#ifndef __SYS_VM_DBG_HO__
+#define __SYS_VM_DBG_HO__
+
+#include "vm_types.ht"
+
+#define MASKL8          0xff      /*   11111111  */
+#define SET_IDENT(X)    ((u32) ((X) & MASKL8))
+
+#define _HWL            SET_IDENT(0x16)   /* hardware layer          */
+#define _RTK            SET_IDENT(0x17)   /* RTK                     */
+#define _SYS            SET_IDENT(0x1E)   /* system element */
+
+#define FATAL           (u32) 0x00010000  ///< fatal error, stored in eeprom and causes reset
+#define EXCEPTION       (u32) 0x00100000  ///< Exception Occured
+#define CLEAR           (u32) 0x00400000  ///< to clear all backtrace in eeprom
+
+#endif  /* __SYS_VM_DBG_HO__ */

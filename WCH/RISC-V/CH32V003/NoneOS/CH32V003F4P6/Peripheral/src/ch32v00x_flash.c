@@ -826,9 +826,10 @@ void SystemReset_StartMode(uint32_t Mode)
     FLASH->BOOT_MODEKEYR = FLASH_KEY1;
     FLASH->BOOT_MODEKEYR = FLASH_KEY2;
 
-    FLASH->STATR |= (1<<15);
     FLASH->STATR &= ~(1<<14);
-    FLASH->STATR |= (1<<14);
+    if(Mode == Start_Mode_BOOT){
+        FLASH->STATR |= (1<<14);
+    }
 
     FLASH_Lock();
 }

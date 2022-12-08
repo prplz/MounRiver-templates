@@ -328,7 +328,6 @@ typedef struct
 typedef struct
 {
     __IO uint32_t EXTEN_CTR;
-    __IO uint32_t EXTEN_KR;
 } EXTEN_TypeDef;
 
 /* Peripheral memory map */
@@ -368,7 +367,6 @@ typedef struct
 
 #define FLASH_R_BASE                            (AHBPERIPH_BASE + 0x2000) /* Flash registers base address */
 #define OB_BASE                                 ((uint32_t)0x1FFFF800)    /* Flash Option Bytes base address */
-#define DBGMCU_BASE                             ((uint32_t)0xE000D000)
 #define EXTEN_BASE                              ((uint32_t)0x40023800)
 
 /* Peripheral declaration */
@@ -397,7 +395,6 @@ typedef struct
 #define RCC                                     ((RCC_TypeDef *)RCC_BASE)
 #define FLASH                                   ((FLASH_TypeDef *)FLASH_R_BASE)
 #define OB                                      ((OB_TypeDef *)OB_BASE)
-#define DBGMCU                                  ((DBGMCU_TypeDef *)DBGMCU_BASE)
 #define EXTEN                                   ((EXTEN_TypeDef *)EXTEN_BASE)
 
 /******************************************************************************/
@@ -2385,31 +2382,11 @@ typedef struct
 /******************************************************************************/
 
 /****************************  Enhanced register  *****************************/
-#define EXTEN_PLLCLK_DLY                        ((uint32_t)0x0000000F) /* PLLCLK_DLY[3:0] */
-#define EXTEN_PLLCLK_DLY_No                     ((uint32_t)0x00000001)
-#define EXTEN_PLLCLK_DLY_6ns                    ((uint32_t)0x00000004)
-#define EXTEN_PLLCLK_DLY_8ns                    ((uint32_t)0x00000005)
-#define EXTEN_PLLCLK_DLY_9ns                    ((uint32_t)0x00000006)
-#define EXTEN_PLLCLK_DLY_10ns                   ((uint32_t)0x00000007)
-
 #define EXTEN_LOCKUP_EN                         ((uint32_t)0x00000040) /* Bit 6 */
 #define EXTEN_LOCKUP_RSTF                       ((uint32_t)0x00000080) /* Bit 7 */
 
-#define EXTEN_ULLDO_TRIM                        ((uint32_t)0x00000300) /* ULLDO_TRIM[1:0] bits */
-#define EXTEN_ULLDO_TRIM0                       ((uint32_t)0x00000100) /* Bit 0 */
-#define EXTEN_ULLDO_TRIM1                       ((uint32_t)0x00000200) /* Bit 1 */
-#define EXTEN_ULLDO_TRIM2                       ((uint32_t)0x00000300) /* Bit [1:0] */
-
 #define EXTEN_LDO_TRIM                          ((uint32_t)0x00000400) /* Bit 10 */
 
-#define EXTEN_FLASH_CLK_TRIM                    ((uint32_t)0x00003800) /* FLASH_CLK_TRIM[2:0] bits */
-#define EXTEN_FLASH_CLK_TRIM_0ns                ((uint32_t)0x0000800)
-#define EXTEN_FLASH_CLK_TRIM_1ns                ((uint32_t)0x00001000)
-#define EXTEN_FLASH_CLK_TRIM_2ns                ((uint32_t)0x00002000)
-#define EXTEN_FLASH_CLK_TRIM_3ns                ((uint32_t)0x00003000)
-
-#define EXTEN_WR_EN                             ((uint32_t)0x00004000)
-#define EXTEN_WR_LOCK                           ((uint32_t)0x00008000)
 #define EXTEN_OPA_EN                            ((uint32_t)0x00010000)
 #define EXTEN_OPA_NSEL                          ((uint32_t)0x00020000)
 #define EXTEN_OPA_PSEL                          ((uint32_t)0x00040000)

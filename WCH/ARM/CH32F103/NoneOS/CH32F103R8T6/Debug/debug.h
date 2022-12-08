@@ -11,6 +11,10 @@
 #ifndef __DEBUG_H
 #define __DEBUG_H 	
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 #include "ch32f10x.h"
 #include "stdio.h"	
 
@@ -57,6 +61,10 @@ void Delay_Init(void);
 void Delay_Us(u32 n);
 void Delay_Ms(u16 n);
 void USART_Printf_Init(u32 baudrate);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* __DEBUG_H */
 

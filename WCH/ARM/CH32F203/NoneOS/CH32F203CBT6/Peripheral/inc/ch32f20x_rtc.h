@@ -19,10 +19,9 @@
 
 typedef enum
 {
-  /* 校准精度越高，耗时越长 */
-  Level_32 = 2,    // 用时 1.2ms 1000ppm (32M 主频)  1100ppm (64M 主频)
-  Level_64,        // 用时 2.2ms 800ppm  (32M 主频)  1000ppm (64M 主频)
-  Level_128,       // 用时 4.2ms 600ppm  (32M 主频)  800ppm  (64M 主频)
+  Level_32 = 2,    
+  Level_64,       
+  Level_128,      
 
 }Cali_LevelTypeDef;
 
@@ -62,12 +61,15 @@ typedef enum
 #define RB_OSC_HALT_MD       (1<<4)
 #define RB_OSC_CNT_VLU       (0x0F)
 
+#ifdef CLK_OSC32K
 #if ( CLK_OSC32K == 1 )
 #define CAB_LSIFQ       32000
 #else
 #define CAB_LSIFQ       32768
 #endif
-
+#else
+#define CAB_LSIFQ       32000
+#endif
 #endif
 	 
 

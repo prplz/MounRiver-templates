@@ -278,57 +278,98 @@ void RTC_ClearITPendingBit( uint16_t RTC_IT )
 /*******************************************************************************
  * @fn            Calibration_LSI
  *
- * @brief         校准内部32K时钟
+ * @brief         LSI calibration
  *
- * @param         cali_Lv : 校准等级选择
- *                Level_32  -   用时 1.2ms 1000ppm (32M 主频)  1100ppm (64M 主频)
- *                Level_64  -   用时 2.2ms 800ppm  (32M 主频)  1000ppm (64M 主频)
- *                Level_128 -   用时 4.2ms 600ppm  (32M 主频)  800ppm  (64M 主频)
+ * @param         cali_Lv : calibration level
+ *                Level_32  -   1.2ms 1100ppm
+ *                Level_64  -   2.2ms 1000ppm
+ *                Level_128 -   4.2ms 800ppm
  *
  * @return        None
  */
-void Calibration_LSI( Cali_LevelTypeDef cali_Lv )
+void Calibration_LSI(Cali_LevelTypeDef cali_Lv)
 {
     uint32_t i;
-    int32_t cnt_offset;
-    uint8_t retry = 0;
-    // 粗调
-    R8_OSC_CAL_CFG &= ~RB_OSC_CNT_VLU;
-    R8_OSC_CAL_CFG |= 1;
-    R8_OSC_CAL_CTRL |= RB_OSC_CAL_EN;
-    R16_OSC_CAL_CNT_ST |= RB_OSC_CAL_CNT_OV;
-    while( 1 )
+    int32_t  cnt_offset;
+    int32_t  Freq = 0;
+    uint8_t  retry = 0;
+    uint32_t cnt_32k = 0;
+    Freq = SystemCoreClock;
+    // Coarse tuning
+    OSC->LSI32K_CAL_CFG &= ~RB_OSC_CNT_VLU;
+    OSC->LSI32K_CAL_CFG |= 0;
+    while(1)
     {
-        while( !( R8_OSC_CAL_CTRL & RB_OSC_CAL_HALT ) );
-        i = R16_OSC_CAL_CNT_ST;      // 用于丢弃
-        while( R8_OSC_CAL_CTRL & RB_OSC_CAL_HALT );
-        R16_OSC_CAL_CNT_ST |= RB_OSC_CAL_CNT_OV;
-        while( !( R8_OSC_CAL_CTRL & RB_OSC_CAL_HALT ) );
-        i = R16_OSC_CAL_CNT_ST;      // 实时校准后采样值
-        cnt_offset = ( i & 0x3FFF ) + R8_OSC_CAL_OV_CNT * 0x3FFF - 2000 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ;
-        if( ( ( cnt_offset > -37 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ ) && ( cnt_offset < 37 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ ) ) || retry > 2 )
-        {
+        OSC->LSI32K_CAL_CTRL |= RB_OSC_CAL_EN;
+        OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+        OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_IF_END;
+        while(!(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END));
+        i = OSC->LSI32K_CAL_STATR;
+        OSC->LSI32K_CAL_CTRL &= ~RB_OSC_CAL_EN;
+        OSC->LSI32K_CAL_CTRL |= RB_OSC_CAL_EN;
+        OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+        OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_IF_END;
+        cnt_32k = RTC_GetCounter();
+        while(RTC_GetCounter() == cnt_32k);
+        OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+        while(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END);
+        while(!(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END));
+        i = OSC->LSI32K_CAL_STATR;
+        cnt_offset = (i & 0x3FFF) + OSC->LSI32K_CAL_OV_CNT * 0x3FFF - 2000 * (Freq / 1000) / CAB_LSIFQ;
+        if(((cnt_offset > -(20 * (Freq / 1000) / 36000)) && (cnt_offset < (20 * (Freq / 1000) / 36000))) || retry > 2)
             break;
-        }
         retry++;
-        cnt_offset = ( cnt_offset > 0 ) ? ( ( ( cnt_offset * 2 ) / ( 37 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ ) ) + 1 ) / 2 : ( ( ( cnt_offset * 2 ) / ( 37 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ ) ) - 1 ) / 2;
-        R16_OSC32K_TUNE += cnt_offset;
+        cnt_offset = (cnt_offset > 0) ? (((cnt_offset * 2) / (40 * (Freq / 1000) / 36000)) + 1) / 2 : (((cnt_offset * 2) / (40 * (Freq / 1000) / 36000)) - 1) / 2;
+        OSC->LSI32K_TUNE += cnt_offset;
     }
+    OSC->LSI32K_CAL_CFG &= ~RB_OSC_CNT_VLU;
+    OSC->LSI32K_CAL_CFG |= 2;
+    OSC->LSI32K_CAL_CTRL &= ~RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_CTRL |= RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_IF_END;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
 
-    // 细调
-    // 配置细调参数后，丢弃2次捕获值（软件行为）上判断已有一次，这里只留一次
-    while( !( R8_OSC_CAL_CTRL & RB_OSC_CAL_HALT ) );
-    i = R16_OSC_CAL_CNT_ST;      // 用于丢弃
-    R16_OSC_CAL_CNT_ST |= RB_OSC_CAL_CNT_OV;
-    R8_OSC_CAL_CFG &= ~RB_OSC_CNT_VLU;
-    R8_OSC_CAL_CFG |= cali_Lv;
-    while( R8_OSC_CAL_CTRL & RB_OSC_CAL_HALT );
-    while( !( R8_OSC_CAL_CTRL & RB_OSC_CAL_HALT ) );
-    i = R16_OSC_CAL_CNT_ST;      // 实时校准后采样值
-    cnt_offset = ( i & 0x3FFF ) + R8_OSC_CAL_OV_CNT * 0x3FFF - 4000 * ( 1 << cali_Lv ) * ( SystemCoreClock / 1000000 ) / CAB_LSIFQ * 1000;
-    cnt_offset = ( cnt_offset > 0 ) ? ( ( ( ( cnt_offset * ( 3200 / ( 1 << cali_Lv ) ) ) / ( 1366 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ ) ) + 1 ) / 2 ) << 5 : ( ( ( ( cnt_offset * ( 3200 / ( 1 << cali_Lv ) ) ) / ( 1366 * ( SystemCoreClock / 1000 ) / CAB_LSIFQ ) ) - 1 ) / 2 ) << 5;
-    R16_OSC32K_TUNE += cnt_offset;
-    R8_OSC_CAL_CTRL &= ~RB_OSC_CAL_EN;
+    // Fine tuning
+    // After configuring the fine-tuning parameters, discard the two captured values (software behavior) and judge once, only one time is left here
+    while(!(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END));
+    i = OSC->LSI32K_CAL_STATR;
+    OSC->LSI32K_CAL_CTRL &= ~RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_CTRL |= RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_IF_END;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+    cnt_32k = RTC_GetCounter();
+    while(RTC_GetCounter() == cnt_32k);
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+    while(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END);
+    while(!(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END));
+    i = OSC->LSI32K_CAL_STATR;
+    cnt_offset = (i & 0x3FFF) + OSC->LSI32K_CAL_OV_CNT * 0x3FFF - 8000 * (1 << 2) * (Freq / 1000000) / 256 * 1000 / (CAB_LSIFQ / 256);
+    cnt_offset = (cnt_offset > 0) ? ((((cnt_offset * 2 * 100) / (748 * ((1 << 2) / 4) * (Freq / 1000) / 36000)) + 1) / 2) << 5 : ((((cnt_offset * 2 * 100) / (748 * ((1 << 2) / 4) * (Freq / 1000) / 36000)) - 1) / 2) << 5;
+    OSC->LSI32K_TUNE += cnt_offset;
+    OSC->LSI32K_CAL_CFG &= ~RB_OSC_CNT_VLU;
+    OSC->LSI32K_CAL_CFG |= cali_Lv;
+    OSC->LSI32K_CAL_CTRL &= ~RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_CTRL |= RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_IF_END;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+    // Fine tuning
+    // After configuring the fine-tuning parameters, discard the two captured values (software behavior) and judge once, only one time is left here
+    while(!(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END));
+    i = OSC->LSI32K_CAL_STATR;
+    OSC->LSI32K_CAL_CTRL &= ~RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_CTRL |= RB_OSC_CAL_EN;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_IF_END;
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+    cnt_32k = RTC_GetCounter();
+    while(RTC_GetCounter() == cnt_32k);
+    OSC->LSI32K_CAL_STATR |= RB_OSC_CAL_CNT_OV;
+    while(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END);
+    while(!(OSC->LSI32K_CAL_STATR & RB_OSC_CAL_IF_END));
+    OSC->LSI32K_CAL_CTRL &= ~RB_OSC_CAL_EN;
+    i = OSC->LSI32K_CAL_STATR;
+    cnt_offset = (i & 0x3FFF) + OSC->LSI32K_CAL_OV_CNT * 0x3FFF - 8000 * (1 << cali_Lv) * (Freq / 1000000) / 256 * 1000 / (CAB_LSIFQ / 256);
+    cnt_offset = (cnt_offset > 0) ? ((((cnt_offset * 2 * 100) / (748 * ((1 << cali_Lv) / 4) * (Freq / 1000) / 36000)) + 1) / 2) << 5 : ((((cnt_offset * 2 * 100) / (748 * ((1 << cali_Lv) / 4) * (Freq / 1000) / 36000)) - 1) / 2) << 5;
+    OSC->LSI32K_TUNE += cnt_offset;
 }
 
 #endif

@@ -125,7 +125,7 @@ typedef int32_t  s32;
 typedef int16_t s16;
 typedef int8_t  s8;
 
-typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+typedef enum {NoREADY = 0, READY = !NoREADY} ErrorStatus;
 
 typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
 
@@ -326,13 +326,13 @@ typedef struct
   __IO uint32_t SWTR;
   __IO uint32_t R12BDHR1;
   __IO uint32_t L12BDHR1;
-  __IO uint32_t R8BDHR1;
+  __IO uint32_t RESERVED0;
   __IO uint32_t R12BDHR2;
   __IO uint32_t L12BDHR2;
-  __IO uint32_t R8BDHR2;
-  __IO uint32_t RD12BDHR;
-  __IO uint32_t LD12BDHR;
-  __IO uint32_t RD8BDHR;
+  __IO uint32_t RESERVED1;
+  __IO uint32_t RESERVED2;
+  __IO uint32_t RESERVED3;
+  __IO uint32_t RESERVED4;
   __IO uint32_t DOR1;
   __IO uint32_t DOR2;
 } DAC_TypeDef;

@@ -37,7 +37,7 @@ void OPA_Init(OPA_InitTypeDef *OPA_InitStruct)
 {
     uint32_t tmp = 0;
     tmp = EXTEN->EXTEN_CTR;
-    tmp &= ~(uint32_t)(2<<17);
+    tmp &= ~(uint32_t)(3<<17);
     tmp |= (OPA_InitStruct->PSEL << 18) | (OPA_InitStruct->NSEL << 17);
     EXTEN->EXTEN_CTR = tmp;
 }

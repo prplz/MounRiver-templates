@@ -10,6 +10,10 @@
 #ifndef __CORE_RISCV_H__
 #define __CORE_RISCV_H__
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* IO definitions */
 #ifdef __cplusplus
   #define     __I     volatile                /*!< defines 'read only' permissions      */
@@ -117,7 +121,11 @@ typedef struct
  */
 RV_STATIC_INLINE void __enable_irq()
 {
-  __asm volatile ("csrw mstatus, %0" : : "r" (0x1888) );
+  uint32_t result;
+
+  __asm volatile("csrr %0," "mstatus": "=r"(result));
+  result |= 0x88;
+  __asm volatile ("csrw mstatus, %0" : : "r" (result) );
 }
 
 /*********************************************************************
@@ -129,7 +137,11 @@ RV_STATIC_INLINE void __enable_irq()
  */
 RV_STATIC_INLINE void __disable_irq()
 {
-  __asm volatile ("csrw mstatus, %0" : : "r" (0x1800) );
+  uint32_t result;
+
+  __asm volatile("csrr %0," "mstatus": "=r"(result));
+  result &= ~0x88;
+  __asm volatile ("csrw mstatus, %0" : : "r" (result) );
 }
 
 /*********************************************************************
@@ -351,6 +363,9 @@ extern uint32_t __get_MIMPID(void);
 extern uint32_t __get_MHARTID(void);
 extern uint32_t __get_SP(void);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif/* __CORE_RISCV_H__ */
 

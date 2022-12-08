@@ -19,6 +19,30 @@ PUINT8  pEP2_RAM_Addr;
 PUINT8  pEP3_RAM_Addr;
 
 /*********************************************************************
+ * @fn      USB_Device_Endp_Init()
+ *
+ * @brief   Initializes USB device.
+ *
+ * @return  none
+ */
+void USB_Device_Endp_Init(void)
+{
+    R8_UEP4_1_MOD = RB_UEP4_RX_EN | RB_UEP4_TX_EN | RB_UEP1_RX_EN | RB_UEP1_TX_EN;
+    R8_UEP2_3_MOD = RB_UEP2_RX_EN | RB_UEP2_TX_EN | RB_UEP3_RX_EN | RB_UEP3_TX_EN;
+
+    R16_UEP0_DMA = (UINT16)(UINT32)pEP0_RAM_Addr;
+    R16_UEP1_DMA = (UINT16)(UINT32)pEP1_RAM_Addr;
+    R16_UEP2_DMA = (UINT16)(UINT32)pEP2_RAM_Addr;
+    R16_UEP3_DMA = (UINT16)(UINT32)pEP3_RAM_Addr;
+
+    R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
+    R8_UEP1_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
+    R8_UEP2_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
+    R8_UEP3_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
+    R8_UEP4_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
+}
+
+/*********************************************************************
  * @fn      USB_DeviceInit
  *
  * @brief   Initializes USB device.
@@ -29,19 +53,7 @@ void USB_DeviceInit( void )
 {
     R8_USB_CTRL = 0x00;
 
-    R8_UEP4_1_MOD = RB_UEP4_RX_EN | RB_UEP4_TX_EN | RB_UEP1_RX_EN | RB_UEP1_TX_EN;
-    R8_UEP2_3_MOD = RB_UEP2_RX_EN | RB_UEP2_TX_EN | RB_UEP3_RX_EN | RB_UEP3_TX_EN;
-
-    R16_UEP0_DMA = ( UINT16 )( UINT32 )pEP0_RAM_Addr;
-    R16_UEP1_DMA = ( UINT16 )( UINT32 )pEP1_RAM_Addr;
-    R16_UEP2_DMA = ( UINT16 )( UINT32 )pEP2_RAM_Addr;
-    R16_UEP3_DMA = ( UINT16 )( UINT32 )pEP3_RAM_Addr;
-
-    R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
-    R8_UEP1_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
-    R8_UEP2_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
-    R8_UEP3_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
-    R8_UEP4_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
+    USB_Device_Endp_Init( );
 
     R8_USB_INT_FG = 0xFF;
     R8_USB_INT_EN = RB_UIE_SUSPEND | RB_UIE_BUS_RST | RB_UIE_TRANSFER;

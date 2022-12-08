@@ -10,12 +10,11 @@
 #include "ch32f20x_eth.h"
 #include "ch32f20x_rcc.h"
 
-
+#if defined (CH32F20x_D8C) 
 ETH_DMADESCTypeDef  *DMATxDescToSet;
 ETH_DMADESCTypeDef  *DMARxDescToGet;
 ETH_DMADESCTypeDef  *DMAPTPTxDescToSet;
 ETH_DMADESCTypeDef  *DMAPTPRxDescToGet;
-
 
 /*********************************************************************
  * @fn      ETH_DeInit
@@ -369,7 +368,7 @@ uint32_t ETH_PHYLoopBackCmd( uint16_t PHYAddress, FunctionalState NewState )
 {
     uint16_t tmpreg = 0;
 
-    tmpreg = ETH_ReadPHYRegister( PHYAddress, PHY_BCR );
+    tmpreg = ETH_ReadPHYRegister( PHYAddress, PHY_BMCR );
 
     if( NewState != DISABLE )
     {
@@ -380,7 +379,7 @@ uint32_t ETH_PHYLoopBackCmd( uint16_t PHYAddress, FunctionalState NewState )
         tmpreg &= ( uint16_t )( ~( uint16_t )PHY_Loopback );
     }
 
-    if( ETH_WritePHYRegister( PHYAddress, PHY_BCR, tmpreg ) != ( uint32_t )RESET )
+    if( ETH_WritePHYRegister( PHYAddress, PHY_BMCR, tmpreg ) != ( uint32_t )RESET )
     {
         return ETH_SUCCESS;
     }
@@ -2524,6 +2523,6 @@ void RGMII_TXC_Delay( uint8_t clock_polarity, uint8_t delay_time )
         ETH->MACCR |= ( uint32_t )( ( uint32_t )delay_time << 29 );
     }
 }
-
+#endif
 
 

@@ -768,13 +768,13 @@ void I2C_FastModeDutyCycleConfig( I2C_TypeDef *I2Cx, uint16_t I2C_DutyCycle )
  *             I2C_EVENT_MASTER_BYTE_TRANSMITTED - EV8_2.
  *             I2C_EVENT_MASTER_MODE_ADDRESS10 - EV9.
  *
- * @return  ErrorStatus - SUCCESS or ERROR.
+ * @return  ErrorStatus - READY or NoREADY.
  */
 ErrorStatus I2C_CheckEvent( I2C_TypeDef *I2Cx, uint32_t I2C_EVENT )
 {
     uint32_t lastevent = 0;
     uint32_t flag1 = 0, flag2 = 0;
-    ErrorStatus status = ERROR;
+    ErrorStatus status = NoREADY;
 
     flag1 = I2Cx->STAR1;
     flag2 = I2Cx->STAR2;
@@ -784,11 +784,11 @@ ErrorStatus I2C_CheckEvent( I2C_TypeDef *I2Cx, uint32_t I2C_EVENT )
 
     if( ( lastevent & I2C_EVENT ) == I2C_EVENT )
     {
-        status = SUCCESS;
+        status = READY;
     }
     else
     {
-        status = ERROR;
+        status = NoREADY;
     }
 
     return status;

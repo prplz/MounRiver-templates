@@ -271,9 +271,17 @@ typedef struct
 #define RCC_AHBPeriph_USBHS              ((uint32_t)0x00000800)
 #define RCC_AHBPeriph_OTG_FS             ((uint32_t)0x00001000)
 #define RCC_AHBPeriph_DVP                ((uint32_t)0x00002000)
+
+#ifdef CH32F20x_D8C
 #define RCC_AHBPeriph_ETH_MAC            ((uint32_t)0x00004000)
 #define RCC_AHBPeriph_ETH_MAC_Tx         ((uint32_t)0x00008000)
 #define RCC_AHBPeriph_ETH_MAC_Rx         ((uint32_t)0x00010000)
+#endif
+
+#ifdef CH32F20x_D8W
+#define RCC_AHBPeriph_BLE_CRC          ((uint32_t)0x00030040)
+#endif
+
 
 /* APB2_peripheral */
 #define RCC_APB2Periph_AFIO              ((uint32_t)0x00000001)

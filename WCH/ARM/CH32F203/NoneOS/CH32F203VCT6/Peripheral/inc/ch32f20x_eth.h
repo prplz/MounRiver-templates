@@ -182,7 +182,7 @@ typedef struct {
 #define _eth_delay_    ETH_Delay       /* Default _eth_delay_ function with less precise timing */
 
 /* definition for Ethernet frame */
-#define ETH_MAX_PACKET_SIZE    1520    /* ETH_HEADER + ETH_EXTRA + MAX_ETH_PAYLOAD + ETH_CRC */
+#define ETH_MAX_PACKET_SIZE    1536    /* ETH_HEADER + ETH_EXTRA + MAX_ETH_PAYLOAD + ETH_CRC */
 #define ETH_HEADER               14    /* 6 byte Dest addr, 6 byte Src addr, 2 byte length/type */
 #define ETH_CRC                   4    /* Ethernet CRC */
 #define ETH_EXTRA                 2    /* Extra bytes in some cases */
@@ -311,12 +311,6 @@ typedef struct
 
 /* Delay time after configure PHY */
 #define PHY_ConfigDelay                 ((uint32_t)0x00FFFFFF)
-
-/* PHY basic register */
-#define PHY_BCR                          0          /*PHY tranceiver Basic Control Register */
-#define PHY_BSR                          1          /*PHY tranceiver Basic Status Register */
-#define PHY_BMCR                         PHY_BCR
-#define PHY_BMSR                         PHY_BSR
 
 /* Bit or field definition for PHY basic control register */
 #define PHY_Reset                       ((uint16_t)0x8000)      /* PHY Reset */
@@ -760,23 +754,23 @@ typedef struct
 #define ETH_DMASR_PMTS       ((unsigned int)0x10000000)  /* PMT status */
 #define ETH_DMASR_MMCS       ((unsigned int)0x08000000)  /* MMC status */
 #define ETH_DMASR_EBS        ((unsigned int)0x03800000)  /* Error bits status */
-  #define ETH_DMASR_EBS_DescAccess      ((unsigned int)0x02000000)  /* Error bits 0-data buffer, 1-desc. access */
-  #define ETH_DMASR_EBS_ReadTransf      ((unsigned int)0x01000000)  /* Error bits 0-write trnsf, 1-read transfr */
-  #define ETH_DMASR_EBS_DataTransfTx    ((unsigned int)0x00800000)  /* Error bits 0-Rx DMA, 1-Tx DMA */
+#define ETH_DMASR_EBS_DescAccess      ((unsigned int)0x02000000)  /* Error bits 0-data buffer, 1-desc. access */
+#define ETH_DMASR_EBS_ReadTransf      ((unsigned int)0x01000000)  /* Error bits 0-write trnsf, 1-read transfr */
+#define ETH_DMASR_EBS_DataTransfTx    ((unsigned int)0x00800000)  /* Error bits 0-Rx DMA, 1-Tx DMA */
 #define ETH_DMASR_TPS         ((unsigned int)0x00700000)  /* Transmit process state */
-  #define ETH_DMASR_TPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Tx Command issued  */
-  #define ETH_DMASR_TPS_Fetching        ((unsigned int)0x00100000)  /* Running - fetching the Tx descriptor */
-  #define ETH_DMASR_TPS_Waiting         ((unsigned int)0x00200000)  /* Running - waiting for status */
-  #define ETH_DMASR_TPS_Reading         ((unsigned int)0x00300000)  /* Running - reading the data from host memory */
-  #define ETH_DMASR_TPS_Suspended       ((unsigned int)0x00600000)  /* Suspended - Tx Descriptor unavailabe */
-  #define ETH_DMASR_TPS_Closing         ((unsigned int)0x00700000)  /* Running - closing Rx descriptor */
+#define ETH_DMASR_TPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Tx Command issued  */
+#define ETH_DMASR_TPS_Fetching        ((unsigned int)0x00100000)  /* Running - fetching the Tx descriptor */
+#define ETH_DMASR_TPS_Waiting         ((unsigned int)0x00200000)  /* Running - waiting for status */
+#define ETH_DMASR_TPS_Reading         ((unsigned int)0x00300000)  /* Running - reading the data from host memory */
+#define ETH_DMASR_TPS_Suspended       ((unsigned int)0x00600000)  /* Suspended - Tx Descriptor unavailabe */
+#define ETH_DMASR_TPS_Closing         ((unsigned int)0x00700000)  /* Running - closing Rx descriptor */
 #define ETH_DMASR_RPS         ((unsigned int)0x000E0000)  /* Receive process state */
-  #define ETH_DMASR_RPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Rx Command issued */
-  #define ETH_DMASR_RPS_Fetching        ((unsigned int)0x00020000)  /* Running - fetching the Rx descriptor */
-  #define ETH_DMASR_RPS_Waiting         ((unsigned int)0x00060000)  /* Running - waiting for packet */
-  #define ETH_DMASR_RPS_Suspended       ((unsigned int)0x00080000)  /* Suspended - Rx Descriptor unavailable */
-  #define ETH_DMASR_RPS_Closing         ((unsigned int)0x000A0000)  /* Running - closing descriptor */
-  #define ETH_DMASR_RPS_Queuing         ((unsigned int)0x000E0000)  /* Running - queuing the recieve frame into host memory */
+#define ETH_DMASR_RPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Rx Command issued */
+#define ETH_DMASR_RPS_Fetching        ((unsigned int)0x00020000)  /* Running - fetching the Rx descriptor */
+#define ETH_DMASR_RPS_Waiting         ((unsigned int)0x00060000)  /* Running - waiting for packet */
+#define ETH_DMASR_RPS_Suspended       ((unsigned int)0x00080000)  /* Suspended - Rx Descriptor unavailable */
+#define ETH_DMASR_RPS_Closing         ((unsigned int)0x000A0000)  /* Running - closing descriptor */
+#define ETH_DMASR_RPS_Queuing         ((unsigned int)0x000E0000)  /* Running - queuing the recieve frame into host memory */
 #define ETH_DMASR_NIS        ((unsigned int)0x00010000)  /* Normal interrupt summary */
 #define ETH_DMASR_AIS        ((unsigned int)0x00008000)  /* Abnormal interrupt summary */
 #define ETH_DMASR_ERS        ((unsigned int)0x00004000)  /* Early receive status */
@@ -803,13 +797,13 @@ typedef struct
 #define ETH_MACCR_JD      ((unsigned int)0x00400000)  /* Jabber disable */
 #define ETH_MACCR_IFG     ((unsigned int)0x000E0000)  /* Inter-frame gap */
 #define ETH_MACCR_IFG_96Bit     ((unsigned int)0x00000000)  /* Minimum IFG between frames during transmission is 96Bit */
-   #define ETH_MACCR_IFG_88Bit     ((unsigned int)0x00020000)  /* Minimum IFG between frames during transmission is 88Bit */
-   #define ETH_MACCR_IFG_80Bit     ((unsigned int)0x00040000)  /* Minimum IFG between frames during transmission is 80Bit */
-   #define ETH_MACCR_IFG_72Bit     ((unsigned int)0x00060000)  /* Minimum IFG between frames during transmission is 72Bit */
-   #define ETH_MACCR_IFG_64Bit     ((unsigned int)0x00080000)  /* Minimum IFG between frames during transmission is 64Bit */
-   #define ETH_MACCR_IFG_56Bit     ((unsigned int)0x000A0000)  /* Minimum IFG between frames during transmission is 56Bit */
-   #define ETH_MACCR_IFG_48Bit     ((unsigned int)0x000C0000)  /* Minimum IFG between frames during transmission is 48Bit */
-   #define ETH_MACCR_IFG_40Bit     ((unsigned int)0x000E0000)  /* Minimum IFG between frames during transmission is 40Bit */
+#define ETH_MACCR_IFG_88Bit     ((unsigned int)0x00020000)  /* Minimum IFG between frames during transmission is 88Bit */
+#define ETH_MACCR_IFG_80Bit     ((unsigned int)0x00040000)  /* Minimum IFG between frames during transmission is 80Bit */
+#define ETH_MACCR_IFG_72Bit     ((unsigned int)0x00060000)  /* Minimum IFG between frames during transmission is 72Bit */
+#define ETH_MACCR_IFG_64Bit     ((unsigned int)0x00080000)  /* Minimum IFG between frames during transmission is 64Bit */
+#define ETH_MACCR_IFG_56Bit     ((unsigned int)0x000A0000)  /* Minimum IFG between frames during transmission is 56Bit */
+#define ETH_MACCR_IFG_48Bit     ((unsigned int)0x000C0000)  /* Minimum IFG between frames during transmission is 48Bit */
+#define ETH_MACCR_IFG_40Bit     ((unsigned int)0x000E0000)  /* Minimum IFG between frames during transmission is 40Bit */
 #define ETH_MACCR_CSD     ((unsigned int)0x00010000)  /* Carrier sense disable (during transmission) */
 #define ETH_MACCR_FES     ((unsigned int)0x00004000)  /* Fast ethernet speed */
 #define ETH_MACCR_ROD     ((unsigned int)0x00002000)  /* Receive own disable */
@@ -819,10 +813,10 @@ typedef struct
 #define ETH_MACCR_RD      ((unsigned int)0x00000200)  /* Retry disable */
 #define ETH_MACCR_APCS    ((unsigned int)0x00000080)  /* Automatic Pad/CRC stripping */
 #define ETH_MACCR_BL      ((unsigned int)0x00000060)  /* Back-off limit: random integer number (r) of slot time delays before reschedulinga transmission attempt during retries after a collision: 0 =< r <2^k */
-   #define ETH_MACCR_BL_10    ((unsigned int)0x00000000)  /* k = min (n, 10) */
-   #define ETH_MACCR_BL_8     ((unsigned int)0x00000020)  /* k = min (n, 8) */
-   #define ETH_MACCR_BL_4     ((unsigned int)0x00000040)  /* k = min (n, 4) */
-   #define ETH_MACCR_BL_1     ((unsigned int)0x00000060)  /* k = min (n, 1) */
+#define ETH_MACCR_BL_10    ((unsigned int)0x00000000)  /* k = min (n, 10) */
+#define ETH_MACCR_BL_8     ((unsigned int)0x00000020)  /* k = min (n, 8) */
+#define ETH_MACCR_BL_4     ((unsigned int)0x00000040)  /* k = min (n, 4) */
+#define ETH_MACCR_BL_1     ((unsigned int)0x00000060)  /* k = min (n, 1) */
 #define ETH_MACCR_DC      ((unsigned int)0x00000010)  /* Defferal check */
 #define ETH_MACCR_TE      ((unsigned int)0x00000008)  /* Transmitter enable */
 #define ETH_MACCR_RE      ((unsigned int)0x00000004)  /* Receiver enable */
@@ -832,9 +826,9 @@ typedef struct
 #define ETH_MACFFR_SAF    ((unsigned int)0x00000200)  /* Source address filter enable */
 #define ETH_MACFFR_SAIF   ((unsigned int)0x00000100)  /* SA inverse filtering */
 #define ETH_MACFFR_PCF    ((unsigned int)0x000000C0)  /* Pass control frames: 3 cases */
-   #define ETH_MACFFR_PCF_BlockAll                ((unsigned int)0x00000040)  /* MAC filters all control frames from reaching the application */
-   #define ETH_MACFFR_PCF_ForwardAll              ((unsigned int)0x00000080)  /* MAC forwards all control frames to application even if they fail the Address Filter */
-   #define ETH_MACFFR_PCF_ForwardPassedAddrFilter ((unsigned int)0x000000C0)  /* MAC forwards control frames that pass the Address Filter. */
+#define ETH_MACFFR_PCF_BlockAll                ((unsigned int)0x00000040)  /* MAC filters all control frames from reaching the application */
+#define ETH_MACFFR_PCF_ForwardAll              ((unsigned int)0x00000080)  /* MAC forwards all control frames to application even if they fail the Address Filter */
+#define ETH_MACFFR_PCF_ForwardPassedAddrFilter ((unsigned int)0x000000C0)  /* MAC forwards control frames that pass the Address Filter. */
 #define ETH_MACFFR_BFD    ((unsigned int)0x00000020)  /* Broadcast frame disable */
 #define ETH_MACFFR_PAM    ((unsigned int)0x00000010)  /* Pass all mutlicast */
 #define ETH_MACFFR_DAIF   ((unsigned int)0x00000008)  /* DA Inverse filtering */
@@ -848,19 +842,19 @@ typedef struct
 #define ETH_MACMIIAR_PA   ((unsigned int)0x0000F800)  /* Physical layer address */
 #define ETH_MACMIIAR_MR   ((unsigned int)0x000007C0)  /* MII register in the selected PHY */
 #define ETH_MACMIIAR_CR   ((unsigned int)0x0000001C)  /* CR clock range: 6 cases */
-   #define ETH_MACMIIAR_CR_Div42   ((unsigned int)0x00000000)  /* HCLK:60-100 MHz; MDC clock= HCLK/42 */
-   #define ETH_MACMIIAR_CR_Div16   ((unsigned int)0x00000008)  /* HCLK:20-35 MHz; MDC clock= HCLK/16 */
-   #define ETH_MACMIIAR_CR_Div26   ((unsigned int)0x0000000C)  /* HCLK:35-60 MHz; MDC clock= HCLK/26 */
+#define ETH_MACMIIAR_CR_Div42   ((unsigned int)0x00000000)  /* HCLK:60-100 MHz; MDC clock= HCLK/42 */
+#define ETH_MACMIIAR_CR_Div16   ((unsigned int)0x00000008)  /* HCLK:20-35 MHz; MDC clock= HCLK/16 */
+#define ETH_MACMIIAR_CR_Div26   ((unsigned int)0x0000000C)  /* HCLK:35-60 MHz; MDC clock= HCLK/26 */
 #define ETH_MACMIIAR_MW   ((unsigned int)0x00000002)  /* MII write */
 #define ETH_MACMIIAR_MB   ((unsigned int)0x00000001)  /* MII busy */
 #define ETH_MACMIIDR_MD   ((unsigned int)0x0000FFFF)  /* MII data: read/write data from/to PHY */
 #define ETH_MACFCR_PT     ((unsigned int)0xFFFF0000)  /* Pause time */
 #define ETH_MACFCR_ZQPD   ((unsigned int)0x00000080)  /* Zero-quanta pause disable */
 #define ETH_MACFCR_PLT    ((unsigned int)0x00000030)  /* Pause low threshold: 4 cases */
-   #define ETH_MACFCR_PLT_Minus4   ((unsigned int)0x00000000)  /* Pause time minus 4 slot times */
-   #define ETH_MACFCR_PLT_Minus28  ((unsigned int)0x00000010)  /* Pause time minus 28 slot times */
-   #define ETH_MACFCR_PLT_Minus144 ((unsigned int)0x00000020)  /* Pause time minus 144 slot times */
-   #define ETH_MACFCR_PLT_Minus256 ((unsigned int)0x00000030)  /* Pause time minus 256 slot times */
+#define ETH_MACFCR_PLT_Minus4   ((unsigned int)0x00000000)  /* Pause time minus 4 slot times */
+#define ETH_MACFCR_PLT_Minus28  ((unsigned int)0x00000010)  /* Pause time minus 28 slot times */
+#define ETH_MACFCR_PLT_Minus144 ((unsigned int)0x00000020)  /* Pause time minus 144 slot times */
+#define ETH_MACFCR_PLT_Minus256 ((unsigned int)0x00000030)  /* Pause time minus 256 slot times */
 #define ETH_MACFCR_UPFD   ((unsigned int)0x00000008)  /* Unicast pause frame detect */
 #define ETH_MACFCR_RFCE   ((unsigned int)0x00000004)  /* Receive flow control enable */
 #define ETH_MACFCR_TFCE   ((unsigned int)0x00000002)  /* Transmit flow control enable */
@@ -879,7 +873,7 @@ Wake-UpFrame Filter Reg1 : Filter 1 Byte Mask
 Wake-UpFrame Filter Reg2 : Filter 2 Byte Mask
 Wake-UpFrame Filter Reg3 : Filter 3 Byte Mask
 Wake-UpFrame Filter Reg4 : RSVD - Filter3 Command - RSVD - Filter2 Command -
-                           RSVD - Filter1 Command - RSVD - Filter0 Command
+RSVD - Filter1 Command - RSVD - Filter0 Command
 Wake-UpFrame Filter Re5 : Filter3 Offset - Filter2 Offset - Filter1 Offset - Filter0 Offset
 Wake-UpFrame Filter Re6 : Filter1 CRC16 - Filter0 CRC16
 Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
@@ -908,12 +902,12 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 #define ETH_MACA1HR_AE       ((unsigned int)0x80000000)  /* Address enable */
 #define ETH_MACA1HR_SA       ((unsigned int)0x40000000)  /* Source address */
 #define ETH_MACA1HR_MBC      ((unsigned int)0x3F000000)  /* Mask byte control: bits to mask for comparison of the MAC Address bytes */
-   #define ETH_MACA1HR_MBC_HBits15_8    ((unsigned int)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
-   #define ETH_MACA1HR_MBC_HBits7_0     ((unsigned int)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
-   #define ETH_MACA1HR_MBC_LBits31_24   ((unsigned int)0x08000000)  /* Mask MAC Address low reg bits [31:24] */
-   #define ETH_MACA1HR_MBC_LBits23_16   ((unsigned int)0x04000000)  /* Mask MAC Address low reg bits [23:16] */
-   #define ETH_MACA1HR_MBC_LBits15_8    ((unsigned int)0x02000000)  /* Mask MAC Address low reg bits [15:8] */
-   #define ETH_MACA1HR_MBC_LBits7_0     ((unsigned int)0x01000000)  /* Mask MAC Address low reg bits [7:0] */
+#define ETH_MACA1HR_MBC_HBits15_8    ((unsigned int)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
+#define ETH_MACA1HR_MBC_HBits7_0     ((unsigned int)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
+#define ETH_MACA1HR_MBC_LBits31_24   ((unsigned int)0x08000000)  /* Mask MAC Address low reg bits [31:24] */
+#define ETH_MACA1HR_MBC_LBits23_16   ((unsigned int)0x04000000)  /* Mask MAC Address low reg bits [23:16] */
+#define ETH_MACA1HR_MBC_LBits15_8    ((unsigned int)0x02000000)  /* Mask MAC Address low reg bits [15:8] */
+#define ETH_MACA1HR_MBC_LBits7_0     ((unsigned int)0x01000000)  /* Mask MAC Address low reg bits [7:0] */
 #define ETH_MACA1HR_MACA1H   ((unsigned int)0x0000FFFF)  /* MAC address1 high */
 
 #define ETH_MACA1LR_MACA1L   ((unsigned int)0xFFFFFFFF)  /* MAC address1 low */
@@ -921,12 +915,12 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 #define ETH_MACA2HR_AE       ((unsigned int)0x80000000)  /* Address enable */
 #define ETH_MACA2HR_SA       ((unsigned int)0x40000000)  /* Source address */
 #define ETH_MACA2HR_MBC      ((unsigned int)0x3F000000)  /* Mask byte control */
-   #define ETH_MACA2HR_MBC_HBits15_8    ((unsigned int)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
-   #define ETH_MACA2HR_MBC_HBits7_0     ((unsigned int)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
-   #define ETH_MACA2HR_MBC_LBits31_24   ((unsigned int)0x08000000)  /* Mask MAC Address low reg bits [31:24] */
-   #define ETH_MACA2HR_MBC_LBits23_16   ((unsigned int)0x04000000)  /* Mask MAC Address low reg bits [23:16] */
-   #define ETH_MACA2HR_MBC_LBits15_8    ((unsigned int)0x02000000)  /* Mask MAC Address low reg bits [15:8] */
-   #define ETH_MACA2HR_MBC_LBits7_0     ((unsigned int)0x01000000)  /* Mask MAC Address low reg bits [70] */
+#define ETH_MACA2HR_MBC_HBits15_8    ((unsigned int)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
+#define ETH_MACA2HR_MBC_HBits7_0     ((unsigned int)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
+#define ETH_MACA2HR_MBC_LBits31_24   ((unsigned int)0x08000000)  /* Mask MAC Address low reg bits [31:24] */
+#define ETH_MACA2HR_MBC_LBits23_16   ((unsigned int)0x04000000)  /* Mask MAC Address low reg bits [23:16] */
+#define ETH_MACA2HR_MBC_LBits15_8    ((unsigned int)0x02000000)  /* Mask MAC Address low reg bits [15:8] */
+#define ETH_MACA2HR_MBC_LBits7_0     ((unsigned int)0x01000000)  /* Mask MAC Address low reg bits [70] */
 
 #define ETH_MACA2HR_MACA2H   ((unsigned int)0x0000FFFF)  /* MAC address1 high */
 #define ETH_MACA2LR_MACA2L   ((unsigned int)0xFFFFFFFF)  /* MAC address2 low */
@@ -934,12 +928,12 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 #define ETH_MACA3HR_AE       ((unsigned int)0x80000000)  /* Address enable */
 #define ETH_MACA3HR_SA       ((unsigned int)0x40000000)  /* Source address */
 #define ETH_MACA3HR_MBC      ((unsigned int)0x3F000000)  /* Mask byte control */
-   #define ETH_MACA3HR_MBC_HBits15_8    ((unsigned int)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
-   #define ETH_MACA3HR_MBC_HBits7_0     ((unsigned int)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
-   #define ETH_MACA3HR_MBC_LBits31_24   ((unsigned int)0x08000000)  /* Mask MAC Address low reg bits [31:24] */
-   #define ETH_MACA3HR_MBC_LBits23_16   ((unsigned int)0x04000000)  /* Mask MAC Address low reg bits [23:16] */
-   #define ETH_MACA3HR_MBC_LBits15_8    ((unsigned int)0x02000000)  /* Mask MAC Address low reg bits [15:8] */
-   #define ETH_MACA3HR_MBC_LBits7_0     ((unsigned int)0x01000000)  /* Mask MAC Address low reg bits [70] */
+#define ETH_MACA3HR_MBC_HBits15_8    ((unsigned int)0x20000000)  /* Mask MAC Address high reg bits [15:8] */
+#define ETH_MACA3HR_MBC_HBits7_0     ((unsigned int)0x10000000)  /* Mask MAC Address high reg bits [7:0] */
+#define ETH_MACA3HR_MBC_LBits31_24   ((unsigned int)0x08000000)  /* Mask MAC Address low reg bits [31:24] */
+#define ETH_MACA3HR_MBC_LBits23_16   ((unsigned int)0x04000000)  /* Mask MAC Address low reg bits [23:16] */
+#define ETH_MACA3HR_MBC_LBits15_8    ((unsigned int)0x02000000)  /* Mask MAC Address low reg bits [15:8] */
+#define ETH_MACA3HR_MBC_LBits7_0     ((unsigned int)0x01000000)  /* Mask MAC Address low reg bits [70] */
 #define ETH_MACA3HR_MACA3H   ((unsigned int)0x0000FFFF)  /* MAC address3 high */
 #define ETH_MACA3LR_MACA3L   ((unsigned int)0xFFFFFFFF)  /* MAC address3 low */
 
@@ -1032,41 +1026,41 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 /*                       ETH DMA Register                                     */
 /*                                                                            */
 /******************************************************************************/
-#define ETH_DMABMR_AAB       ((unsigned int)0x02000000)  /* Address-Aligned beats */
-#define ETH_DMABMR_FPM        ((unsigned int)0x01000000)  /* 4xPBL mode */
-#define ETH_DMABMR_USP       ((unsigned int)0x00800000)  /* Use separate PBL */
-#define ETH_DMABMR_RDP       ((unsigned int)0x007E0000)  /* RxDMA PBL */
-   #define ETH_DMABMR_RDP_1Beat    ((unsigned int)0x00020000)  /* maximum number of beats to be transferred in one RxDMA transaction is 1 */
-   #define ETH_DMABMR_RDP_2Beat    ((unsigned int)0x00040000)  /* maximum number of beats to be transferred in one RxDMA transaction is 2 */
-   #define ETH_DMABMR_RDP_4Beat    ((unsigned int)0x00080000)  /* maximum number of beats to be transferred in one RxDMA transaction is 4 */
-   #define ETH_DMABMR_RDP_8Beat    ((unsigned int)0x00100000)  /* maximum number of beats to be transferred in one RxDMA transaction is 8 */
-   #define ETH_DMABMR_RDP_16Beat   ((unsigned int)0x00200000)  /* maximum number of beats to be transferred in one RxDMA transaction is 16 */
-   #define ETH_DMABMR_RDP_32Beat   ((unsigned int)0x00400000)  /* maximum number of beats to be transferred in one RxDMA transaction is 32 */
-   #define ETH_DMABMR_RDP_4xPBL_4Beat   ((unsigned int)0x01020000)  /* maximum number of beats to be transferred in one RxDMA transaction is 4 */
-   #define ETH_DMABMR_RDP_4xPBL_8Beat   ((unsigned int)0x01040000)  /* maximum number of beats to be transferred in one RxDMA transaction is 8 */
-   #define ETH_DMABMR_RDP_4xPBL_16Beat  ((unsigned int)0x01080000)  /* maximum number of beats to be transferred in one RxDMA transaction is 16 */
-   #define ETH_DMABMR_RDP_4xPBL_32Beat  ((unsigned int)0x01100000)  /* maximum number of beats to be transferred in one RxDMA transaction is 32 */
-   #define ETH_DMABMR_RDP_4xPBL_64Beat  ((unsigned int)0x01200000)  /* maximum number of beats to be transferred in one RxDMA transaction is 64 */
-   #define ETH_DMABMR_RDP_4xPBL_128Beat ((unsigned int)0x01400000)  /* maximum number of beats to be transferred in one RxDMA transaction is 128 */
-#define ETH_DMABMR_FB        ((unsigned int)0x00010000)  /* Fixed Burst */
-#define ETH_DMABMR_RTPR      ((unsigned int)0x0000C000)  /* Rx Tx priority ratio */
-   #define ETH_DMABMR_RTPR_1_1     ((unsigned int)0x00000000)  /* Rx Tx priority ratio */
-   #define ETH_DMABMR_RTPR_2_1     ((unsigned int)0x00004000)  /* Rx Tx priority ratio */
-   #define ETH_DMABMR_RTPR_3_1     ((unsigned int)0x00008000)  /* Rx Tx priority ratio */
-   #define ETH_DMABMR_RTPR_4_1     ((unsigned int)0x0000C000)  /* Rx Tx priority ratio */
-#define ETH_DMABMR_PBL    ((unsigned int)0x00003F00)  /* Programmable burst length */
-   #define ETH_DMABMR_PBL_1Beat    ((unsigned int)0x00000100)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 1 */
-   #define ETH_DMABMR_PBL_2Beat    ((unsigned int)0x00000200)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 2 */
-   #define ETH_DMABMR_PBL_4Beat    ((unsigned int)0x00000400)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 4 */
-   #define ETH_DMABMR_PBL_8Beat    ((unsigned int)0x00000800)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 8 */
-   #define ETH_DMABMR_PBL_16Beat   ((unsigned int)0x00001000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 16 */
-   #define ETH_DMABMR_PBL_32Beat   ((unsigned int)0x00002000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 32 */
-   #define ETH_DMABMR_PBL_4xPBL_4Beat   ((unsigned int)0x01000100)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 4 */
-   #define ETH_DMABMR_PBL_4xPBL_8Beat   ((unsigned int)0x01000200)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 8 */
-   #define ETH_DMABMR_PBL_4xPBL_16Beat  ((unsigned int)0x01000400)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 16 */
-   #define ETH_DMABMR_PBL_4xPBL_32Beat  ((unsigned int)0x01000800)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 32 */
-   #define ETH_DMABMR_PBL_4xPBL_64Beat  ((unsigned int)0x01001000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 64 */
-   #define ETH_DMABMR_PBL_4xPBL_128Beat ((unsigned int)0x01002000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 128 */
+#define ETH_DMABMR_AAB       		((unsigned int)0x02000000)  /* Address-Aligned beats */
+#define ETH_DMABMR_FPM        	((unsigned int)0x01000000)  /* 4xPBL mode */
+#define ETH_DMABMR_USP       		((unsigned int)0x00800000)  /* Use separate PBL */
+#define ETH_DMABMR_RDP       		((unsigned int)0x007E0000)  /* RxDMA PBL */
+#define ETH_DMABMR_RDP_1Beat    ((unsigned int)0x00020000)  /* maximum number of beats to be transferred in one RxDMA transaction is 1 */
+#define ETH_DMABMR_RDP_2Beat    ((unsigned int)0x00040000)  /* maximum number of beats to be transferred in one RxDMA transaction is 2 */
+#define ETH_DMABMR_RDP_4Beat    ((unsigned int)0x00080000)  /* maximum number of beats to be transferred in one RxDMA transaction is 4 */
+#define ETH_DMABMR_RDP_8Beat    ((unsigned int)0x00100000)  /* maximum number of beats to be transferred in one RxDMA transaction is 8 */
+#define ETH_DMABMR_RDP_16Beat   ((unsigned int)0x00200000)  /* maximum number of beats to be transferred in one RxDMA transaction is 16 */
+#define ETH_DMABMR_RDP_32Beat   ((unsigned int)0x00400000)  /* maximum number of beats to be transferred in one RxDMA transaction is 32 */
+#define ETH_DMABMR_RDP_4xPBL_4Beat   ((unsigned int)0x01020000)  /* maximum number of beats to be transferred in one RxDMA transaction is 4 */
+#define ETH_DMABMR_RDP_4xPBL_8Beat   ((unsigned int)0x01040000)  /* maximum number of beats to be transferred in one RxDMA transaction is 8 */
+#define ETH_DMABMR_RDP_4xPBL_16Beat  ((unsigned int)0x01080000)  /* maximum number of beats to be transferred in one RxDMA transaction is 16 */
+#define ETH_DMABMR_RDP_4xPBL_32Beat  ((unsigned int)0x01100000)  /* maximum number of beats to be transferred in one RxDMA transaction is 32 */
+#define ETH_DMABMR_RDP_4xPBL_64Beat  ((unsigned int)0x01200000)  /* maximum number of beats to be transferred in one RxDMA transaction is 64 */
+#define ETH_DMABMR_RDP_4xPBL_128Beat ((unsigned int)0x01400000)  /* maximum number of beats to be transferred in one RxDMA transaction is 128 */
+#define ETH_DMABMR_FB        		((unsigned int)0x00010000)  /* Fixed Burst */
+#define ETH_DMABMR_RTPR      		((unsigned int)0x0000C000)  /* Rx Tx priority ratio */
+#define ETH_DMABMR_RTPR_1_1     ((unsigned int)0x00000000)  /* Rx Tx priority ratio */
+#define ETH_DMABMR_RTPR_2_1     ((unsigned int)0x00004000)  /* Rx Tx priority ratio */
+#define ETH_DMABMR_RTPR_3_1     ((unsigned int)0x00008000)  /* Rx Tx priority ratio */
+#define ETH_DMABMR_RTPR_4_1     ((unsigned int)0x0000C000)  /* Rx Tx priority ratio */
+#define ETH_DMABMR_PBL    			((unsigned int)0x00003F00)  /* Programmable burst length */
+#define ETH_DMABMR_PBL_1Beat    ((unsigned int)0x00000100)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 1 */
+#define ETH_DMABMR_PBL_2Beat    ((unsigned int)0x00000200)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 2 */
+#define ETH_DMABMR_PBL_4Beat    ((unsigned int)0x00000400)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 4 */
+#define ETH_DMABMR_PBL_8Beat    ((unsigned int)0x00000800)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 8 */
+#define ETH_DMABMR_PBL_16Beat   ((unsigned int)0x00001000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 16 */
+#define ETH_DMABMR_PBL_32Beat   ((unsigned int)0x00002000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 32 */
+#define ETH_DMABMR_PBL_4xPBL_4Beat   ((unsigned int)0x01000100)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 4 */
+#define ETH_DMABMR_PBL_4xPBL_8Beat   ((unsigned int)0x01000200)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 8 */
+#define ETH_DMABMR_PBL_4xPBL_16Beat  ((unsigned int)0x01000400)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 16 */
+#define ETH_DMABMR_PBL_4xPBL_32Beat  ((unsigned int)0x01000800)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 32 */
+#define ETH_DMABMR_PBL_4xPBL_64Beat  ((unsigned int)0x01001000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 64 */
+#define ETH_DMABMR_PBL_4xPBL_128Beat ((unsigned int)0x01002000)  /* maximum number of beats to be transferred in one TxDMA (or both) transaction is 128 */
 #define ETH_DMABMR_EDE       ((unsigned int)0x00000080)  /* Enhanced Descriptor Enable */
 #define ETH_DMABMR_DSL       ((unsigned int)0x0000007C)  /* Descriptor Skip Length */
 #define ETH_DMABMR_DA        ((unsigned int)0x00000002)  /* DMA arbitration scheme */
@@ -1084,23 +1078,23 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 #define ETH_DMASR_PMTS       ((unsigned int)0x10000000)  /* PMT status */
 #define ETH_DMASR_MMCS       ((unsigned int)0x08000000)  /* MMC status */
 #define ETH_DMASR_EBS        ((unsigned int)0x03800000)  /* Error bits status */
-   #define ETH_DMASR_EBS_DescAccess      ((unsigned int)0x02000000)  /* Error bits 0-data buffer, 1-desc. access */
-   #define ETH_DMASR_EBS_ReadTransf      ((unsigned int)0x01000000)  /* Error bits 0-write trnsf, 1-read transfr */
-   #define ETH_DMASR_EBS_DataTransfTx    ((unsigned int)0x00800000)  /* Error bits 0-Rx DMA, 1-Tx DMA */
-#define ETH_DMASR_TPS         ((unsigned int)0x00700000)  /* Transmit process state */
-   #define ETH_DMASR_TPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Tx Command issued  */
-   #define ETH_DMASR_TPS_Fetching        ((unsigned int)0x00100000)  /* Running - fetching the Tx descriptor */
-   #define ETH_DMASR_TPS_Waiting         ((unsigned int)0x00200000)  /* Running - waiting for status */
-   #define ETH_DMASR_TPS_Reading         ((unsigned int)0x00300000)  /* Running - reading the data from host memory */
-   #define ETH_DMASR_TPS_Suspended       ((unsigned int)0x00600000)  /* Suspended - Tx Descriptor unavailabe */
-   #define ETH_DMASR_TPS_Closing         ((unsigned int)0x00700000)  /* Running - closing Rx descriptor */
-#define ETH_DMASR_RPS         ((unsigned int)0x000E0000)  /* Receive process state */
-   #define ETH_DMASR_RPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Rx Command issued */
-   #define ETH_DMASR_RPS_Fetching        ((unsigned int)0x00020000)  /* Running - fetching the Rx descriptor */
-   #define ETH_DMASR_RPS_Waiting         ((unsigned int)0x00060000)  /* Running - waiting for packet */
-   #define ETH_DMASR_RPS_Suspended       ((unsigned int)0x00080000)  /* Suspended - Rx Descriptor unavailable */
-   #define ETH_DMASR_RPS_Closing         ((unsigned int)0x000A0000)  /* Running - closing descriptor */
-   #define ETH_DMASR_RPS_Queuing         ((unsigned int)0x000E0000)  /* Running - queuing the recieve frame into host memory */
+#define ETH_DMASR_EBS_DescAccess      ((unsigned int)0x02000000)  /* Error bits 0-data buffer, 1-desc. access */
+#define ETH_DMASR_EBS_ReadTransf      ((unsigned int)0x01000000)  /* Error bits 0-write trnsf, 1-read transfr */
+#define ETH_DMASR_EBS_DataTransfTx    ((unsigned int)0x00800000)  /* Error bits 0-Rx DMA, 1-Tx DMA */
+#define ETH_DMASR_TPS         				((unsigned int)0x00700000)  /* Transmit process state */
+#define ETH_DMASR_TPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Tx Command issued  */
+#define ETH_DMASR_TPS_Fetching        ((unsigned int)0x00100000)  /* Running - fetching the Tx descriptor */
+#define ETH_DMASR_TPS_Waiting         ((unsigned int)0x00200000)  /* Running - waiting for status */
+#define ETH_DMASR_TPS_Reading         ((unsigned int)0x00300000)  /* Running - reading the data from host memory */
+#define ETH_DMASR_TPS_Suspended       ((unsigned int)0x00600000)  /* Suspended - Tx Descriptor unavailabe */
+#define ETH_DMASR_TPS_Closing         ((unsigned int)0x00700000)  /* Running - closing Rx descriptor */
+#define ETH_DMASR_RPS         				((unsigned int)0x000E0000)  /* Receive process state */
+#define ETH_DMASR_RPS_Stopped         ((unsigned int)0x00000000)  /* Stopped - Reset or Stop Rx Command issued */
+#define ETH_DMASR_RPS_Fetching        ((unsigned int)0x00020000)  /* Running - fetching the Rx descriptor */
+#define ETH_DMASR_RPS_Waiting         ((unsigned int)0x00060000)  /* Running - waiting for packet */
+#define ETH_DMASR_RPS_Suspended       ((unsigned int)0x00080000)  /* Suspended - Rx Descriptor unavailable */
+#define ETH_DMASR_RPS_Closing         ((unsigned int)0x000A0000)  /* Running - closing descriptor */
+#define ETH_DMASR_RPS_Queuing         ((unsigned int)0x000E0000)  /* Running - queuing the recieve frame into host memory */
 #define ETH_DMASR_NIS        ((unsigned int)0x00010000)  /* Normal interrupt summary */
 #define ETH_DMASR_AIS        ((unsigned int)0x00008000)  /* Abnormal interrupt summary */
 #define ETH_DMASR_ERS        ((unsigned int)0x00004000)  /* Early receive status */
@@ -1123,22 +1117,22 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 #define ETH_DMAOMR_TSF       ((unsigned int)0x00200000)  /* Transmit store and forward */
 #define ETH_DMAOMR_FTF       ((unsigned int)0x00100000)  /* Flush transmit FIFO */
 #define ETH_DMAOMR_TTC       ((unsigned int)0x0001C000)  /* Transmit threshold control */
-   #define ETH_DMAOMR_TTC_64Bytes       ((unsigned int)0x00000000)  /* threshold level of the MTL Transmit FIFO is 64 Bytes */
-   #define ETH_DMAOMR_TTC_128Bytes      ((unsigned int)0x00004000)  /* threshold level of the MTL Transmit FIFO is 128 Bytes */
-   #define ETH_DMAOMR_TTC_192Bytes      ((unsigned int)0x00008000)  /* threshold level of the MTL Transmit FIFO is 192 Bytes */
-   #define ETH_DMAOMR_TTC_256Bytes      ((unsigned int)0x0000C000)  /* threshold level of the MTL Transmit FIFO is 256 Bytes */
-   #define ETH_DMAOMR_TTC_40Bytes       ((unsigned int)0x00010000)  /* threshold level of the MTL Transmit FIFO is 40 Bytes */
-   #define ETH_DMAOMR_TTC_32Bytes       ((unsigned int)0x00014000)  /* threshold level of the MTL Transmit FIFO is 32 Bytes */
-   #define ETH_DMAOMR_TTC_24Bytes       ((unsigned int)0x00018000)  /* threshold level of the MTL Transmit FIFO is 24 Bytes */
-   #define ETH_DMAOMR_TTC_16Bytes       ((unsigned int)0x0001C000)  /* threshold level of the MTL Transmit FIFO is 16 Bytes */
+#define ETH_DMAOMR_TTC_64Bytes       ((unsigned int)0x00000000)  /* threshold level of the MTL Transmit FIFO is 64 Bytes */
+#define ETH_DMAOMR_TTC_128Bytes      ((unsigned int)0x00004000)  /* threshold level of the MTL Transmit FIFO is 128 Bytes */
+#define ETH_DMAOMR_TTC_192Bytes      ((unsigned int)0x00008000)  /* threshold level of the MTL Transmit FIFO is 192 Bytes */
+#define ETH_DMAOMR_TTC_256Bytes      ((unsigned int)0x0000C000)  /* threshold level of the MTL Transmit FIFO is 256 Bytes */
+#define ETH_DMAOMR_TTC_40Bytes       ((unsigned int)0x00010000)  /* threshold level of the MTL Transmit FIFO is 40 Bytes */
+#define ETH_DMAOMR_TTC_32Bytes       ((unsigned int)0x00014000)  /* threshold level of the MTL Transmit FIFO is 32 Bytes */
+#define ETH_DMAOMR_TTC_24Bytes       ((unsigned int)0x00018000)  /* threshold level of the MTL Transmit FIFO is 24 Bytes */
+#define ETH_DMAOMR_TTC_16Bytes       ((unsigned int)0x0001C000)  /* threshold level of the MTL Transmit FIFO is 16 Bytes */
 #define ETH_DMAOMR_ST        ((unsigned int)0x00002000)  /* Start/stop transmission command */
 #define ETH_DMAOMR_FEF       ((unsigned int)0x00000080)  /* Forward error frames */
 #define ETH_DMAOMR_FUGF      ((unsigned int)0x00000040)  /* Forward undersized good frames */
 #define ETH_DMAOMR_RTC       ((unsigned int)0x00000018)  /* receive threshold control */
-   #define ETH_DMAOMR_RTC_64Bytes       ((unsigned int)0x00000000)  /* threshold level of the MTL Receive FIFO is 64 Bytes */
-   #define ETH_DMAOMR_RTC_32Bytes       ((unsigned int)0x00000008)  /* threshold level of the MTL Receive FIFO is 32 Bytes */
-   #define ETH_DMAOMR_RTC_96Bytes       ((unsigned int)0x00000010)  /* threshold level of the MTL Receive FIFO is 96 Bytes */
-   #define ETH_DMAOMR_RTC_128Bytes      ((unsigned int)0x00000018)  /* threshold level of the MTL Receive FIFO is 128 Bytes */
+#define ETH_DMAOMR_RTC_64Bytes       ((unsigned int)0x00000000)  /* threshold level of the MTL Receive FIFO is 64 Bytes */
+#define ETH_DMAOMR_RTC_32Bytes       ((unsigned int)0x00000008)  /* threshold level of the MTL Receive FIFO is 32 Bytes */
+#define ETH_DMAOMR_RTC_96Bytes       ((unsigned int)0x00000010)  /* threshold level of the MTL Receive FIFO is 96 Bytes */
+#define ETH_DMAOMR_RTC_128Bytes      ((unsigned int)0x00000018)  /* threshold level of the MTL Receive FIFO is 128 Bytes */
 #define ETH_DMAOMR_OSF       ((unsigned int)0x00000004)  /* operate on second frame */
 #define ETH_DMAOMR_SR        ((unsigned int)0x00000002)  /* Start/stop receive */
 
@@ -1206,8 +1200,185 @@ Wake-UpFrame Filter Re7 : Filter3 CRC16 - Filter2 CRC16 */
 #define  ETH_ERROR              ((uint32_t)0)
 #define  ETH_SUCCESS            ((uint32_t)1)
 
+#if defined (CH32F20x_D8C) 
 extern ETH_DMADESCTypeDef  *DMATxDescToSet;
 extern ETH_DMADESCTypeDef  *DMARxDescToGet;
+#endif
+
+//CH32F20x_D8W
+/******************************************************************************/
+/*                                  ETH10M                                    */
+/******************************************************************************/
+/* ETH register */
+#define R8_ETH_EIE              (*((volatile uint8_t *)(0x40028000+3))) /* Interrupt Enable Register */
+#define  RB_ETH_EIE_INTIE       0x80                  /* RW interrupt enable*/
+#define  RB_ETH_EIE_RXIE        0x40                  /* RW Receive complete interrupt enable */
+#define  RB_ETH_EIE_LINKIE      0x10                  /* RW Link Change Interrupt Enable */
+#define  RB_ETH_EIE_TXIE        0x08                  /* RW send complete interrupt enable */
+#define  RB_ETH_EIE_R_EN50      0x04                  /* RW TX 50¦¸ resistor adjustment. 1: On-chip 50¦¸ connected 0: On-chip 50¦¸ disconnected */
+#define  RB_ETH_EIE_TXERIE      0x02                  /* RW Transmit Error Interrupt Enable */
+#define  RB_ETH_EIE_RXERIE      0x01                  /* RW1 receive error flag */
+#define R8_ETH_EIR              (*((volatile uint8_t *)(0x40028000+4))) /* Interrupt Flag Register */
+#define  RB_ETH_EIR_RXIF        0x40                  /* RW1 Receive complete flag */
+#define  RB_ETH_EIR_LINKIF      0x10                  /* RW1 Link Change Flag */
+#define  RB_ETH_EIR_TXIF        0x08                  /* RW1 Link Change Flag */
+#define  RB_ETH_EIR_TXERIF      0x02                  /* RW1 send error flag */
+#define  RB_ETH_EIR_RXERIF      0x01                  /* RW1 receive error flag */
+#define R8_ETH_ESTAT            (*((volatile uint8_t *)(0x40028000+5))) /* status register */
+#define  RB_ETH_ESTAT_INT       0x80                  /* RW1 interrupt */
+#define  RB_ETH_ESTAT_BUFER     0x40                  /* RW1 Buffer error */
+#define  RB_ETH_ESTAT_RXCRCER   0x20                  /* RO receive crc error */
+#define  RB_ETH_ESTAT_RXNIBBLE  0x10                  /* RO receives nibble error */
+#define  RB_ETH_ESTAT_RXMORE    0x08                  /* RO receives more than maximum packets */
+#define  RB_ETH_ESTAT_RXBUSY    0x04                  /* RO receive busy */
+#define  RB_ETH_ESTAT_TXABRT    0x02                  /* RO send interrupted by mcu */
+#define R8_ETH_ECON2            (*((volatile uint8_t *)(0x40028000+6))) /* ETH PHY Analog Block Control Register */
+#define  RB_ETH_ECON2_RX        0x0E                  /* 011b must be written */
+#define  RB_ETH_ECON2_TX        0x01
+#define  RB_ETH_ECON2_MUST      0x06                  /* 011b must be written */
+#define R8_ETH_ECON1            (*((volatile uint8_t *)(0x40028000+7))) /* Transceiver Control Register */
+#define  RB_ETH_ECON1_TXRST     0x80                  /* RW Send module reset */
+#define  RB_ETH_ECON1_RXRST     0x40                  /* RW Receiver module reset */
+#define  RB_ETH_ECON1_TXRTS     0x08                  /* RW The transmission starts, and it is automatically cleared after the transmission is completed. */
+#define  RB_ETH_ECON1_RXEN      0x04                  /* RW Receive is enabled, when cleared, the error flag RXERIF will change to 1 if it is receiving */
+
+#define R32_ETH_TX              (*((volatile uint32_t *)(0x40028000+8))) /* send control */
+#define R16_ETH_ETXST           (*((volatile uint16_t *)(0x40028000+8))) /* RW Send DMA buffer start address */
+#define R16_ETH_ETXLN           (*((volatile uint16_t *)(0x40028000+0xA))) /* RW send length */
+#define R32_ETH_RX              (*((volatile uint32_t *)(0x40028000+0xC))) /* receive control */
+#define R16_ETH_ERXST           (*((volatile uint16_t *)(0x40028000+0xC))) /* RW Receive DMA buffer start address */
+#define R16_ETH_ERXLN           (*((volatile uint16_t *)(0x40028000+0xE))) /* RO receive length */
+
+#define R32_ETH_HTL             (*((volatile uint32_t *)(0x40028000+0x10)))
+#define R8_ETH_EHT0             (*((volatile uint8_t *)(0x40028000+0x10))) /* RW Hash Table Byte0 */
+#define R8_ETH_EHT1             (*((volatile uint8_t *)(0x40028000+0x11))) /* RW Hash Table Byte1 */
+#define R8_ETH_EHT2             (*((volatile uint8_t *)(0x40028000+0x12))) /* RW Hash Table Byte2 */
+#define R8_ETH_EHT3             (*((volatile uint8_t *)(0x40028000+0x13))) /* RW Hash Table Byte3 */
+#define R32_ETH_HTH             (*((volatile uint32_t *)(0x40028000+0x14)))
+#define R8_ETH_EHT4             (*((volatile uint8_t *)(0x40028000+0x14))) /* RW Hash Table Byte4 */
+#define R8_ETH_EHT5             (*((volatile uint8_t *)(0x40028000+0x15))) /* RW Hash Table Byte5 */
+#define R8_ETH_EHT6             (*((volatile uint8_t *)(0x40028000+0x16))) /* RW Hash Table Byte6 */
+#define R8_ETH_EHT7             (*((volatile uint8_t *)(0x40028000+0x17))) /* RW Hash Table Byte7 */
+
+#define R32_ETH_MACON           (*((volatile uint32_t *)(0x40028000+0x18)))
+#define R8_ETH_ERXFCON          (*((volatile uint8_t *)(0x40028000+0x18))) /* Received Packet Filtering Control Register */
+/* RW 0=Do not enable this filter condition, 1=When ANDOR=1,
+target address mismatch will be filtered, when ANDOR=0, target address match will be accepted */
+#define  RB_ETH_ERXFCON_UCEN    0x80
+/* RW 1=AND, all the filter conditions are satisfied before
+the packet is received 0=OR, any filter condition is satisfied and the packet is received */
+#define  RB_ETH_ERXFCON_ANDOR   0x40
+/* RW 0=Do not enable this filter condition, 1=When ANDOR=1,
+CRC check error will be filtered, when ANDOR=0, CRC check error will be received */
+#define  RB_ETH_ERXFCON_CRCEN   0x20
+/* RW 0=Do not enable this filter condition, 1=When ANDOR=1,
+ non-magic packets will be filtered, when ANDOR=0, magic packets will be received */
+#define  RB_ETH_ERXFCON_MPEN    0x08
+/* RW 0=Do not enable this filter condition, 1=When ANDOR=1,
+hash table mismatch will be filtered, when ANDOR=0, hash table match will be accepted */
+#define  RB_ETH_ERXFCON_HTEN    0x04
+/* RW 0=Do not enable this filter condition, 1=When ANDOR=1,
+ multicast packets that do not match will be filtered, and when ANDOR=0, multicast packets that match will be received */
+#define  RB_ETH_ERXFCON_MCEN    0x02
+/* RW 0=Do not enable this filter condition, 1=When ANDOR=1,
+non-broadcast packets will be filtered, when ANDOR=0, broadcast packets will be received */
+#define  RB_ETH_ERXFCON_BCEN    0x01
+#define R8_ETH_MACON1           (*((volatile uint8_t *)(0x40028000+0x19))) /* Mac flow control registers */
+/* RW When FULDPX=0 is invalid, when FULDPX=1, 11=send 0 timer pause frame,
+then stop sending, 10=send pause frame periodically, 01=send pause frame once, then stop sending, 00=stop sending pause frame */
+#define  RB_ETH_MACON1_FCEN     0x30
+#define  RB_ETH_MACON1_TXPAUS   0x08                  /* RW Send pause frame enable*/
+#define  RB_ETH_MACON1_RXPAUS   0x04                  /* RW Receive pause frame enable */
+#define  RB_ETH_MACON1_PASSALL  0x02                  /* RW 1=Unfiltered control frames will be written to the buffer, 0=Control frames will be filtered */
+#define  RB_ETH_MACON1_MARXEN   0x01                  /* RW MAC layer receive enable */
+#define R8_ETH_MACON2           (*((volatile uint8_t *)(0x40028000+0x1A))) /* Mac Layer Packet Control Register */
+#define  RB_ETH_MACON2_PADCFG   0xE0                  /* RW Short Packet Padding Settings */
+#define  RB_ETH_MACON2_TXCRCEN  0x10                  /* RW Send to add crc, if you need to add crc in PADCFG, this position is 1 */
+#define  RB_ETH_MACON2_PHDREN   0x08                  /* RW Special 4 bytes do not participate in crc check */
+#define  RB_ETH_MACON2_HFRMEN   0x04                  /* RW Allow jumbo frames */
+#define  RB_ETH_MACON2_FULDPX   0x01                  /* RW full duplex */
+#define R8_ETH_MABBIPG          (*((volatile uint8_t *)(0x40028000+0x1B))) /* Minimum Interpacket Interval Register */
+#define  RB_ETH_MABBIPG_MABBIPG 0x7F                  /* RW Minimum number of bytes between packets */
+
+#define R32_ETH_TIM             (*((volatile uint32_t *)(0x40028000+0x1C)))
+#define R16_ETH_EPAUS           (*((volatile uint16_t *)(0x40028000+0x1C))) /* RW Flow Control Pause Frame Time Register */
+#define R16_ETH_MAMXFL          (*((volatile uint16_t *)(0x40028000+0x1E))) /* RW Maximum Received Packet Length Register */
+#define R16_ETH_MIRD            (*((volatile uint16_t *)(0x40028000+0x20))) /* RW MII read data register */
+
+#define R32_ETH_MIWR            (*((volatile uint32_t *)(0x40028000+0x24)))
+#define R8_ETH_MIREGADR         (*((volatile uint8_t *)(0x40028000+0x24))) /* MII address register*/
+#define  RB_ETH_MIREGADR_MASK   0x1F                  /* RW PHY register address mask */
+#define R8_ETH_MISTAT           (*((volatile uint8_t *)(0x40028000+0x25))) /* RW PHY register address mask */
+//#define  RB_ETH_MIREGADR_MIIWR  0x20                  /* WO MII write command */
+#define R16_ETH_MIWR            (*((volatile uint16_t *)(0x40028000+0x26))) /* WO MII Write Data Register */
+#define R32_ETH_MAADRL          (*((volatile uint32_t *)(0x40028000+0x28))) /* RW MAC 1-4 */
+#define R8_ETH_MAADRL1          (*((volatile uint8_t *)(0x40028000+0x28))) /* RW MAC 1 */
+#define R8_ETH_MAADRL2          (*((volatile uint8_t *)(0x40028000+0x29))) /* RW MAC 2 */
+#define R8_ETH_MAADRL3          (*((volatile uint8_t *)(0x40028000+0x2A))) /* RW MAC 3 */
+#define R8_ETH_MAADRL4          (*((volatile uint8_t *)(0x40028000+0x2B))) /* RW MAC 4 */
+#define R16_ETH_MAADRH          (*((volatile uint16_t *)(0x40028000+0x2C))) /* RW MAC 5-6 */
+#define R8_ETH_MAADRL5          (*((volatile uint8_t *)(0x40028000+0x2C))) /* RW MAC 4 */
+#define R8_ETH_MAADRL6          (*((volatile uint8_t *)(0x40028000+0x2D))) /* RW MAC 4 */
+
+//PHY address
+#define PHY_BMCR                0x00                                            /* Control Register */
+#define PHY_BMSR                0x01                                            /* Status Register */
+#define PHY_BCR                 PHY_BMCR
+#define PHY_BSR                 PHY_BMSR
+#define PHY_ANAR                0x04                                            /* Auto-Negotiation Advertisement Register */
+#define PHY_ANLPAR              0x05                                            /* Auto-Negotiation Link Partner Base  Page Ability Register*/
+#define PHY_ANER                0x06                                            /* Auto-Negotiation Expansion Register */
+#define PHY_STATUS              0x10
+#define PHY_MDIX                0x1e                                            /* Custom MDIX Mode Register */
+//Custom MDIX Mode Register  @PHY_MDIX
+#define PN_NORMAL               0x04                                            /* Analog p, n polarity selection */
+#define MDIX_MODE_MASK          0x03                                            /* mdix settings */
+#define MDIX_MODE_AUTO          0x00                                            /*  */
+#define MDIX_MODE_MDIX          0x01
+#define MDIX_MODE_MDI           0x02
+//ECON2 test mode, to be determined
+#define RX_VCM_MODE_0
+#define RX_VCM_MODE_1
+#define RX_VCM_MODE_2
+#define RX_VCM_MODE_3
+//RX reference voltage value setting  @RX_REF
+#define RX_REF_25mV             (0<<2)                                          /* 25mV */
+#define RX_REF_49mV             (1<<2)                                          /* 49mV */
+#define RX_REF_74mV             (2<<2)                                          /* 74mV */
+#define RX_REF_98mV             (3<<2)                                          /* 98mV */
+#define RX_REF_123mV            (4<<2)                                          /* 123mV */
+#define RX_REF_148mV            (5<<2)                                          /* 148mV */
+#define RX_REF_173mV            (6<<2)                                          /* 173mV */
+#define RX_REF_198mV            (7<<2)                                          /* 198mV */
+//TX DRIVER Bias Current  @TX_AMP
+#define TX_AMP_0                (0<<0)                                          /* 43mA   / 14.5mA   (1.4V/0.7V) */
+#define TX_AMP_1                (1<<0)                                          /* 53.1mA / 18mA     (1.8V/0.9V) */
+#define TX_AMP_2                (2<<0)                                          /* 75.6mA / 25.6mA   (2.6V/1.3V) */
+#define TX_AMP_3                (3<<0)                                          /* 122mA  / 41.45mA  (4.1V/2.3V) */
+//FCEN pause frame control      @FCEN
+#define FCEN_0_TIMER            (3<<4)                                          /* Send a 0 timer pause frame, then stop sending */
+#define FCEN_CYCLE              (2<<4)                                          /* Periodically send pause frames */
+#define FCEN_ONCE               (1<<4)                                          /* Send pause frame once, then stop sending */
+#define FCEN_STOP               (0<<4)                                          /* Stop sending pause frames */
+//PADCFG short packet control  @PADCFG
+#define PADCFG_AUTO_0           (7<<5)                                          /* All short packets are filled with 00h to 64 bytes, then 4 bytes crc */
+#define PADCFG_NO_ACT_0         (6<<5)                                          /* No padding for short packets */
+/* The detected VLAN network packet whose field is 8100h is automatically filled
+with 00h to 64 bytes, otherwise the short packet is filled with 60 bytes of 0, and then 4 bytes of crc after filling */
+#define PADCFG_DETE_AUTO        (5<<5)
+#define PADCFG_NO_ACT_1         (4<<5)                                          /* No padding for short packets */
+#define PADCFG_AUTO_1           (3<<5)                                          /* All short packets are filled with 00h to 64 bytes, then 4 bytes crc */
+#define PADCFG_NO_ACT_2         (2<<5)                                          /* No padding for short packets */
+#define PADCFG_AUTO_3           (1<<5)                                          /* All short packets are filled with 00h to 60 bytes, and then 4 bytes crc */
+#define PADCFG_NO_ACT_3         (0<<5)                                          /* No padding for short packets */
+
+/* Bit or field definition for PHY basic status register */
+#define PHY_Linked_Status       ((uint16_t)0x0004)      /* Valid link established */
+
+//MII control
+#define  RB_ETH_MIREGADR_MIIWR  0x20                                            /* WO MII write command */
+#define  RB_ETH_MIREGADR_MIRDL  0x1f                                            /* RW PHY register address */
+
 
 void ETH_DeInit(void);
 void ETH_StructInit(ETH_InitTypeDef* ETH_InitStruct);

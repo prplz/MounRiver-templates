@@ -360,7 +360,7 @@ void GPIO_PinLockConfig(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
  *            GPIO_Remap_ADC1_ETRGINJ - ADC1 External Trigger Injected Conversion remapping
  *            GPIO_Remap_ADC1_ETRGREG - ADC1 External Trigger Regular Conversion remapping
  *            GPIO_Remap_LSI_CAL - LSI calibration Alternate Function mapping
- *            GPIO_Remap_SWJ_Disable - SDI Disabled
+ *            GPIO_Remap_SDI_Disable - SDI Disabled
  *          NewState - ENABLE or DISABLE.
  *
  * @return  none

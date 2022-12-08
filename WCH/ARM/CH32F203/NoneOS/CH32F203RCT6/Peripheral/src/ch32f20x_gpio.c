@@ -18,6 +18,10 @@
 #define DBGAFR_LOCATION_MASK        ((uint32_t)0x00200000)
 #define DBGAFR_NUMBITS_MASK         ((uint32_t)0x00100000)
 
+#if defined (CH32F20x_D6)	
+uint8_t MCU_Version = 0;
+#endif
+
 /*********************************************************************
  * @fn      GPIO_DeInit
  *
@@ -94,8 +98,13 @@ void GPIO_Init( GPIO_TypeDef *GPIOx, GPIO_InitTypeDef *GPIO_InitStruct )
     }
 
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
-			GPIO_InitStruct->GPIO_Pin = GPIO_InitStruct->GPIO_Pin >> 13;
+		if(((*(uint32_t *) 0x40022030) & 0x0F000000) == 0)
+		{
+				MCU_Version = 1;
+		}
+		
+		if((GPIOx == GPIOC) && MCU_Version){
+				GPIO_InitStruct->GPIO_Pin = GPIO_InitStruct->GPIO_Pin >> 13;
 		}
 	
 #endif
@@ -193,7 +202,7 @@ uint8_t GPIO_ReadInputDataBit( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
     uint8_t bitstatus = 0x00;
 	
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			GPIO_Pin = GPIO_Pin >> 13;
 		}
 	
@@ -225,7 +234,7 @@ uint16_t GPIO_ReadInputData( GPIO_TypeDef *GPIOx )
 		uint16_t val;
 	
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			val = ( uint16_t )(GPIOx->INDR << 13);
 		}
 		else{
@@ -255,7 +264,7 @@ uint8_t GPIO_ReadOutputDataBit( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
     uint8_t bitstatus = 0x00;
 	
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			GPIO_Pin = GPIO_Pin >> 13;
 		}
 	
@@ -287,7 +296,7 @@ uint16_t GPIO_ReadOutputData( GPIO_TypeDef *GPIOx )
 		uint16_t val;
 	
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			val = ( uint16_t )(GPIOx->OUTDR << 13);
 		}
 		else{
@@ -316,7 +325,7 @@ uint16_t GPIO_ReadOutputData( GPIO_TypeDef *GPIOx )
 void GPIO_SetBits( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
 {
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			GPIO_Pin = GPIO_Pin >> 13;
 		}
 	
@@ -339,7 +348,7 @@ void GPIO_SetBits( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
 void GPIO_ResetBits( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
 {
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			GPIO_Pin = GPIO_Pin >> 13;
 		}
 	
@@ -364,7 +373,7 @@ void GPIO_ResetBits( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
 void GPIO_WriteBit( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, BitAction BitVal )
 {
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			GPIO_Pin = GPIO_Pin >> 13;
 		}
 	
@@ -393,7 +402,7 @@ void GPIO_WriteBit( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin, BitAction BitVal )
 void GPIO_Write( GPIO_TypeDef *GPIOx, uint16_t PortVal )
 {
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			PortVal = PortVal >> 13;
 		}
 	
@@ -418,7 +427,7 @@ void GPIO_PinLockConfig( GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin )
     uint32_t tmp = 0x00010000;
 
 #if defined (CH32F20x_D6)	
-		if(GPIOx == GPIOC){
+		if((GPIOx == GPIOC) && MCU_Version){
 			GPIO_Pin = GPIO_Pin >> 13;
 		}
 	
@@ -547,7 +556,9 @@ void GPIO_PinRemapConfig( uint32_t GPIO_Remap, FunctionalState NewState )
         tmpreg = AFIO->PCFR1;
 			
 #if defined (CH32F20x_D6)
+		if(((*(uint32_t *) 0x40022030) & 0x0F000000) == 0){
 				tmpreg = ((tmpreg>>1)&0xFFFFE000)|(tmpreg&0x00001FFF);
+		}
 			
 #endif
 			
@@ -629,7 +640,7 @@ void GPIO_EXTILineConfig( uint8_t GPIO_PortSource, uint8_t GPIO_PinSource )
     uint32_t tmp = 0x00;
 
 #if defined (CH32F20x_D6)	
-		if(GPIO_PortSource == GPIO_PortSourceGPIOC){
+		if((GPIO_PortSource == GPIO_PortSourceGPIOC) && MCU_Version){
 			GPIO_PinSource -= 13;
 		}
 	

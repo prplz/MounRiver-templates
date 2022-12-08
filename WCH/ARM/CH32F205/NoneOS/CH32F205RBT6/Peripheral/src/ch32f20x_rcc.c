@@ -151,7 +151,7 @@ ErrorStatus RCC_WaitForHSEStartUp( void )
 {
     __IO uint32_t StartUpCounter = 0;
 
-    ErrorStatus status = ERROR;
+    ErrorStatus status = NoREADY;
     FlagStatus HSEStatus = RESET;
 
     do
@@ -163,11 +163,11 @@ ErrorStatus RCC_WaitForHSEStartUp( void )
 
     if( RCC_GetFlagStatus( RCC_FLAG_HSERDY ) != RESET )
     {
-        status = SUCCESS;
+        status = READY;
     }
     else
     {
-        status = ERROR;
+        status = NoREADY;
     }
 
     return ( status );
@@ -226,7 +226,7 @@ void RCC_HSICmd( FunctionalState NewState )
  *        entry.
  *          RCC_PLLMul - specifies the PLL multiplication factor.
  *            This parameter can be RCC_PLLMul_x where x:[2,16].
- *            For CH32V307 -
+ *            For CH32F207 -CH32F205
  *              RCC_PLLMul_18_EXTEN
  *              RCC_PLLMul_3_EXTEN
  *              RCC_PLLMul_4_EXTEN
@@ -243,7 +243,7 @@ void RCC_HSICmd( FunctionalState NewState )
  *              RCC_PLLMul_6_5_EXTEN
  *              RCC_PLLMul_15_EXTEN
  *              RCC_PLLMul_16_EXTEN
- *            For other CH32V30x -
+ *            For other CH32F20x -
  *              RCC_PLLMul_2
  *              RCC_PLLMul_3
  *              RCC_PLLMul_4
@@ -397,11 +397,10 @@ void RCC_PCLK1Config( uint32_t RCC_HCLK )
  *
  * @param   RCC_HCLK - defines the APB2 clock divider. This clock is derived from
  *        the AHB clock (HCLK).
- *            RCC_HCLK_Div1 - APB1 clock = HCLK.
- *            RCC_HCLK_Div2 - APB1 clock = HCLK/2.
- *            RCC_HCLK_Div4 - APB1 clock = HCLK/4.
- *            RCC_HCLK_Div8 - APB1 clock = HCLK/8.
- *            RCC_HCLK_Div16 - APB1 clock = HCLK/16.
+ *            RCC_PCLK2_Div2 - APB2 clock = HCLK.
+ *            RCC_PCLK2_Div4 - APB2 clock = HCLK/2.
+ *            RCC_PCLK2_Div6 - APB2 clock = HCLK/4.
+ *            RCC_PCLK2_Div8 - APB2 clock = HCLK/8.
  *
  * @return  none
  */
@@ -590,8 +589,14 @@ void RCC_RTCCLKCmd( FunctionalState NewState )
  */
 void RCC_GetClocksFreq( RCC_ClocksTypeDef *RCC_Clocks )
 {
-    uint32_t tmp = 0, pllmull = 0, pllsource = 0, presc = 0, Pll_6_5 = 0;
-
+    uint32_t tmp = 0, pllmull = 0, pllsource = 0, presc = 0;
+    uint8_t Pll_6_5 = 0;
+	
+#if defined (CH32F20x_D8C)	
+	  uint8_t Pll2mull = 0;
+	
+#endif	
+	
     tmp = RCC->CFGR0 & CFGR0_SWS_Mask;
 
     switch( tmp )
@@ -648,6 +653,34 @@ void RCC_GetClocksFreq( RCC_ClocksTypeDef *RCC_Clocks )
             }
             else
             {
+							
+#if defined (CH32F20x_D8C)	
+                if(RCC->CFGR2 & (1<<16)){ /* PLL2 */
+                    RCC_Clocks->SYSCLK_Frequency = HSE_VALUE/(((RCC->CFGR2 & 0xF0)>>4) + 1);  /* PREDIV2 */
+
+                    Pll2mull = (uint8_t)((RCC->CFGR2 & 0xF00)>>8);
+
+                    if(Pll2mull == 0) RCC_Clocks->SYSCLK_Frequency = (RCC_Clocks->SYSCLK_Frequency * 5)>>1;
+                    else if(Pll2mull == 1) RCC_Clocks->SYSCLK_Frequency = (RCC_Clocks->SYSCLK_Frequency * 25)>>1;
+                    else if(Pll2mull == 15) RCC_Clocks->SYSCLK_Frequency = RCC_Clocks->SYSCLK_Frequency * 20;
+                    else  RCC_Clocks->SYSCLK_Frequency = RCC_Clocks->SYSCLK_Frequency * (Pll2mull + 2);
+
+                    RCC_Clocks->SYSCLK_Frequency = RCC_Clocks->SYSCLK_Frequency/((RCC->CFGR2 & 0xF) + 1);  /* PREDIV1 */
+                }
+                else{/* HSE */
+                    RCC_Clocks->SYSCLK_Frequency = HSE_VALUE/((RCC->CFGR2 & 0xF) + 1);  /* PREDIV1 */
+                }
+
+                RCC_Clocks->SYSCLK_Frequency = RCC_Clocks->SYSCLK_Frequency * pllmull;
+#else						
+							
+#if defined (CH32F20x_D8W)
+								if((RCC->CFGR0 & (3<<22)) == (3<<22))
+								{
+										RCC_Clocks->SYSCLK_Frequency = ((HSE_VALUE>>1)) * pllmull;
+								}
+								else
+#endif							
                 if( ( RCC->CFGR0 & CFGR0_PLLXTPRE_Mask ) != ( uint32_t )RESET )
                 {
 #if defined (CH32F20x_D8W)
@@ -664,6 +697,8 @@ void RCC_GetClocksFreq( RCC_ClocksTypeDef *RCC_Clocks )
                     RCC_Clocks->SYSCLK_Frequency = HSE_VALUE * pllmull;
 #endif
                 }
+								
+#endif								
             }
 
             if( Pll_6_5 == 1 )

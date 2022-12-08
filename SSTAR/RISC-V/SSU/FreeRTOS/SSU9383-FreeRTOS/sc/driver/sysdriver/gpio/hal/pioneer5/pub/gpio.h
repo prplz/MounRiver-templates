@@ -1,0 +1,209 @@
+/* SigmaStar trade secret */
+/* Copyright (c) [2019~2020] SigmaStar Technology.
+All rights reserved.
+
+Unless otherwise stipulated in writing, any and all information contained
+herein regardless in any format shall remain the sole proprietary of
+SigmaStar and be kept in strict confidence
+(SigmaStar Confidential Information) by the recipient.
+Any unauthorized act including without limitation unauthorized disclosure,
+copying, use, reproduction, sale, distribution, modification, disassembling,
+reverse engineering and compiling of the contents of SigmaStar Confidential
+Information is unlawful and strictly prohibited. SigmaStar hereby reserves the
+rights to any and all damages, losses, costs and expenses resulting therefrom.
+*/
+
+#ifndef ___GPIO_H
+#define ___GPIO_H
+
+#define PAD_I2C5_SCL                    0
+#define PAD_I2C5_SDA                    1
+#define PAD_SD0_GPIO0                   2
+#define PAD_SD0_VCTRL                   3
+#define PAD_SD0_CDZ                     4
+#define PAD_SD0_D1                      5
+#define PAD_SD0_D0                      6
+#define PAD_SD0_CLK                     7
+#define PAD_SD0_CMD                     8
+#define PAD_SD0_D3                      9
+#define PAD_SD0_D2                      10
+#define PAD_KEY0                        11
+#define PAD_KEY1                        12
+#define PAD_KEY2                        13
+#define PAD_KEY3                        14
+#define PAD_KEY4                        15
+#define PAD_KEY5                        16
+#define PAD_KEY6                        17
+#define PAD_KEY7                        18
+#define PAD_KEY8                        19
+#define PAD_KEY9                        20
+#define PAD_KEY10                       21
+#define PAD_KEY11                       22
+#define PAD_KEY12                       23
+#define PAD_KEY13                       24
+#define PAD_PM_PWM0                     25
+#define PAD_PM_PWM1                     26
+#define PAD_PM_I2CM_SCL                 27
+#define PAD_PM_I2CM_SDA                 28
+#define PAD_PM_UART_RX0                 29
+#define PAD_PM_UART_TX0                 30
+#define PAD_PM_IR_RX                    31
+#define PAD_PM_GPIO0                    32
+#define PAD_PM_GPIO1                    33
+#define PAD_PM_GPIO2                    34
+#define PAD_PM_GPIO3                    35
+#define PAD_PM_GPIO4                    36
+#define PAD_PM_GPIO5                    37
+#define PAD_PM_SPI_WPZ                  38
+#define PAD_PM_SPI_DO                   39
+#define PAD_PM_SPI_CZ                   40
+#define PAD_PM_SPI_HLD                  41
+#define PAD_PM_SPI_CK                   42
+#define PAD_PM_SPI_DI                   43
+#define PAD_EMMC_RSTN                   44
+#define PAD_EMMC_CLK                    45
+#define PAD_EMMC_CMD                    46
+#define PAD_EMMC_DS                     47
+#define PAD_EMMC_D3                     48
+#define PAD_EMMC_D4                     49
+#define PAD_EMMC_D0                     50
+#define PAD_EMMC_D5                     51
+#define PAD_EMMC_D1                     52
+#define PAD_EMMC_D6                     53
+#define PAD_EMMC_D2                     54
+#define PAD_EMMC_D7                     55
+#define PAD_OUTP_RX1_CH_0               56
+#define PAD_OUTN_RX1_CH_0               57
+#define PAD_OUTP_RX1_CH_1               58
+#define PAD_OUTN_RX1_CH_1               59
+#define PAD_OUTP_RX1_CH_2               60
+#define PAD_OUTN_RX1_CH_2               61
+#define PAD_OUTP_RX1_CH_3               62
+#define PAD_OUTN_RX1_CH_3               63
+#define PAD_OUTP_RX0_CH_0               64
+#define PAD_OUTN_RX0_CH_0               65
+#define PAD_OUTP_RX0_CH_1               66
+#define PAD_OUTN_RX0_CH_1               67
+#define PAD_OUTP_RX0_CH_2               68
+#define PAD_OUTN_RX0_CH_2               69
+#define PAD_OUTP_RX0_CH_3               70
+#define PAD_OUTN_RX0_CH_3               71
+#define PAD_OUTP_RX0_CH_4               72
+#define PAD_OUTN_RX0_CH_4               73
+#define PAD_OUTP_RX0_CH_5               74
+#define PAD_OUTN_RX0_CH_5               75
+#define PAD_SPDIF_TX                    76
+#define PAD_SR_IO3                      77
+#define PAD_SR_IO2                      78
+#define PAD_SR_IO1                      79
+#define PAD_SR_IO0                      80
+#define PAD_SR_PDN1                     81
+#define PAD_SR_MCLK1                    82
+#define PAD_SR_RST1                     83
+#define PAD_I2C1_SDA                    84
+#define PAD_I2C1_SCL                    85
+#define PAD_SR_PDN0                     86
+#define PAD_SR_MCLK0                    87
+#define PAD_SR_RST0                     88
+#define PAD_I2C0_SDA                    89
+#define PAD_I2C0_SCL                    90
+#define PAD_SR_PDN2                     91
+#define PAD_SR_MCLK2                    92
+#define PAD_SR_RST2                     93
+#define PAD_I2C2_SDA                    94
+#define PAD_I2C2_SCL                    95
+#define PAD_SR_PDN3                     96
+#define PAD_SR_MCLK3                    97
+#define PAD_SR_RST3                     98
+#define PAD_I2C3_SDA                    99
+#define PAD_I2C3_SCL                    100
+#define PAD_PWM_OUT0                    101
+#define PAD_PWM_OUT1                    102
+#define PAD_PWM_OUT2                    103
+#define PAD_PWM_OUT3                    104
+#define PAD_PWM_OUT4                    105
+#define PAD_PWM_OUT5                    106
+#define PAD_PWM_OUT6                    107
+#define PAD_PWM_OUT7                    108
+#define PAD_PWM_OUT8                    109
+#define PAD_PWM_OUT9                    110
+#define PAD_PWM_OUT10                   111
+#define PAD_PWM_OUT11                   112
+#define PAD_OUTP_TX0_CH_0               113
+#define PAD_OUTN_TX0_CH_0               114
+#define PAD_OUTP_TX0_CH_1               115
+#define PAD_OUTN_TX0_CH_1               116
+#define PAD_OUTP_TX0_CH_2               117
+#define PAD_OUTN_TX0_CH_2               118
+#define PAD_OUTP_TX0_CH_3               119
+#define PAD_OUTN_TX0_CH_3               120
+#define PAD_OUTP_TX0_CH_4               121
+#define PAD_OUTN_TX0_CH_4               122
+#define PAD_OUTP_TX1_CH_0               123
+#define PAD_OUTN_TX1_CH_0               124
+#define PAD_OUTP_TX1_CH_1               125
+#define PAD_OUTN_TX1_CH_1               126
+#define PAD_OUTP_TX1_CH_2               127
+#define PAD_OUTN_TX1_CH_2               128
+#define PAD_OUTP_TX1_CH_3               129
+#define PAD_OUTN_TX1_CH_3               130
+#define PAD_OUTP_TX1_CH_4               131
+#define PAD_OUTN_TX1_CH_4               132
+#define PAD_SAR_ADC_0                   133
+#define PAD_SAR_ADC_1                   134
+#define PAD_SAR_ADC_2                   135
+#define PAD_SAR_ADC_3                   136
+#define PAD_SAR_ADC_4                   137
+#define PAD_SAR_ADC_5                   138
+#define PAD_SAR_ADC_6                   139
+#define PAD_SAR_ADC_7                   140
+#define PAD_SAR_ADC_8                   141
+#define PAD_SAR_ADC_9                   142
+#define PAD_SAR_ADC_10                  143
+#define PAD_SAR_ADC_11                  144
+#define PAD_SAR_ADC_12                  145
+#define PAD_SAR_ADC_13                  146
+#define PAD_SAR_ADC_14                  147
+#define PAD_SAR_ADC_15                  148
+#define PAD_SAR_ADC_16                  149
+#define PAD_SAR_ADC_17                  150
+#define PAD_SAR_ADC_18                  151
+#define PAD_SAR_ADC_19                  152
+#define PAD_SAR_ADC_20                  153
+#define PAD_SAR_ADC_21                  154
+#define PAD_SAR_ADC_22                  155
+#define PAD_SAR_ADC_23                  156
+#define PAD_SR_IO4                      157
+#define PAD_RGMII0_MCLK                 158
+#define PAD_RGMII0_RSTN                 159
+#define PAD_RGMII0_RXCLK                160
+#define PAD_RGMII0_RXCTL                161
+#define PAD_RGMII0_RXD0                 162
+#define PAD_RGMII0_RXD1                 163
+#define PAD_RGMII0_RXD2                 164
+#define PAD_RGMII0_RXD3                 165
+#define PAD_RGMII0_TXCLK                166
+#define PAD_RGMII0_TXCTL                167
+#define PAD_RGMII0_TXD0                 168
+#define PAD_RGMII0_TXD1                 169
+#define PAD_RGMII0_TXD2                 170
+#define PAD_RGMII0_TXD3                 171
+#define PAD_RGMII0_MDIO                 172
+#define PAD_RGMII0_MDC                  173
+#define PAD_UART_RX2                    174
+#define PAD_UART_TX2                    175
+#define PAD_UART_RX3                    176
+#define PAD_UART_TX3                    177
+#define PAD_UART_RX4                    178
+#define PAD_UART_TX4                    179
+#define PAD_UART_RX1                    180
+#define PAD_UART_TX1                    181
+#define PAD_FUART_RX                    182
+#define PAD_FUART_TX                    183
+#define PAD_FUART_RTS                   184
+#define PAD_FUART_CTS                   185
+
+#define GPIO_NR                         186
+#define PAD_UNKNOWN     0xFFFF
+
+#endif // #ifndef ___GPIO_H

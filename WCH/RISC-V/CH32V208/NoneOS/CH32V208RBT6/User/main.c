@@ -10,9 +10,9 @@
 
 /*
  *@Note
- 串口打印调试例程：
- USART1_Tx(PA9)。
- 本例程演示使用 USART1(PA9) 作打印调试口输出。
+ USART Print debugging routine:
+ USART1_Tx(PA9).
+ This example demonstrates using USART1(PA9) as a print debug port output.
 
 */
 

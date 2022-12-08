@@ -1,0 +1,48 @@
+/* SigmaStar trade secret */
+/* Copyright (c) [2019~2020] SigmaStar Technology.
+All rights reserved.
+
+Unless otherwise stipulated in writing, any and all information contained
+herein regardless in any format shall remain the sole proprietary of
+SigmaStar and be kept in strict confidence
+(SigmaStar Confidential Information) by the recipient.
+Any unauthorized act including without limitation unauthorized disclosure,
+copying, use, reproduction, sale, distribution, modification, disassembling,
+reverse engineering and compiling of the contents of SigmaStar Confidential
+Information is unlawful and strictly prohibited. SigmaStar hereby reserves the
+rights to any and all damages, losses, costs and expenses resulting therefrom.
+*/
+
+#ifndef __SYS_TRACES_HO__
+#define __SYS_TRACES_HO__
+
+#if !defined( unix ) || defined( LINUX ) || defined(__GNUC__)
+#include <stdarg.h>
+#else
+#include <varargs.h>
+#endif
+
+#include "sys_vm_dbg.ho"
+#include "sys_sys_isw_uart.h"
+
+/*--------------------- source of trace and errors ---------------------*/
+
+#define _TRACE(X)
+
+#ifndef CONFIG_REDIRECT_ERROR_TO_UART_SUPPORT
+#define _ERROR(X)       KER_ERROR_DIAGNOSE X
+#else
+#define KER_ERROR_DIAGNOSE_UART(ID, f_, ...)    \
+                        do {UartSendTrace((KERN_EMERG f_ "\n"), ##__VA_ARGS__);} while (0)
+#define _ERROR(X)       KER_ERROR_DIAGNOSE_UART X
+#endif
+
+#ifndef _DBGINFO
+#ifndef __RTK_DIAGNOSE_ENHANCE__
+#define _DBGINFO(X)
+#else
+#define _DBGINFO(X)     KER_DBGINFO_DIAGNOSE X
+#endif
+#endif
+
+#endif  /* __SYS_TRACES_HO__ */

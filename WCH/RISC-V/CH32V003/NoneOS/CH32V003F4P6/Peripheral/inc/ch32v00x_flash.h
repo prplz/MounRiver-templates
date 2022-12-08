@@ -118,6 +118,7 @@ void         FLASH_BufReset(void);
 void         FLASH_BufLoad(uint32_t Address, uint32_t Data0);
 void         FLASH_ErasePage_Fast(uint32_t Page_Address);
 void         FLASH_ProgramPage_Fast(uint32_t Page_Address);
+void         SystemReset_StartMode(uint32_t Mode);
 
 #ifdef __cplusplus
 }

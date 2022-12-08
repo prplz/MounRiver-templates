@@ -368,6 +368,53 @@ void PWR_EnterSTANDBYMode_RAM_LV_VBAT_EN( void )
     __WFI();
 }
 
+/*********************************************************************
+ * @fn      PWR_EnterSTOPMode_RAM_LV
+ *
+ * @brief   Enters STOP mode with RAM data retention function and LV mode on.
+ *
+ * @param   PWR_Regulator - specifies the regulator state in STOP mode.
+ *            PWR_Regulator_ON - STOP mode with regulator ON
+ *            PWR_Regulator_LowPower - STOP mode with regulator in low power mode
+ *          PWR_STOPEntry - specifies if STOP mode in entered with WFI or WFE instruction.
+ *            PWR_STOPEntry_WFI - enter STOP mode with WFI instruction
+ *            PWR_STOPEntry_WFE - enter STOP mode with WFE instruction
+ *
+ * @return  none
+ */
+void PWR_EnterSTOPMode_RAM_LV( uint32_t PWR_Regulator, uint8_t PWR_STOPEntry )
+{
+    uint32_t tmpreg = 0;
+    tmpreg = PWR->CTLR;
+    tmpreg &= CTLR_DS_MASK;
+    tmpreg |= PWR_Regulator;
+	
+#if defined (CH32F20x_D8) || defined (CH32F20x_D8C)	|| defined (CH32F20x_D8W)	
+    //2K+30K in standby power.
+    tmpreg |= ( ( uint32_t )1 << 16 ) | ( ( uint32_t )1 << 17 );
+    //2K+30K in standby LV .
+    tmpreg |= ( ( uint32_t )1 << 20 );
+#else
+    //RAM in standby power.
+    tmpreg |= ( ( uint32_t )1 << 16 );
+    //RAM in standby LV .
+    tmpreg |= ( ( uint32_t )1 << 20 );	
+	
+#endif
+	
+    PWR->CTLR = tmpreg;
+    SCB->SCR |= SCB_SCR_SLEEPDEEP;
 
+    if( PWR_STOPEntry == PWR_STOPEntry_WFI )
+    {
+        __WFI();
+    }
+    else
+    {
+        __WFE();
+    }
+
+    SCB->SCR &= ( uint32_t )~( ( uint32_t )SCB_SCR_SLEEPDEEP );
+}
 
 

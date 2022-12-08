@@ -14,10 +14,12 @@
  extern "C" {
 #endif 
 
-//#define CH32F20x_D6                /* CH32F203K8-CH32F203C6-CH32F203C8 */
-//#define CH32F20x_D8              /* CH32F203CB-CH32F203RC-CH32F203VC */
+#if !defined(CH32F20x_D6) && !defined(CH32F20x_D8) && !defined(CH32F20x_D8C) && !defined(CH32F20x_D8W)
+#define CH32F20x_D6                /* CH32F203K8-CH32F203C6-CH32F203C8 */
+//#define CH32F20x_D8              /* CH32F203CB-CH32F203RB-CH32F203RC-CH32F203VC */
 //#define CH32F20x_D8C             /* CH32F207x-CH32F205x */
-#define CH32F20x_D8W             /* CH32F208x */
+//#define CH32F20x_D8W             /* CH32F208x */
+#endif
 
 #define __MPU_PRESENT             0 /* Other CH32 devices does not provide an MPU */
 #define __NVIC_PRIO_BITS          4 /* CH32 uses 4 Bits for the Priority Levels */
@@ -97,9 +99,8 @@ typedef enum IRQn
   USBHDWakeUp_IRQn	          = 44,      /* USB Host/Device WakeUp Interrupt                     */
   UART4_IRQn		              = 45,      /* UART4 global Interrupt                               */
   DMA1_Channel8_IRQn          = 46,      /* DMA1 Channel 8 global Interrupt                      */
-#endif 
-
-#ifdef CH32F20x_D8
+	
+#elif defined(CH32F20x_D8)
   USBWakeUp_IRQn              = 42,      /* USB Device WakeUp from suspend through EXTI Line Interrupt */
   TIM8_BRK_IRQn               = 43,      /* TIM8 Break Interrupt                                 */
   TIM8_UP_IRQn                = 44,      /* TIM8 Update Interrupt                                */
@@ -137,9 +138,7 @@ typedef enum IRQn
   DMA2_Channel10_IRQn         = 86,      /* DMA2 Channel 10 global Interrupt                     */
   DMA2_Channel11_IRQn         = 87,      /* DMA2 Channel 11 global Interrupt                     */
 
-#endif 
-
-#if defined (CH32F20x_D8C)
+#elif defined(CH32F20x_D8C) 
   TIM8_BRK_IRQn               = 43,      /* TIM8 Break Interrupt                                 */
   TIM8_UP_IRQn                = 44,      /* TIM8 Update Interrupt                                */
   TIM8_TRG_COM_IRQn           = 45,      /* TIM8 Trigger and Commutation Interrupt               */
@@ -186,16 +185,14 @@ typedef enum IRQn
   DMA2_Channel10_IRQn         = 86,      /* DMA2 Channel 10 global Interrupt                     */
   DMA2_Channel11_IRQn         = 87,      /* DMA2 Channel 11 global Interrupt                     */
 
-#endif  
-
-#ifdef CH32F20x_D8W
+#elif defined(CH32F20x_D8W)  
   USBWakeUp_IRQn              = 42,      /* USB Device WakeUp from suspend through EXTI Line Interrupt */
   USBHD_IRQn               		= 43,      /* USBHD global Interrupt                               */
   USBHDWakeUp_IRQn            = 44,      /* USB Host/Device WakeUp Interrupt                     */
   ETH_IRQn           					= 45,      /* ETH global Interrupt               									 */
   ETHWakeUp_IRQn              = 46,      /* ETH WakeUp Interrupt                       					 */
-  BLEC_IRQn                   = 47,      /* BLEC global Interrupt                                */
-  BLES_IRQn                   = 48,      /* BLES global Interrupt                                */
+  BB_IRQn                     = 47,      /* BLE BB global Interrupt                              */
+  LLE_IRQn                    = 48,      /* BLE LLE global Interrupt                             */
   TIM5_IRQn                   = 49,      /* TIM5 global Interrupt                                */
   UART4_IRQn                  = 50,      /* UART4 global Interrupt                               */
   DMA1_Channel8_IRQn          = 51,      /* DMA1 Channel 8 global Interrupt                      */
@@ -244,7 +241,7 @@ typedef int32_t  s32;
 typedef int16_t s16;
 typedef int8_t  s8;
 
-typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrorStatus;
+typedef enum {NoREADY = 0, READY = !NoREADY} ErrorStatus;
 
 typedef enum {DISABLE = 0, ENABLE = !DISABLE} FunctionalState;
 
@@ -1189,6 +1186,71 @@ typedef struct
 
 #endif
 
+#if defined(CH32F20x_D8W)
+/* ETH10M Registers */
+typedef struct
+{
+    __IO uint8_t reserved1;
+    __IO uint8_t reserved2;
+    __IO uint8_t reserved3;
+    __IO uint8_t EIE;
+
+    __IO uint8_t EIR;
+    __IO uint8_t ESTAT;
+    __IO uint8_t ECON2;
+    __IO uint8_t ECON1;
+
+    __IO uint16_t ETXST;
+    __IO uint16_t ETXLN;
+
+    __IO uint16_t ERXST;
+    __IO uint16_t ERXLN;
+
+    __IO uint32_t HTL;
+    __IO uint32_t HTH;
+
+    __IO uint8_t ERXFON;
+    __IO uint8_t MACON1;
+    __IO uint8_t MACON2;
+    __IO uint8_t MABBIPG;
+
+    __IO uint16_t EPAUS;
+    __IO uint16_t MAMXFL;
+
+    __IO uint16_t MIRD;
+    __IO uint16_t reserved4;
+
+    __IO uint8_t MIERGADR;
+    __IO uint8_t MISTAT;
+    __IO uint16_t MIWR;
+
+    __IO uint32_t MAADRL;
+
+    __IO uint16_t MAADRH;
+    __IO uint16_t reserved5;
+} ETH10M_TypeDef;
+
+/* OSC Registers */
+typedef struct
+{
+    __IO uint32_t HSE_CAL_CTRL;
+    __IO uint32_t Reserve0;
+    __IO uint16_t Reserve1;
+    __IO uint16_t LSI32K_TUNE;
+    __IO uint32_t Reserve2;
+    __IO uint32_t Reserve3;
+    __IO uint32_t Reserve4;
+    __IO uint32_t Reserve5;
+    __IO uint8_t Reserve6;
+    __IO uint8_t LSI32K_CAL_CFG;
+    __IO uint16_t Reserve7;
+    __IO uint16_t LSI32K_CAL_STATR;
+    __IO uint8_t LSI32K_CAL_OV_CNT;
+    __IO uint8_t LSI32K_CAL_CTRL;
+} OSC_TypeDef;
+
+#endif
+
 /* Peripheral memory map */
 #define FLASH_BASE            ((uint32_t)0x08000000) /* FLASH base address in the alias region */
 #define SRAM_BASE             ((uint32_t)0x20000000) /* SRAM base address in the alias region */
@@ -1304,6 +1366,10 @@ typedef struct
 
 #define OB_BASE               ((uint32_t)0x1FFFF800)
 
+#if defined(CH32F20x_D8W)
+#define OSC_BASE                                (AHBPERIPH_BASE + 0x202C)
+#endif
+
 /* Peripheral declaration */
 #define TIM2                ((TIM_TypeDef *) TIM2_BASE)
 #define TIM3                ((TIM_TypeDef *) TIM3_BASE)
@@ -1400,6 +1466,10 @@ typedef struct
 #define DBGMCU              ((DBGMCU_TypeDef *) DBGMCU_BASE)
 
 #define OB                  ((OB_TypeDef *) OB_BASE)
+
+#if defined(CH32F20x_D8W)
+#define OSC                                     ((OSC_TypeDef *)OSC_BASE)
+#endif
 
 /******************************************************************************/
 /*                         Peripheral Registers Bits Definition               */
@@ -4841,31 +4911,31 @@ typedef struct
 #define  RCC_PPRE1_1                     ((uint32_t)0x00000200)        /* Bit 1 */
 #define  RCC_PPRE1_2                     ((uint32_t)0x00000400)        /* Bit 2 */
 
-#define  RCC_PPRE1_DIV1                  ((uint32_t)0x00000000)        /* HCLK not divided */
-#define  RCC_PPRE1_DIV2                  ((uint32_t)0x00000400)        /* HCLK divided by 2 */
-#define  RCC_PPRE1_DIV4                  ((uint32_t)0x00000500)        /* HCLK divided by 4 */
-#define  RCC_PPRE1_DIV8                  ((uint32_t)0x00000600)        /* HCLK divided by 8 */
-#define  RCC_PPRE1_DIV16                 ((uint32_t)0x00000700)        /* HCLK divided by 16 */
+#define  RCC_PPRE1_DIV1                  ((uint32_t)0x00000000)        /* PRE1 not divided */
+#define  RCC_PPRE1_DIV2                  ((uint32_t)0x00000400)        /* PRE1 divided by 2 */
+#define  RCC_PPRE1_DIV4                  ((uint32_t)0x00000500)        /* PRE1 divided by 4 */
+#define  RCC_PPRE1_DIV8                  ((uint32_t)0x00000600)        /* PRE1 divided by 8 */
+#define  RCC_PPRE1_DIV16                 ((uint32_t)0x00000700)        /* PRE1 divided by 16 */
 
 #define  RCC_PPRE2                       ((uint32_t)0x00003800)        /* PRE2[2:0] bits (APB2 prescaler) */
 #define  RCC_PPRE2_0                     ((uint32_t)0x00000800)        /* Bit 0 */
 #define  RCC_PPRE2_1                     ((uint32_t)0x00001000)        /* Bit 1 */
 #define  RCC_PPRE2_2                     ((uint32_t)0x00002000)        /* Bit 2 */
 
-#define  RCC_PPRE2_DIV1                  ((uint32_t)0x00000000)        /* HCLK not divided */
-#define  RCC_PPRE2_DIV2                  ((uint32_t)0x00002000)        /* HCLK divided by 2 */
-#define  RCC_PPRE2_DIV4                  ((uint32_t)0x00002800)        /* HCLK divided by 4 */
-#define  RCC_PPRE2_DIV8                  ((uint32_t)0x00003000)        /* HCLK divided by 8 */
-#define  RCC_PPRE2_DIV16                 ((uint32_t)0x00003800)        /* HCLK divided by 16 */
+#define  RCC_PPRE2_DIV1                  ((uint32_t)0x00000000)        /* PRE2 not divided */
+#define  RCC_PPRE2_DIV2                  ((uint32_t)0x00002000)        /* PRE2 divided by 2 */
+#define  RCC_PPRE2_DIV4                  ((uint32_t)0x00002800)        /* PRE2 divided by 4 */
+#define  RCC_PPRE2_DIV8                  ((uint32_t)0x00003000)        /* PRE2 divided by 8 */
+#define  RCC_PPRE2_DIV16                 ((uint32_t)0x00003800)        /* PRE2 divided by 16 */
 
 #define  RCC_ADCPRE                      ((uint32_t)0x0000C000)        /* ADCPRE[1:0] bits (ADC prescaler) */
 #define  RCC_ADCPRE_0                    ((uint32_t)0x00004000)        /* Bit 0 */
 #define  RCC_ADCPRE_1                    ((uint32_t)0x00008000)        /* Bit 1 */
 
-#define  RCC_ADCPRE_DIV2                 ((uint32_t)0x00000000)        /* PCLK2 divided by 2 */
-#define  RCC_ADCPRE_DIV4                 ((uint32_t)0x00004000)        /* PCLK2 divided by 4 */
-#define  RCC_ADCPRE_DIV6                 ((uint32_t)0x00008000)        /* PCLK2 divided by 6 */
-#define  RCC_ADCPRE_DIV8                 ((uint32_t)0x0000C000)        /* PCLK2 divided by 8 */
+#define  RCC_ADCPRE_DIV2                 ((uint32_t)0x00000000)        /* ADCPRE divided by 2 */
+#define  RCC_ADCPRE_DIV4                 ((uint32_t)0x00004000)        /* ADCPRE divided by 4 */
+#define  RCC_ADCPRE_DIV6                 ((uint32_t)0x00008000)        /* ADCPRE divided by 6 */
+#define  RCC_ADCPRE_DIV8                 ((uint32_t)0x0000C000)        /* ADCPRE divided by 8 */
 
 #define  RCC_PLLSRC                      ((uint32_t)0x00010000)        /* PLL entry clock source */
 

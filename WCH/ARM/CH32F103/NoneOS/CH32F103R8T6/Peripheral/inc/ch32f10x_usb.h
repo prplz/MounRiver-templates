@@ -367,6 +367,11 @@ extern "C" {
 #define HUB_SET_DESCRIPTOR      0x07
 #endif
 
+#define DEF_STRING_DESC_LANG    0x00
+#define DEF_STRING_DESC_MANU    0x01
+#define DEF_STRING_DESC_PROD    0x02
+#define DEF_STRING_DESC_SERN    0x03
+
 /* USB HID class request code */
 #ifndef HID_GET_REPORT
 #define HID_GET_REPORT          0x01
@@ -375,6 +380,14 @@ extern "C" {
 #define HID_SET_REPORT          0x09
 #define HID_SET_IDLE            0x0A
 #define HID_SET_PROTOCOL        0x0B
+#endif
+
+/* USB CDC Class request code */
+#ifndef CDC_GET_LINE_CODING
+#define CDC_GET_LINE_CODING     0X21            /* This request allows the host to find out the currently configured line coding */
+#define CDC_SET_LINE_CODING     0x20            /* Configures DTE rate, stop-bits, parity, and number-of-character */
+#define CDC_SET_LINE_CTLSTE     0X22            /* This request generates RS-232/V.24 style control signals */
+#define CDC_SEND_BREAK          0X23            /* Sends special carrier modulation used to specify RS-232 style break */
 #endif
 
 /* Bit define for USB request type */
@@ -393,6 +406,8 @@ extern "C" {
 #define USB_REQ_RECIP_INTERF    0x01
 #define USB_REQ_RECIP_ENDP      0x02
 #define USB_REQ_RECIP_OTHER     0x03
+#define USB_REQ_FEAT_REMOTE_WAKEUP  0x01
+#define USB_REQ_FEAT_ENDP_HALT      0x00
 #endif
 
 /* USB request type for hub class request */
@@ -452,7 +467,7 @@ extern "C" {
 #define USB_DEV_CLASS_HID       0x03
 #define USB_DEV_CLASS_MONITOR   0x04
 #define USB_DEV_CLASS_PHYSIC_IF 0x05
-#define USB_DEV_CLASS_POWER     0x06
+#define USB_DEV_CLASS_IMAGE     0x06
 #define USB_DEV_CLASS_PRINTER   0x07
 #define USB_DEV_CLASS_STORAGE   0x08
 #define USB_DEV_CLASS_HUB       0x09
@@ -615,7 +630,7 @@ extern PUINT8  pEP1_RAM_Addr;						//ep1_out(64)+ep1_in(64)
 extern PUINT8  pEP2_RAM_Addr;						//ep2_out(64)+ep2_in(64)
 extern PUINT8  pEP3_RAM_Addr;						//ep3_out(64)+ep3_in(64)
 
-#define	pSetupReqPak		((PUSB_SETUP_REQ)pEP0_RAM_Addr)
+#define	pUSBHD_SetupReqPak  ((PUSB_SETUP_REQ)pEP0_RAM_Addr)
 #define pEP0_DataBuf		(pEP0_RAM_Addr)
 #define pEP1_OUT_DataBuf	(pEP1_RAM_Addr)
 #define pEP1_IN_DataBuf		(pEP1_RAM_Addr+64)
@@ -630,6 +645,7 @@ extern PUINT8  pEP3_RAM_Addr;						//ep3_out(64)+ep3_in(64)
 	 
 void USB_DeviceInit( void );			
 void USB_DevTransProcess( void );		 
+void USB_Device_Endp_Init(void);
 	 
 void DevEP1_OUT_Deal( UINT8 l );		
 void DevEP2_OUT_Deal( UINT8 l );	

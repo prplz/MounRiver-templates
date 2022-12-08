@@ -624,7 +624,6 @@ void FLASH_ITConfig( uint32_t FLASH_IT, FunctionalState NewState )
  *
  * @param   FLASH_FLAG - specifies the FLASH flag to check.
  *            FLASH_FLAG_BSY - FLASH Busy flag
- *            FLASH_FLAG_PGERR - FLASH Program error flag
  *            FLASH_FLAG_WRPRTERR - FLASH Write protected error flag
  *            FLASH_FLAG_EOP - FLASH End of Operation flag
  *            FLASH_FLAG_OPTERR - FLASH Option Byte error flag
@@ -667,7 +666,6 @@ FlagStatus FLASH_GetFlagStatus( uint32_t FLASH_FLAG )
  *
  * @param   FLASH_FLAG - specifies the FLASH flags to clear.
  *            FLASH_FLAG_PGERR - FLASH Program error flag
- *            FLASH_FLAG_WRPRTERR - FLASH Write protected error flag
  *            FLASH_FLAG_EOP - FLASH End of Operation flag
  *
  * @return  none
@@ -697,21 +695,14 @@ FLASH_Status FLASH_GetStatus( void )
     }
     else
     {
-        if( ( FLASH->STATR & FLASH_FLAG_PGERR ) != 0 )
-        {
-            flashstatus = FLASH_ERROR_PG;
-        }
-        else
-        {
-            if( ( FLASH->STATR & FLASH_FLAG_WRPRTERR ) != 0 )
-            {
-                flashstatus = FLASH_ERROR_WRP;
-            }
-            else
-            {
-                flashstatus = FLASH_COMPLETE;
-            }
-        }
+				if( ( FLASH->STATR & FLASH_FLAG_WRPRTERR ) != 0 )
+				{
+						flashstatus = FLASH_ERROR_WRP;
+				}
+				else
+				{
+						flashstatus = FLASH_COMPLETE;
+				}
     }
     return flashstatus;
 }
@@ -734,21 +725,14 @@ FLASH_Status FLASH_GetBank1Status( void )
     }
     else
     {
-        if( ( FLASH->STATR & FLASH_FLAG_BANK1_PGERR ) != 0 )
-        {
-            flashstatus = FLASH_ERROR_PG;
-        }
-        else
-        {
-            if( ( FLASH->STATR & FLASH_FLAG_BANK1_WRPRTERR ) != 0 )
-            {
-                flashstatus = FLASH_ERROR_WRP;
-            }
-            else
-            {
-                flashstatus = FLASH_COMPLETE;
-            }
-        }
+				if( ( FLASH->STATR & FLASH_FLAG_BANK1_WRPRTERR ) != 0 )
+				{
+						flashstatus = FLASH_ERROR_WRP;
+				}
+				else
+				{
+						flashstatus = FLASH_COMPLETE;
+				}
     }
     return flashstatus;
 }
@@ -970,103 +954,6 @@ void FLASH_Enhance_Mode(FunctionalState NewState)
         FLASH->CTLR &= ~(1 << 24);
         FLASH->CTLR |= (1 << 22);
     }
-}
-
-/********************************************************************************
- * @fn        EEPROM_READ
- *
- * @brief     Read EEPROM
- *
- * @param     StartAddr: Read EEPROM start address
- *            *Buffer: READ EEPROM data
- *            Length: READ EEPROM length.
- *
- * @return None
- */
-FLASH_Status EEPROM_READ( uint32_t StartAddr, void *Buffer, uint32_t Length )
-{
-    uint32_t *src;
-    uint8_t *pbuf;
-    uint8_t offset;
-    uint32_t value;
-    offset = Length % 4;
-    if( offset )
-    {
-        Length -= offset;
-    }
-    src = Buffer;
-    for( ; Length > 0; Length -= 4 ){
-        *src = *( uint32_t * )( StartAddr + EEPROM_ADDRESS );
-        StartAddr += 4;
-        src++;
-    }
-    pbuf = ( uint8_t * )src;
-    value = *( uint32_t * )( StartAddr + EEPROM_ADDRESS );
-    for( ; offset > 0; offset -- ){
-        *pbuf = value & 0xFF;
-        pbuf++;
-        value >>= 8;
-    }
-    return FLASH_COMPLETE;
-}
-
-/********************************************************************************
- * @fn          EEPROM_ERASE
- *
- * @brief       Erase EEPROM
- *
- * @param       StartAddr: Erase EEPROM start address
- *              Length: Erase EEPROM length.
- *
- * @return      None
- */
-FLASH_Status EEPROM_ERASE( uint32_t StartAddr, uint32_t Length )
-{
-    FLASH_Status state;
-    uint8_t i;
-    for( i = 0; i < ( Length / 4096 + 1 ); i++ ){
-        state = FLASH_ErasePage( StartAddr + 4096 * i + EEPROM_ADDRESS );
-        if( state != FLASH_COMPLETE )
-        {
-            break;
-        }
-    }
-    return state;
-}
-
-/********************************************************************************
- * @fn         EEPROM_WRITE
- *
- * @brief      Write EEPROM
- *
- * @param      StartAddr: Write EEPROM start address
- *             *Buffer: Write EEPROM data
- *             Length: Write EEPROM length.
- *
- * @return     None
- */
-FLASH_Status EEPROM_WRITE( uint32_t StartAddr, void *Buffer, uint32_t Length )
-{
-    FLASH_Status state;
-    uint8_t offset;
-    uint32_t *src;
-
-    offset = Length % 4;
-    if( offset )
-    {
-        Length += 4 - offset;
-    }
-    src = Buffer;
-    for( ; Length > 0; Length -= 4 ){
-        state = FLASH_ProgramWord( StartAddr + EEPROM_ADDRESS, *src );
-        if( state != FLASH_COMPLETE )
-        {
-            break;
-        }
-        StartAddr += 4;
-        src++;
-    }
-    return state;
 }
 
 /********************************************************************************

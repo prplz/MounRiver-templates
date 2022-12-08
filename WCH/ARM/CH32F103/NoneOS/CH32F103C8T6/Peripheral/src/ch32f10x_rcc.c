@@ -152,14 +152,14 @@ void RCC_HSEConfig( uint32_t RCC_HSE )
  *
  * @brief   Waits for HSE start-up.
  *
- * @return  SUCCESS - HSE oscillator is stable and ready to use.
- *                  ERROR - HSE oscillator not yet ready.
+ * @return  READY - HSE oscillator is stable and ready to use.
+ *          NoREADY - HSE oscillator not yet ready.
  */
 ErrorStatus RCC_WaitForHSEStartUp( void )
 {
     __IO uint32_t StartUpCounter = 0;
 
-    ErrorStatus status = ERROR;
+    ErrorStatus status = NoREADY;
     FlagStatus HSEStatus = RESET;
 
     do
@@ -171,11 +171,11 @@ ErrorStatus RCC_WaitForHSEStartUp( void )
 
     if( RCC_GetFlagStatus( RCC_FLAG_HSERDY ) != RESET )
     {
-        status = SUCCESS;
+        status = READY;
     }
     else
     {
-        status = ERROR;
+        status = NoREADY;
     }
 
     return ( status );
@@ -353,11 +353,10 @@ void RCC_PCLK1Config( uint32_t RCC_HCLK )
  *
  * @param   RCC_HCLK - defines the APB2 clock divider. This clock is derived from
  *        the AHB clock (HCLK).
- *            RCC_HCLK_Div1 - APB1 clock = HCLK.
- *            RCC_HCLK_Div2 - APB1 clock = HCLK/2.
- *            RCC_HCLK_Div4 - APB1 clock = HCLK/4.
- *            RCC_HCLK_Div8 - APB1 clock = HCLK/8.
- *            RCC_HCLK_Div16 - APB1 clock = HCLK/16.
+ *            RCC_PCLK2_Div2 - APB2 clock = HCLK.
+ *            RCC_PCLK2_Div4 - APB2 clock = HCLK/2.
+ *            RCC_PCLK2_Div6 - APB2 clock = HCLK/4.
+ *            RCC_PCLK2_Div8 - APB2 clock = HCLK/8.
  *
  * @return  none
  */

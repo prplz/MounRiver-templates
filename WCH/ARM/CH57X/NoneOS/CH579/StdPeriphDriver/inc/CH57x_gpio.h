@@ -78,15 +78,15 @@ void GPIOB_ModeCfg( UINT32 pin, GPIOModeTypeDef mode );				/* GPIOB¶Ë¿ÚÒı½ÅÄ£Ê½Å
 #define	GPIOB_InverseBits( pin )		(R32_PB_OUT ^= pin)			/* GPIOB¶Ë¿ÚÒı½ÅÊä³öµçÆ½·­×ª */
 #define	GPIOA_ReadPort()				(R32_PA_PIN)				/* GPIOA¶Ë¿Ú32Î»Êı¾İ·µ»Ø£¬µÍ16Î»ÓĞĞ§ */
 #define	GPIOB_ReadPort()				(R32_PB_PIN)				/* GPIOB¶Ë¿Ú32Î»Êı¾İ·µ»Ø£¬µÍ24Î»ÓĞĞ§ */
-#define	GPIOA_ReadPortPin( pin )		(R32_PA_PIN&pin)			/* GPIOA¶Ë¿ÚÒı½Å×´Ì¬£¬0-Òı½ÅµÍµçÆ½£¬(!0)-Òı½Å¸ßµçÆ½ */
-#define	GPIOB_ReadPortPin( pin )		(R32_PB_PIN&pin)			/* GPIOB¶Ë¿ÚÒı½Å×´Ì¬£¬0-Òı½ÅµÍµçÆ½£¬(!0)-Òı½Å¸ßµçÆ½ */
+#define	GPIOA_ReadPortPin( pin )		(R32_PA_PIN&(pin))			/* GPIOA¶Ë¿ÚÒı½Å×´Ì¬£¬0-Òı½ÅµÍµçÆ½£¬(!0)-Òı½Å¸ßµçÆ½ */
+#define	GPIOB_ReadPortPin( pin )		(R32_PB_PIN&(pin))			/* GPIOB¶Ë¿ÚÒı½Å×´Ì¬£¬0-Òı½ÅµÍµçÆ½£¬(!0)-Òı½Å¸ßµçÆ½ */
 
 void GPIOA_ITModeCfg( UINT32 pin, GPIOITModeTpDef mode );			/* GPIOAÒı½ÅÖĞ¶ÏÄ£Ê½ÅäÖÃ */
 void GPIOB_ITModeCfg( UINT32 pin, GPIOITModeTpDef mode );			/* GPIOBÒı½ÅÖĞ¶ÏÄ£Ê½ÅäÖÃ */
 #define	GPIOA_ReadITFlagPort()			(R16_PA_INT_IF)				/* ¶ÁÈ¡GPIOA¶Ë¿ÚÖĞ¶Ï±êÖ¾×´Ì¬ */
 #define	GPIOB_ReadITFlagPort()			(R16_PB_INT_IF)				/* ¶ÁÈ¡GPIOB¶Ë¿ÚÖĞ¶Ï±êÖ¾×´Ì¬ */
-#define	GPIOA_ReadITFlagBit( pin )		(R16_PA_INT_IF&pin)		    /* ¶ÁÈ¡GPIOA¶Ë¿ÚÒı½ÅÖĞ¶Ï±êÖ¾×´Ì¬ */
-#define	GPIOB_ReadITFlagBit( pin )		(R16_PB_INT_IF&pin)		    /* ¶ÁÈ¡GPIOB¶Ë¿ÚÒı½ÅÖĞ¶Ï±êÖ¾×´Ì¬ */
+#define	GPIOA_ReadITFlagBit( pin )		(R16_PA_INT_IF&(pin))		    /* ¶ÁÈ¡GPIOA¶Ë¿ÚÒı½ÅÖĞ¶Ï±êÖ¾×´Ì¬ */
+#define	GPIOB_ReadITFlagBit( pin )		(R16_PB_INT_IF&(pin))		    /* ¶ÁÈ¡GPIOB¶Ë¿ÚÒı½ÅÖĞ¶Ï±êÖ¾×´Ì¬ */
 #define	GPIOA_ClearITFlagBit( pin )		(R16_PA_INT_IF = pin)		/* Çå³ıGPIOA¶Ë¿ÚÒı½ÅÖĞ¶Ï±êÖ¾×´Ì¬ */
 #define	GPIOB_ClearITFlagBit( pin )		(R16_PB_INT_IF = pin)		/* Çå³ıGPIOB¶Ë¿ÚÒı½ÅÖĞ¶Ï±êÖ¾×´Ì¬ */
 

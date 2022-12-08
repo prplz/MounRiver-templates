@@ -1,0 +1,251 @@
+/* SigmaStar trade secret */
+/* Copyright (c) [2019~2020] SigmaStar Technology.
+All rights reserved.
+
+Unless otherwise stipulated in writing, any and all information contained
+herein regardless in any format shall remain the sole proprietary of
+SigmaStar and be kept in strict confidence
+(SigmaStar Confidential Information) by the recipient.
+Any unauthorized act including without limitation unauthorized disclosure,
+copying, use, reproduction, sale, distribution, modification, disassembling,
+reverse engineering and compiling of the contents of SigmaStar Confidential
+Information is unlawful and strictly prohibited. SigmaStar hereby reserves the
+rights to any and all damages, losses, costs and expenses resulting therefrom.
+*/
+
+#include <../../../../camclk/hal/pioneer5/pub/camclk.h>
+#include <../../../../gpio/hal/pioneer5/pub/gpio.h>
+#include <../../../../int/hal/pioneer5/pub/irqs.h>
+#include <../../../../gpio/hal/pioneer5/pub/padmux.h>
+#include <../../../../padmux/drv/pub/mdrv_puse.h>
+
+version : 01.00
+
+<uart1>
+	[reg_u32] 0x2221200, 0x2221C00;
+	[interrupts_u32] INT_IRQ_FUART_1, INT_IRQ_UARTDMA_1;
+	[camclk_u16] CAMCLK_fuart1;
+	[dma_u8] 1;
+	[status_u8] 0;
+
+<uart2>
+	[reg_u32] 0x2221400, 0x2221E00;
+	[interrupts_u32] INT_IRQ_FUART_2, INT_IRQ_URDMA_2;
+	[camclk_u16] CAMCLK_fuart2;
+	[dma_u8] 1;
+	[status_u8] 0;
+
+<uart3>
+	[reg_u32] 0x2221600, 0x2222400;
+	[interrupts_u32] INT_IRQ_FUART_3, INT_IRQ_URDMA_3;
+	[camclk_u16] CAMCLK_fuart3;
+	[dma_u8] 1;
+	[status_u8] 0;
+
+<uart4>
+	[reg_u32] 0x2221800, 0x2222600;
+	[interrupts_u32] INT_IRQ_FUART_4, INT_IRQ_URDMA_4;
+	[camclk_u16] CAMCLK_fuart4;
+	[dma_u8] 1;
+	[status_u8] 0;
+
+<fuart>
+	[reg_u32] 0x2220400, 0x2220600;
+	[interrupts_u32] INT_IRQ_FUART, INT_IRQ_URDMA;
+	[camclk_u16] CAMCLK_fuart;
+	[dma_u8] 1;
+	[status_u8] 0;
+
+<pm_uart>
+	[reg_u32] 0x2006A00;
+	[interrupts_u32] INT_IRQ_PM_UART;
+	[camclk_u16] CAMCLK_pm_uart;
+	[status_u8] 1;
+
+<ir0>
+	[reg_u32_u16] 0x2007A00 0x200;
+	[mode_u32] 1;
+	[camclk_u32] CAMCLK_ir;
+	[interrupts_u32_u32] INT_FIQ_IR INT_FIQ_IR_RC;
+	[header_code_u32_u32] 0x00 0xFF;
+	[status_u8] 0;
+
+<ir1>
+	[reg_u32_u16] 0x2225800 0x200;
+	[mode_u32] 1;
+	[camclk_u32] CAMCLK_ir_nonpm0;
+	[interrupts_u32_u32] INT_FIQ_IR_NONPM0 0xFFFF;
+	[header_code_u32_u32] 0x00 0xFF;
+	[status_u8] 0;
+
+<ir2>
+	[reg_u32_u16] 0x2225A00 0x200;
+	[mode_u32] 1;
+	[camclk_u32] CAMCLK_ir_nonpm1;
+	[interrupts_u32_u32] INT_FIQ_IR_NONPM1 0xFFFF;
+	[header_code_u32_u32] 0x00 0xFF;
+	[status_u8] 0;
+
+<ir3>
+	[reg_u32_u16] 0x2225C00 0x200;
+	[mode_u32] 1;
+	[camclk_u32] CAMCLK_ir_nonpm2;
+	[interrupts_u32_u32] INT_FIQ_IR_NONPM2 0xFFFF;
+	[header_code_u32_u32] 0x00 0xFF;
+	[status_u8] 0;
+
+<ir4>
+	[reg_u32_u16] 0x2225E00 0x200;
+	[mode_u32] 1;
+	[camclk_u32] CAMCLK_ir_nonpm3;
+	[interrupts_u32_u32] INT_FIQ_IR_NONPM3 0xFFFF;
+	[header_code_u32_u32] 0x00 0xFF;
+	[status_u8] 0;
+
+<i2cm0>
+	[reg_u32_u16] 0x2222800 0x200;
+	[interrupts_u8] INT_IRQ_MIIC_0;
+	[pushen_u8] 1;
+	[padmux_u8] 7;
+	[dma_u8] 0;
+	[camclk_u16] CAMCLK_miic0;
+	[oencnt_u8] 0;
+	[speed_u32] 200000;
+	[thd_u16] 0;
+	[tsu_u16] 0;
+	[start_u16] 0;
+	[stop_u16] 0;
+	[status_u8] 0;
+
+<i2cm1>
+	[reg_u32_u16] 0x2222A00 0x200;
+	[interrupts_u8] INT_IRQ_MIIC_0;
+	[pushen_u8] 1;
+	[padmux_u8] 3;
+	[dma_u8] 0;
+	[camclk_u16] CAMCLK_miic1;
+	[oencnt_u8] 0;
+	[speed_u32] 200000;
+	[thd_u16] 0;
+	[tsu_u16] 0;
+	[start_u16] 0;
+	[stop_u16] 0;
+	[status_u8] 0;
+
+<i2cm2>
+	[reg_u32_u16] 0x2222C00 0x200;
+	[interrupts_u8] INT_IRQ_MIIC_0;
+	[pushen_u8] 1;
+	[padmux_u8] 4;
+	[dma_u8] 0;
+	[camclk_u16] CAMCLK_miic2;
+	[oencnt_u8] 0;
+	[speed_u32] 200000;
+	[thd_u16] 0;
+	[tsu_u16] 0;
+	[start_u16] 0;
+	[stop_u16] 0;
+	[status_u8] 0;
+
+<i2cm3>
+	[reg_u32_u16] 0x2222E00 0x200;
+	[interrupts_u8] INT_IRQ_MIIC_0;
+	[pushen_u8] 1;
+	[padmux_u8] 1;
+	[dma_u8] 0;
+	[camclk_u16] CAMCLK_miic3;
+	[oencnt_u8] 0;
+	[speed_u32] 200000;
+	[thd_u16] 0;
+	[tsu_u16] 0;
+	[start_u16] 0;
+	[stop_u16] 0;
+	[status_u8] 0;
+
+<i2cm4>
+	[reg_u32_u16] 0x2223000 0x200;
+	[interrupts_u8] INT_IRQ_MIIC_0;
+	[pushen_u8] 1;
+	[padmux_u8] 0;
+	[dma_u8] 0;
+	[camclk_u16] CAMCLK_miic4;
+	[oencnt_u8] 0;
+	[speed_u32] 200000;
+	[thd_u16] 0;
+	[tsu_u16] 0;
+	[start_u16] 0;
+	[stop_u16] 0;
+	[status_u8] 0;
+
+<i2cm5>
+	[reg_u32_u16] 0x2223200 0x200;
+	[interrupts_u8] INT_IRQ_MIIC_0;
+	[pushen_u8] 1;
+	[padmux_u8] 0;
+	[dma_u8] 1;
+	[camclk_u16] CAMCLK_miic5;
+	[oencnt_u8] 0;
+	[speed_u32] 200000;
+	[thd_u16] 0;
+	[tsu_u16] 0;
+	[start_u16] 0;
+	[stop_u16] 0;
+	[status_u8] 0;
+
+<mspi0>
+	[reg_u32_u16] 0x2222000 0x200;
+	[interrupts_u8] INT_IRQ_MSPI_0;
+	[camclk_u16] CAMCLK_mspi0;
+	[dma_u8] 1;
+	[cs_num_u8] 2;
+	[cs_ext_u32] PAD_UNKNOWN;
+	[pad_mux_u16] 0;
+	[4to3_mode_u8] 0;
+	[clk_out_mode_u32] 0;
+	[status_u8] 0;
+
+<mspi1>
+	[reg_u32_u16] 0x2222200 0x200;
+	[interrupts_u8] INT_IRQ_MSPI_1;
+	[camclk_u16] CAMCLK_mspi1;
+	[dma_u8] 1;
+	[cs_num_u8] 2;
+	[cs_ext_u32] PAD_UNKNOWN;
+	[pad_mux_u16] 0;
+	[4to3_mode_u8] 0;
+	[clk_out_mode_u32] 0;
+	[status_u8] 0;
+
+<pwm_out>
+	[reg_u32_u16] 0x2203600 0x200, 0x2200E00 0x200;
+	[interrupts_u8] INT_FIQ_ADC_FIQ;
+	[clkfrequency_u32] 12000000;
+	[camclk_u16] CAMCLK_pwm_adc;
+	[status_u8] 0;
+
+<pwm_in>
+	[reg_u32_u16] 0x2201A00 0x200;
+	[interrupts_u8] INT_IRQ_PWM_CAPTURE;
+	[clkfrequency_u32] 12000000;
+	[camclk_u16] CAMCLK_pwm_capture;
+	[status_u8] 0;
+
+<padmux>
+	[schematic_u32_u32_u32] PAD_PM_GPIO0 PINMUX_FOR_PM_UART1_MODE_1 MDRV_PUSE_PM_UART_RX,
+				PAD_PM_GPIO1 PINMUX_FOR_PM_UART1_MODE_1 MDRV_PUSE_PM_UART_TX;
+	[status_u8] 1;
+
+<bdma0>
+	[interrupts_u8] INT_IRQ_BDMA_1;
+	[regs_u32] 0x1F200400;
+	[status_u8] 0;
+
+<bdma1>
+	[interrupts_u8] INT_IRQ_BDMA_2;
+	[regs_u32] 0x1F201600;
+	[status_u8] 0;
+
+<bdma2>
+	[interrupts_u8] INT_IRQ_BDMA_3;
+	[regs_u32] 0x1F201800;
+	[status_u8] 0;
