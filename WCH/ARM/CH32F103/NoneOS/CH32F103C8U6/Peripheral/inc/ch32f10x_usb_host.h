@@ -4,9 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2019/10/15
  * Description        : This file provides all the USB firmware functions.
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ *********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 #ifndef __CH32F10x_USBHOST_H__
 #define __CH32F10x_USBHOST_H__
 
@@ -87,9 +89,9 @@ UINT8 CtrlSetUsbIntercace( UINT8 cfg );
 
 void    USB_HostInit( void );                     
 UINT8 InitRootDevice( PUINT8 DataBuf ); 
-UINT8   HubGetPortStatus( UINT8 HubPortIndex );        // ²éÑ¯HUB¶Ë¿Ú×´Ì¬,·µ»ØÔÚTxBufferÖĞ
-UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  // ÉèÖÃHUB¶Ë¿ÚÌØĞÔ
-UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  // Çå³ıHUB¶Ë¿ÚÌØĞÔ
+UINT8   HubGetPortStatus( UINT8 HubPortIndex );        // æŸ¥è¯¢HUBç«¯å£çŠ¶æ€,è¿”å›åœ¨TxBufferä¸­
+UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  // è®¾ç½®HUBç«¯å£ç‰¹æ€§
+UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  // æ¸…é™¤HUBç«¯å£ç‰¹æ€§
 #ifdef __cplusplus
 }
 #endif

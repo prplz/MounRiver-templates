@@ -4,8 +4,10 @@
 * Version            : V1.0.0
 * Date               : 2021/08/08
 * Description        : This file provides all the GPIO firmware functions.
+*********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* SPDX-License-Identifier: Apache-2.0
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
 *******************************************************************************/
 #include "ch32f20x_gpio.h"
 #include "ch32f20x_rcc.h"
@@ -637,14 +639,7 @@ void GPIO_PinRemapConfig( uint32_t GPIO_Remap, FunctionalState NewState )
  */
 void GPIO_EXTILineConfig( uint8_t GPIO_PortSource, uint8_t GPIO_PinSource )
 {
-    uint32_t tmp = 0x00;
-
-#if defined (CH32F20x_D6)	
-		if((GPIO_PortSource == GPIO_PortSourceGPIOC) && MCU_Version){
-			GPIO_PinSource -= 13;
-		}
-	
-#endif		
+    uint32_t tmp = 0x00;	
 	
     tmp = ( ( uint32_t )0x0F ) << ( 0x04 * ( GPIO_PinSource & ( uint8_t )0x03 ) );
     AFIO->EXTICR[GPIO_PinSource >> 0x02] &= ~tmp;

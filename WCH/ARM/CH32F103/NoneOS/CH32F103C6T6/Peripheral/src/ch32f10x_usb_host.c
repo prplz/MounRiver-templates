@@ -4,9 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2019/10/15
  * Description        : This file provides all the USB firmware functions.
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ *********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 #include "ch32f10x_usb_host.h"
 #include "debug.h"
 
@@ -807,12 +809,12 @@ UINT8 InitRootDevice( PUINT8 DataBuf )
 /*********************************************************************
  * @fn      HubGetPortStatus
  *
- * @brief   ²éÑ¯HUB¶Ë¿Ú×´Ì¬,·µ»ØÔÚCom_BufferÖÐ
+ * @brief   ï¿½ï¿½Ñ¯HUBï¿½Ë¿ï¿½×´Ì¬,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Com_Bufferï¿½ï¿½
  *
  * @param   UINT8 HubPortIndex
  *
- * @return  ERR_SUCCESS ³É¹¦
- *          ERR_USB_BUF_OVER ³¤¶È´íÎó
+ * @return  ERR_SUCCESS ï¿½É¹ï¿½
+ *          ERR_USB_BUF_OVER ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½
  */
 UINT8   HubGetPortStatus( UINT8 HubPortIndex )
 {
@@ -824,14 +826,14 @@ UINT8   HubGetPortStatus( UINT8 HubPortIndex )
     pSetupReq -> wValue = 0x0000;
     pSetupReq -> wIndex = 0x0000 | HubPortIndex;
     pSetupReq -> wLength = 0x0004;
-    s = HostCtrlTransfer( Com_Buffer, &len );                           // Ö´ÐÐ¿ØÖÆ´«Êä
+    s = HostCtrlTransfer( Com_Buffer, &len );                           // Ö´ï¿½Ð¿ï¿½ï¿½Æ´ï¿½ï¿½ï¿½
     if( s != ERR_SUCCESS )
     {
         return( s );
     }
     if( len < 4 )
     {
-        return( ERR_USB_BUF_OVER );                                             // ÃèÊö·û³¤¶È´íÎó
+        return( ERR_USB_BUF_OVER );                                             // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½
     }
     return( ERR_SUCCESS );
 }
@@ -839,12 +841,12 @@ UINT8   HubGetPortStatus( UINT8 HubPortIndex )
 /*********************************************************************
  * @fn      HubSetPortFeature
  *
- * @brief   ÉèÖÃHUB¶Ë¿ÚÌØÐÔ
+ * @brief   ï¿½ï¿½ï¿½ï¿½HUBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
  *
  * @param   UINT8 HubPortIndex
  *          UINT8 FeatureSelt
  *
- * @return  ERR_SUCCESS ³É¹¦
+ * @return  ERR_SUCCESS ï¿½É¹ï¿½
  */
 UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
 {
@@ -853,18 +855,18 @@ UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
     pSetupReq -> wValue = 0x0000 | FeatureSelt;
     pSetupReq -> wIndex = 0x0000 | HubPortIndex;
     pSetupReq -> wLength = 0x0000;
-    return( HostCtrlTransfer( NULL, NULL ) );                                 // Ö´ÐÐ¿ØÖÆ´«Êä
+    return( HostCtrlTransfer( NULL, NULL ) );                                 // Ö´ï¿½Ð¿ï¿½ï¿½Æ´ï¿½ï¿½ï¿½
 }
 
 /*********************************************************************
  * @fn      HubClearPortFeature
  *
- * @brief   Çå³ýHUB¶Ë¿ÚÌØÐÔ
+ * @brief   ï¿½ï¿½ï¿½HUBï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½
  *
  * @param   UINT8 HubPortIndex
  *          UINT8 FeatureSelt
  *
- * @return  ERR_SUCCESS ³É¹¦
+ * @return  ERR_SUCCESS ï¿½É¹ï¿½
  */
 UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
 {
@@ -873,7 +875,7 @@ UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
     pSetupReq -> wValue = 0x0000 | FeatureSelt;
     pSetupReq -> wIndex = 0x0000 | HubPortIndex;
     pSetupReq -> wLength = 0x0000;
-    return( HostCtrlTransfer( NULL, NULL ) );                                // Ö´ÐÐ¿ØÖÆ´«Êä
+    return( HostCtrlTransfer( NULL, NULL ) );                                // Ö´ï¿½Ð¿ï¿½ï¿½Æ´ï¿½ï¿½ï¿½
 }
 
 

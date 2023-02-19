@@ -5,8 +5,18 @@
 ;* Date               : 2021/08/08
 ;* Description        : CH32F203K8-CH32F203C6-CH32F203C8
 ;*                    vector table for MDK-ARM toolchain.
+;*********************************************************************************
 ;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-;* SPDX-License-Identifier: Apache-2.0
+;* Attention: This software (modified or not) and binary are used for 
+;* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+;*******************************************************************************/
+
+;/*******************************************************************************
+; Amount of memory (in bytes) allocated for Stack
+; Tailor this value to your application needs
+; <h> Stack Configuration
+;   <o> Stack Size (in Bytes) <0x0-0xFFFFFFFF:8>
+; </h>
 ;*******************************************************************************/
 
 ;/*******************************************************************************

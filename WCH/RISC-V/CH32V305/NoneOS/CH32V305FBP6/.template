@@ -1,7 +1,7 @@
 Mcu Type=CH32V30x
 Target Path=obj\CH32V305FBP6.hex
 Address=0x08000000
-Erase All=true
+Erase All=false
 Program=true
 Verify=true
 Reset=true

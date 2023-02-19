@@ -4,9 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2021/06/06
  * Description        : This file provides all the USART firmware functions.
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+*********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 #include "ch32v20x_usart.h"
 #include "ch32v20x_rcc.h"
 
@@ -171,7 +173,8 @@ void USART_Init(USART_TypeDef *USARTx, USART_InitTypeDef *USART_InitStruct)
  *
  * @brief   Fills each USART_InitStruct member with its default value.
  *
- * @param   SPIx - where x can be 1, 2 or 3 to select the SPI peripheral.
+ * @param   USART_InitStruct: pointer to a USART_InitTypeDef structure
+ *       which will be initialized.
  *
  * @return  none
  */
@@ -572,7 +575,9 @@ void USART_HalfDuplexCmd(USART_TypeDef *USARTx, FunctionalState NewState)
  *
  * @param   USARTx - where x can be 1, 2, 3 to select the USART peripheral.
  *          NewState - ENABLE or DISABLE.
- *
+ *          Note-
+ *          This function has to be called before calling USART_Init()
+ *          function in order to have correct baudrate Divider value. 
  * @return  none
  */
 void USART_OverSampling8Cmd(USART_TypeDef *USARTx, FunctionalState NewState)
@@ -666,7 +671,7 @@ void USART_IrDACmd(USART_TypeDef *USARTx, FunctionalState NewState)
  *            USART_FLAG_FE - Framing Error flag.
  *            USART_FLAG_PE - Parity Error flag.
  *
- * @return  none
+ * @return  bitstatus: SET or RESET
  */
 FlagStatus USART_GetFlagStatus(USART_TypeDef *USARTx, uint16_t USART_FLAG)
 {
@@ -694,7 +699,18 @@ FlagStatus USART_GetFlagStatus(USART_TypeDef *USARTx, uint16_t USART_FLAG)
  *            USART_FLAG_LBD - LIN Break detection flag.
  *            USART_FLAG_TC - Transmission Complete flag.
  *            USART_FLAG_RXNE - Receive data register not empty flag.
- *
+ *          Note-
+ *            - PE (Parity error), FE (Framing error), NE (Noise error), ORE (OverRun 
+ *            error) and IDLE (Idle line detected) flags are cleared by software 
+ *            sequence: a read operation to USART_STATR register (USART_GetFlagStatus()) 
+ *            followed by a read operation to USART_DATAR register (USART_ReceiveData()).
+ *            - RXNE flag can be also cleared by a read to the USART_DATAR register 
+ *            (USART_ReceiveData()).
+ *            - TC flag can be also cleared by software sequence: a read operation to 
+ *            USART_STATR register (USART_GetFlagStatus()) followed by a write operation
+ *            to USART_DATAR register (USART_SendData()).
+ *            - TXE flag is cleared only by a write to the USART_DATAR register 
+ *            (USART_SendData()).
  * @return  none
  */
 void USART_ClearFlag(USART_TypeDef *USARTx, uint16_t USART_FLAG)
@@ -721,7 +737,7 @@ void USART_ClearFlag(USART_TypeDef *USARTx, uint16_t USART_FLAG)
  *            USART_IT_FE - Framing Error interrupt.
  *            USART_IT_PE - Parity Error interrupt.
  *
- * @return  none
+ * @return  bitstatus: SET or RESET.
  */
 ITStatus USART_GetITStatus(USART_TypeDef *USARTx, uint16_t USART_IT)
 {
@@ -771,7 +787,19 @@ ITStatus USART_GetITStatus(USART_TypeDef *USARTx, uint16_t USART_IT)
  *            USART_IT_LBD - LIN Break detection interrupt.
  *            USART_IT_TC - Transmission complete interrupt.
  *            USART_IT_RXNE - Receive Data register not empty interrupt.
- *
+ *         Note-
+ *            - PE (Parity error), FE (Framing error), NE (Noise error), ORE (OverRun 
+ *            error) and IDLE (Idle line detected) pending bits are cleared by 
+ *            software sequence: a read operation to USART_STATR register 
+ *            (USART_GetITStatus()) followed by a read operation to USART_DATAR register 
+ *            (USART_ReceiveData()).
+ *            - RXNE pending bit can be also cleared by a read to the USART_DATAR register 
+ *            (USART_ReceiveData()).
+ *            - TC pending bit can be also cleared by software sequence: a read 
+ *            operation to USART_STATR register (USART_GetITStatus()) followed by a write 
+ *            operation to USART_DATAR register (USART_SendData()).
+ *            - TXE pending bit is cleared only by a write to the USART_DATAR register 
+ *            (USART_SendData()).
  * @return  none
  */
 void USART_ClearITPendingBit(USART_TypeDef *USARTx, uint16_t USART_IT)

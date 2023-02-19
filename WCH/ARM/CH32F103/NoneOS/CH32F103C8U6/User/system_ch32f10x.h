@@ -4,9 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2019/10/15
  * Description        : CMSIS Cortex-M3 Device Peripheral Access Layer System Header File. 
+ *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ * ******************************************************************************/
 #ifndef __SYSTEM_CH32F10x_H 
 #define __SYSTEM_CH32F10x_H
 

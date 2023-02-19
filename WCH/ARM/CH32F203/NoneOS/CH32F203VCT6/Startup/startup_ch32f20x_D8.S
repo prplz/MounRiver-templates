@@ -3,10 +3,12 @@
 ;* Author             : WCH
 ;* Version            : V1.0.0
 ;* Date               : 2021/08/08
-;* Description        : CH32F203CB-CH32F203RC-CH32F203VC vector table
+;* Description        : CH32F203CB-CH32F203RB-CH32F203RC-CH32F203VC vector table 
 ;*                    for MDK-ARM toolchain.
+;*********************************************************************************
 ;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-;* SPDX-License-Identifier: Apache-2.0
+;* Attention: This software (modified or not) and binary are used for 
+;* microcontroller manufactured by Nanjing Qinheng Microelectronics.
 ;*******************************************************************************/
 
 ;/*******************************************************************************

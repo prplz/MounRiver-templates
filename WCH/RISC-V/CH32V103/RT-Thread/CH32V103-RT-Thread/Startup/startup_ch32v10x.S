@@ -4,9 +4,11 @@
 ;* Version            : V1.0.0
 ;* Date               : 2020/04/30
 ;* Description        : CH32V10x vector table for eclipse toolchain.
-;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-;* SPDX-License-Identifier: Apache-2.0
-;*******************************************************************************/
+*********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 
 	.section	.init,"ax",@progbits
 	.global	_start
@@ -179,8 +181,8 @@ handle_reset:
   	ori t0, t0, 1
 	csrw mtvec, t0
 
-  	jal  SystemInit  /* ÏµÍ³Ê±ÖÓ³õÊ¼»¯ */
-	la t0,entry      /* rttµÄÈë¿Ú */
+  	jal  SystemInit  /* ç³»ç»Ÿæ—¶é’Ÿåˆå§‹åŒ– */
+	la t0,entry      /* rttçš„å…¥å£ */
 	csrw mepc, t0
 	mret
 

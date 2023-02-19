@@ -5,9 +5,11 @@
 ;* Date               : 2021/06/06
 ;* Description        :  CH32V203F6-CH32V203F8-CH32V203G6-CH32V203G8-CH32V203K6-CH32V203K8-CH32V203C6-CH32V203C8
 ;*                    vector table for eclipse toolchain.
+;*********************************************************************************
 ;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-;* SPDX-License-Identifier: Apache-2.0
-;*******************************************************************************/
+;* Attention: This software (modified or not) and binary are used for 
+;* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 
 	.section	.init,"ax",@progbits
 	.global	_start

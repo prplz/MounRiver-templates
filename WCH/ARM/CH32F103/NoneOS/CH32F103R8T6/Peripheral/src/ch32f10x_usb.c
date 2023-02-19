@@ -4,9 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2019/10/15
  * Description        : This file provides all the USB firmware functions.
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ *********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 #include "ch32f10x_usb.h"
 #include "ch32f10x_rcc.h"
 #include "debug.h"
@@ -35,6 +37,7 @@ void USB_Device_Endp_Init(void)
     R16_UEP2_DMA = (UINT16)(UINT32)pEP2_RAM_Addr;
     R16_UEP3_DMA = (UINT16)(UINT32)pEP3_RAM_Addr;
 
+    /* ͬ同步修改 "if( intflag & RB_UIF_BUS_RST )" 处端点初始化代码 */
     R8_UEP0_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
     R8_UEP1_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;
     R8_UEP2_CTRL = UEP_R_RES_ACK | UEP_T_RES_NAK;

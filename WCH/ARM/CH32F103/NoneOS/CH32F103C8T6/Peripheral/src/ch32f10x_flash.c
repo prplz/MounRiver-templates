@@ -4,9 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2019/10/15
  * Description        : This file provides all the FLASH firmware functions.
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- ***************************************************************************************/
+*********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 #include "ch32f10x_flash.h"
 
 /* Flash Access Control Register bits */
@@ -30,6 +32,7 @@
 #define CR_OPTER_Reset           ((uint32_t)0xFFFFFFDF)
 #define CR_STRT_Set              ((uint32_t)0x00000040)
 #define CR_LOCK_Set              ((uint32_t)0x00000080)
+#define CR_FAST_LOCK_Set         ((uint32_t)0x00008000)
 #define CR_PAGE_PG 	             ((uint32_t)0x00010000)
 #define CR_PAGE_ER				       ((uint32_t)0x00020000)
 #define CR_BUF_LOAD 	           ((uint32_t)0x00040000)
@@ -204,8 +207,6 @@ FLASH_Status FLASH_ErasePage( uint32_t Page_Address )
 
         FLASH->CTLR &= CR_PER_Reset;
     }
-
-   
 
     return status;
 }
@@ -878,7 +879,7 @@ void FLASH_Unlock_Fast( void )
  */
 void FLASH_Lock_Fast( void )
 {
-    FLASH->CTLR |= CR_LOCK_Set;
+    FLASH->CTLR |= CR_FAST_LOCK_Set;
 }
 
 /*********************************************************************

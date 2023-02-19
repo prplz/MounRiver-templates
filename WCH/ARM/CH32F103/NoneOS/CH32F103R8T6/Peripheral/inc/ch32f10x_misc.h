@@ -5,9 +5,11 @@
  * Date               : 2019/10/15
  * Description        : This file contains all the functions prototypes for the 
  *                      miscellaneous firmware library functions (add-on to CMSIS functions).
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/   
+ *********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/  
 #ifndef __CH32F10X_MISC_H
 #define __CH32F10X_MISC_H
 

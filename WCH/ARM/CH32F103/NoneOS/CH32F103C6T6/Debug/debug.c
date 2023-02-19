@@ -5,9 +5,11 @@
  * Date               : 2019/10/15
  * Description        : This file contains all the functions prototypes for UART
  *                      Printf , Delay functions.
- * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
- * SPDX-License-Identifier: Apache-2.0
- *******************************************************************************/
+ *********************************************************************************
+* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+* Attention: This software (modified or not) and binary are used for 
+* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+*******************************************************************************/
 #include "debug.h"
 
 /* Support Printf Function Definition */

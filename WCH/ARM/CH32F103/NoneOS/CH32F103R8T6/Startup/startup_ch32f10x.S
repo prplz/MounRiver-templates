@@ -1,11 +1,15 @@
-/********************************** (C) COPYRIGHT *******************************
-* File Name          : startup_ch32f10x.s
-* Author             : WCH
-* Version            : V1.0.0
-* Date               : 2020/11/01
-* Description        : CH32F10x vector table for GCC toolchain.
-*******************************************************************************/
-    
+;/********************************** (C) COPYRIGHT *******************************
+;* File Name          : startup_ch32f10x.s
+;* Author             : WCH
+;* Version            : V1.0.0
+;* Date               : 2019/10/15
+;* Description        : CH32F10x vector table for MDK-ARM toolchain.
+;*********************************************************************************
+;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+;* Attention: This software (modified or not) and binary are used for 
+;* microcontroller manufactured by Nanjing Qinheng Microelectronics.
+;*******************************************************************************/
+ 
   .syntax unified
   .cpu cortex-m3
   .fpu softvfp

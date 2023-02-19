@@ -802,11 +802,13 @@
 			<size>8</size>
 			<access>-Read only for Fixed value</access> 
 			<resetValue>0x73</resetValue>
+            <fields>
 			<field>
 				<name>R8_CHIP_ID</name>
 				<description>RF,chip ID register </description>
 				<bitRange>[7:0]</bitRange>
 			</field>
+            </fields>
 		</register>
 		<register>
 			<name>R8_SAFE_ACCESS_ID</name>
@@ -815,11 +817,13 @@
 			<size>8</size>
 			<access>-Read only for Fixed value</access> 
 			<resetValue>0x04</resetValue>
+            <fields>
 			<field>
 				<name>R8_SAFE_ACCESS_ID</name>
 				<description>RF,safe accessing ID register </description>
 				<bitRange>[7:0]</bitRange>
 			</field>
+            </fields>
 		</register>
 		<register>
 			<name>R8_WDOG_COUNT</name>
@@ -828,11 +832,13 @@
 			<size>8</size>
 			<access>read-write</access>
 			<resetValue>0x00</resetValue>
+            <fields>
 			<field>
 				<name>R8_WDOG_COUNT</name>
 				<description>RF,watch-dog count, count by clock frequency Fsys/131072</description>
 				<bitRange>[7:0]</bitRange>
 			</field>
+            </fields>
 		</register>
 		<register>
 			<name>R8_RESET_STATUS/R8_GLOB_ROM_CFG</name>
