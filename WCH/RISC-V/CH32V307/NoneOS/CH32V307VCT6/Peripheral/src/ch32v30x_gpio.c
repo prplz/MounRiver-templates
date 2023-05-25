@@ -295,8 +295,8 @@ void GPIO_ResetBits(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
  * @param   GPIO_Pin - specifies the port bit to be written.
  *            This parameter can be one of GPIO_Pin_x where x can be (0..15).
  *          BitVal - specifies the value to be written to the selected bit.
- *            Bit_SetL - to clear the port pin.
- *            Bit_SetH - to set the port pin.
+ *            Bit_RESET - to clear the port pin.
+ *            Bit_SET - to set the port pin.
  *
  * @return  none
  */
@@ -484,7 +484,7 @@ void GPIO_PinRemapConfig(uint32_t GPIO_Remap, FunctionalState NewState)
         }
         else /* [31:0] 1bit */
         {
-            tmpreg &= ~(tmp << ((GPIO_Remap >> 0x15) * 0x10));
+            tmpreg &= ~(tmp << (((GPIO_Remap & 0x7FFFFFFF)>> 0x15) * 0x10));
         }
     }
     else
@@ -510,7 +510,7 @@ void GPIO_PinRemapConfig(uint32_t GPIO_Remap, FunctionalState NewState)
     /* Set bit */
     if(NewState != DISABLE)
     {
-        tmpreg |= (tmp << ((GPIO_Remap >> 0x15) * 0x10));
+        tmpreg |= (tmp << (((GPIO_Remap & 0x7FFFFFFF)>> 0x15) * 0x10));
     }
 
     if((GPIO_Remap & 0x80000000) == 0x80000000)

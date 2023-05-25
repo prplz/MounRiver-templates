@@ -1,10 +1,14 @@
 /********************************** (C) COPYRIGHT *******************************
-* File Name          : CH57x_clk.c
-* Author             : WCH
-* Version            : V1.0
-* Date               : 2018/12/15
-* Description 
-*******************************************************************************/
+ * File Name          : CH57x_clk.c
+ * Author             : WCH
+ * Version            : V1.0
+ * Date               : 2018/12/15
+ * Description 
+ *********************************************************************************
+ * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ *******************************************************************************/
 
 #include "CH57x_common.h"
 
@@ -16,6 +20,23 @@
 *******************************************************************************/
 void SystemInit(void)
 {
+	uint8_t  flash_cfg;
+	
+	flash_cfg = R8_CFG_FLASH & RB_CFG_FLASH_X;
+	if(flash_cfg >= 8 && flash_cfg <= 13)
+	{
+		flash_cfg = 2 + (flash_cfg - 8);
+		if(flash_cfg >= 6) {
+            flash_cfg = 6;
+        }
+        
+		flash_cfg = (R8_CFG_FLASH & (~ RB_CFG_FLASH_X)) | flash_cfg;
+		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
+		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
+		R8_CFG_FLASH = flash_cfg;
+		R8_SAFE_ACCESS_SIG = 0;
+	}
+
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
     R16_CLK_SYS_CFG = (2<<6)|0x08;			// 32M -> Fsys
@@ -26,6 +47,7 @@ void SystemInit(void)
     /* 开启电压监控 */
     PowerMonitor( ENABLE );
 }
+
 /*******************************************************************************
 * Function Name  : SYS_ClkXT32MPon
 * Description    : 打开外部32MHz振荡器电源并等待其稳定
@@ -291,6 +313,7 @@ void HClk32M_Select( HClk32MTypeDef hc)
         R16_CLK_SYS_CFG |= RB_CLK_OSC32M_XT;
     R8_SAFE_ACCESS_SIG = 0;
 }
+
 /*******************************************************************************
 * Function Name  : LClk32k_PON
 * Description    : 32K 低频振荡器电源控制
@@ -332,6 +355,7 @@ void LClk32k_Power(LClk32KTypeDef hc, bool enable)
         }
     }
 }
+
 /*******************************************************************************
 * Function Name  : LClk32K_Select
 * Description    : 32K 低频时钟来源
@@ -342,7 +366,8 @@ void LClk32k_Power(LClk32KTypeDef hc, bool enable)
 *******************************************************************************/
 void LClk32K_Select( LClk32KTypeDef hc)
 {
-	 LClk32k_Power(hc, true);
+    LClk32k_Power(hc, true);
+
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
     R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;	
     if( hc == Clk32K_LSI)

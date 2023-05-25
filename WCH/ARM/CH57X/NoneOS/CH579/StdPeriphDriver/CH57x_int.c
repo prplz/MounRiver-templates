@@ -1,10 +1,14 @@
 /********************************** (C) COPYRIGHT *******************************
-* File Name          : CH57x_int.c
-* Author             : WCH
-* Version            : V1.0
-* Date               : 2020/03/18
-* Description 
-*******************************************************************************/
+ * File Name          : CH57x_int.c
+ * Author             : WCH
+ * Version            : V1.0
+ * Date               : 2020/03/18
+ * Description 
+ *********************************************************************************
+ * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ *******************************************************************************/
 
 #include "CH57x_common.h"
 
@@ -236,7 +240,7 @@ void LowPower_Shutdown( UINT8 rm )
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG1;		
 		R8_SAFE_ACCESS_SIG = SAFE_ACCESS_SIG2;
 		R8_BAT_DET_CTRL = RB_BAT_LOW_IE|RB_BAT_LOWER_IE|RB_BAT_DET_EN;  
-		R8_RST_WDOG_CTRL |= RB_SOFTWARE_RESET;
+    R8_RST_WDOG_CTRL |= RB_SOFTWARE_RESET;
 		R8_SAFE_ACCESS_SIG = 0;  
 }
 

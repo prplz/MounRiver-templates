@@ -32,6 +32,13 @@
 
 #define HSI_VALUE    ((uint32_t)8000000) /* Value of the Internal oscillator in Hz */
 
+/* CH32V30x Standard Peripheral Library version number */
+#define __CH32V30x_STDPERIPH_VERSION_MAIN   (0x02) /* [15:8] main version */
+#define __CH32V30x_STDPERIPH_VERSION_SUB    (0x01) /* [7:0] sub version */
+#define __CH32V30x_STDPERIPH_VERSION        ( (__CH32V30x_STDPERIPH_VERSION_MAIN << 8)\
+                                             |(__CH32V30x_STDPERIPH_VERSION_SUB << 0))
+
+
 /* Interrupt Number Definition, according to the selected device */	 
 typedef enum IRQn
 {

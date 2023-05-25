@@ -1,5 +1,14 @@
-
-
+/********************************** (C) COPYRIGHT *******************************
+ * File Name          : CH57x_clk.h
+ * Author             : WCH
+ * Version            : V1.0
+ * Date               : 2022/12/05
+ * Description        : 
+ ********************************************************************************
+ * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ *******************************************************************************/
 
 #ifndef __CH57x_CLK_H__
 #define __CH57x_CLK_H__
@@ -11,6 +20,7 @@
 #include "CH579SFR.h"
 #include "core_cm0.h"
 #include <stdbool.h>
+
 typedef enum
 {
 	CLK_SOURCE_LSI = 0,
@@ -89,7 +99,6 @@ typedef enum
 #define	YearLength(yr)									(IsLeapYear(yr) ? 366 : 365)
 #define monthLength(lpyr,mon)						(((mon)==1) ? (28+(lpyr)) : (((mon)>6) ? (((mon)&1)?31:30) : (((mon)&1)?30:31)))
 
-
 /**
   * @brief  rtc timer mode period define
   */
@@ -125,6 +134,7 @@ typedef enum
 	RTC_TMR_MODE,				// RTC 周期定时模式
 
 }RTC_MODETypeDef;
+
 __STATIC_INLINE bool SYS_IsClkXT32MPon(void)
 {
 	return (R8_HFCK_PWR_CTRL & RB_CLK_XT32M_PON) ? true : false;
@@ -151,7 +161,7 @@ void SystemInit(void);							/* 系统时钟初始化 */
 void SetSysClock( SYS_CLKTypeDef sc);			/* 重设系统运行时钟 */
 UINT32 GetSysClock( void );						/* 获取当前系统时钟 */	
 void HClk32M_Select( HClk32MTypeDef hc);		/* 32M 高频时钟来源 */
-void LClk32k_Power(LClk32KTypeDef hc, bool enable);	
+void LClk32k_Power(LClk32KTypeDef hc, bool enable);		/* 32K 低频振荡器电源控制 */
 void LClk32K_Select( LClk32KTypeDef hc);		/* 32K 低频时钟来源 */
 
 void HSECFG_Current( HSECurrentTypeDef c );     /* HSE晶体 偏置电流配置 */
