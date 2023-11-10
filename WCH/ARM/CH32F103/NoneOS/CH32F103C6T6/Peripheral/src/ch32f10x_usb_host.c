@@ -809,12 +809,11 @@ UINT8 InitRootDevice( PUINT8 DataBuf )
 /*********************************************************************
  * @fn      HubGetPortStatus
  *
- * @brief   ��ѯHUB�˿�״̬,������Com_Buffer��
  *
  * @param   UINT8 HubPortIndex
  *
- * @return  ERR_SUCCESS �ɹ�
- *          ERR_USB_BUF_OVER ���ȴ���
+ * @return  ERR_SUCCESS 
+ *          ERR_USB_BUF_OVER 
  */
 UINT8   HubGetPortStatus( UINT8 HubPortIndex )
 {
@@ -826,14 +825,14 @@ UINT8   HubGetPortStatus( UINT8 HubPortIndex )
     pSetupReq -> wValue = 0x0000;
     pSetupReq -> wIndex = 0x0000 | HubPortIndex;
     pSetupReq -> wLength = 0x0004;
-    s = HostCtrlTransfer( Com_Buffer, &len );                           // ִ�п��ƴ���
+    s = HostCtrlTransfer( Com_Buffer, &len );                           
     if( s != ERR_SUCCESS )
     {
         return( s );
     }
     if( len < 4 )
     {
-        return( ERR_USB_BUF_OVER );                                             // ���������ȴ���
+        return( ERR_USB_BUF_OVER );                                             
     }
     return( ERR_SUCCESS );
 }
@@ -841,12 +840,11 @@ UINT8   HubGetPortStatus( UINT8 HubPortIndex )
 /*********************************************************************
  * @fn      HubSetPortFeature
  *
- * @brief   ����HUB�˿�����
  *
  * @param   UINT8 HubPortIndex
  *          UINT8 FeatureSelt
  *
- * @return  ERR_SUCCESS �ɹ�
+ * @return  ERR_SUCCESS 
  */
 UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
 {
@@ -855,18 +853,17 @@ UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
     pSetupReq -> wValue = 0x0000 | FeatureSelt;
     pSetupReq -> wIndex = 0x0000 | HubPortIndex;
     pSetupReq -> wLength = 0x0000;
-    return( HostCtrlTransfer( NULL, NULL ) );                                 // ִ�п��ƴ���
+    return( HostCtrlTransfer( NULL, NULL ) );                                 
 }
 
 /*********************************************************************
  * @fn      HubClearPortFeature
  *
- * @brief   ���HUB�˿�����
  *
  * @param   UINT8 HubPortIndex
  *          UINT8 FeatureSelt
  *
- * @return  ERR_SUCCESS �ɹ�
+ * @return  ERR_SUCCESS 
  */
 UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
 {
@@ -875,7 +872,7 @@ UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt )
     pSetupReq -> wValue = 0x0000 | FeatureSelt;
     pSetupReq -> wIndex = 0x0000 | HubPortIndex;
     pSetupReq -> wLength = 0x0000;
-    return( HostCtrlTransfer( NULL, NULL ) );                                // ִ�п��ƴ���
+    return( HostCtrlTransfer( NULL, NULL ) );                                
 }
 
 

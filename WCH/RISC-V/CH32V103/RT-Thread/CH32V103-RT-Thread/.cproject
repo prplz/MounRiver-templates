@@ -188,7 +188,7 @@
 					</folderInfo>
 					<fileInfo id="ilg.gnumcueclipse.managedbuild.cross.riscv.config.elf.release.1008047074.1097259360" name="drv_gpio.h" rcbsApplicability="disable" resourcePath="drivers/drv_gpio.h" toolsToInvoke=""/>
 					<sourceEntries>
-						<entry excluding="Ld|User/wetstone.c|rtthread/libcpu/risc-v/common/context" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
+						<entry excluding="Startup/startup_ch32v10x_5v.S|Ld|User/wetstone.c|rtthread/libcpu/risc-v/common/context" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

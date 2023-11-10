@@ -3,7 +3,7 @@
   <vendor>WCH Ltd.</vendor><!-- device vendor name -->
   <vendorID>WCH</vendorID><!-- device vendor short name -->
   <name>CH643</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <description>CH643 View File</description><!--Bus Interface Properties--><!--RISC-V is byte addressable-->
   <addressUnitBits>8</addressUnitBits><!--the maximum data bit width accessible within a single transfer-->
   <width>32</width><!--Register Default Properties-->
@@ -6040,6 +6040,13 @@
 			  <access>read-write</access>
             </field>
 			<field>
+              <name>CMP_BK</name>
+              <description>CMP_BK</description>
+              <bitOffset>12</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-write</access>
+            </field>
+			<field>
               <name>CAPOV</name>
               <description>CAPOV</description>
               <bitOffset>14</bitOffset>
@@ -6993,8 +7000,8 @@
           <displayName>CH1CVR</displayName>
           <description>capture/compare register 1</description>
           <addressOffset>0x34</addressOffset>
-          <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <size>0x20</size>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH1CVR</name>
@@ -7003,6 +7010,13 @@
               <bitWidth>16</bitWidth>
 			  <access>read-write</access>
             </field>
+            <field>
+              <name>LEVEL1</name>
+              <description>Level indicating bit</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-only</access>
+            </field>
           </fields>
         </register>
         <register>
@@ -7010,8 +7024,8 @@
           <displayName>CH2CVR</displayName>
           <description>capture/compare register 2</description>
           <addressOffset>0x38</addressOffset>
-          <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <size>0x20</size>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH2CVR</name>
@@ -7020,6 +7034,13 @@
               <bitWidth>16</bitWidth>
 			  <access>read-write</access>
             </field>
+			<field>
+              <name>LEVEL2</name>
+              <description>Level indicating bit</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-only</access>
+            </field>
           </fields>
         </register>
         <register>
@@ -7027,8 +7048,8 @@
           <displayName>CH3CVR</displayName>
           <description>capture/compare register 3</description>
           <addressOffset>0x3C</addressOffset>
-          <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <size>0x20</size>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH3CVR</name>
@@ -7037,6 +7058,13 @@
               <bitWidth>16</bitWidth>
 			  <access>read-write</access>
             </field>
+            <field>
+              <name>LEVEL3</name>
+              <description>Level indicating bit</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-only</access>
+            </field>
           </fields>
         </register>
         <register>
@@ -7044,8 +7072,8 @@
           <displayName>CH4CVR</displayName>
           <description>capture/compare register 4</description>
           <addressOffset>0x40</addressOffset>
-          <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <size>0x20</size>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH4CVR</name>
@@ -7053,6 +7081,13 @@
               <bitOffset>0</bitOffset>
               <bitWidth>16</bitWidth>
 			  <access>read-write</access>
+            </field>
+            <field>
+              <name>LEVEL4</name>
+              <description>Level indicating bit</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-only</access>
             </field>
           </fields>
         </register>
@@ -7732,8 +7767,8 @@
           <displayName>CH1CVR</displayName>
           <description>capture/compare register 1</description>
           <addressOffset>0x34</addressOffset>
-          <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <size>0x20</size>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH1CVR</name>
@@ -7742,6 +7777,13 @@
               <bitWidth>16</bitWidth>
 			  <access>read-write</access>
             </field>
+            <field>
+              <name>LEVEL1</name>
+              <description>Level indicating bit</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-only</access>
+            </field>
           </fields>
         </register>
         <register>
@@ -7749,8 +7791,8 @@
           <displayName>CH2CVR</displayName>
           <description>capture/compare register 2</description>
           <addressOffset>0x38</addressOffset>
-          <size>0x10</size>
-          <resetValue>0x0000</resetValue>
+          <size>0x20</size>
+          <resetValue>0x00000000</resetValue>
           <fields>
             <field>
               <name>CH2CVR</name>
@@ -7758,6 +7800,13 @@
               <bitOffset>0</bitOffset>
               <bitWidth>16</bitWidth>
 			  <access>read-write</access>
+            </field>
+            <field>
+              <name>LEVEL2</name>
+              <description>Level indicating bit</description>
+              <bitOffset>16</bitOffset>
+              <bitWidth>1</bitWidth>
+			  <access>read-only</access>
             </field>
           </fields>
         </register>
@@ -8354,6 +8403,12 @@
           <access>read-write</access>
           <resetValue>0x0000</resetValue>
           <fields>
+            <field>
+              <name>ODEN</name>
+              <description>open drain output of SPI pin is enable</description>
+              <bitOffset>15</bitOffset>
+              <bitWidth>1</bitWidth>
+            </field>
             <field>
               <name>TXEIE</name>
               <description>Tx buffer empty interrupt
@@ -11282,7 +11337,7 @@
             </field>
 
             <field>
-              <name>CFGRSTT</name>
+              <name>RST_MODE</name>
               <description>Config reset delay time</description>
               <bitOffset>5</bitOffset>
               <bitWidth>2</bitWidth>
@@ -13482,6 +13537,13 @@
           <resetValue>0x0000</resetValue>
           <fields>
             <field>
+              <name>PD_FILT_EN</name>
+              <description> control PD pin input filter enable</description>
+              <bitOffset>0</bitOffset>
+              <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
               <name>PD_ALL_CLR</name>
               <description>PD ITClear</description>
               <bitOffset>1</bitOffset>
@@ -13597,6 +13659,13 @@
               <description>BMC_START value</description>
               <bitOffset>1</bitOffset>
               <bitWidth>1</bitWidth>
+              <access>read-write</access>
+            </field>
+            <field>
+              <name>RX_STATE</name>
+              <description>PD receive status identification</description>
+              <bitOffset>2</bitOffset>
+              <bitWidth>3</bitWidth>
               <access>read-write</access>
             </field>
             <field>
@@ -13793,8 +13862,8 @@
               <access>read-write</access>
             </field>
             <field>
-              <name>CC1_LV0</name>
-              <description>CC1_LV0 value</description>
+              <name>CC1_LVE</name>
+              <description>CC1_LVE value</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>
@@ -13831,8 +13900,8 @@
               <access>read-write</access>
             </field>
             <field>
-              <name>CC2_LV0</name>
-              <description>CC2_LV0 value</description>
+              <name>CC2_LVE</name>
+              <description>CC2_LVE value</description>
               <bitOffset>4</bitOffset>
               <bitWidth>1</bitWidth>
               <access>read-write</access>

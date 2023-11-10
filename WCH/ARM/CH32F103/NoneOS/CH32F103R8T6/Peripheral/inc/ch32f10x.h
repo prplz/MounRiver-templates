@@ -5,10 +5,10 @@
  * Date               : 2019/10/15
  * Description        : CMSIS Cortex-M3 Device Peripheral Access Layer Header File. 
  *********************************************************************************
-* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* Attention: This software (modified or not) and binary are used for 
-* microcontroller manufactured by Nanjing Qinheng Microelectronics.
-*******************************************************************************/  
+ * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ *******************************************************************************/  
 #ifndef __CH32F10x_H
 #define __CH32F10x_H
 
@@ -26,6 +26,12 @@
 #define HSE_STARTUP_TIMEOUT   ((uint16_t)0x500) /* Time out for HSE start up */
 
 #define HSI_VALUE    ((uint32_t)8000000) /* Value of the Internal oscillator in Hz*/
+
+/* CH32F10x Standard Peripheral Library version number */
+#define __CH32F10x_STDPERIPH_VERSION_MAIN   (0x02) /* [15:8] main version */
+#define __CH32F10x_STDPERIPH_VERSION_SUB    (0x01) /* [7:0] sub version */
+#define __CH32F10x_STDPERIPH_VERSION        ( (__CH32F10x_STDPERIPH_VERSION_MAIN << 8)\
+                                             |(__CH32F10x_STDPERIPH_VERSION_SUB << 0))
 
 /* Interrupt Number Definition, according to the selected device */	 
 typedef enum IRQn

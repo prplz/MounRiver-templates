@@ -48,9 +48,9 @@ typedef struct
     uint8_t       RESERVED[4];      // 44H
     __O uint32_t  CFGR;             // 48H
     __I uint32_t  GISR;             // 4CH
-    __IO uint8_t  IDCFGR[4];        // 50H
+    __IO uint8_t  VTFIDR[4];        // 50H
     uint8_t       RESERVED0[0x0C];  // 54H
-    __IO uint32_t FIADDRR[4];       // 60H
+    __IO uint32_t VTFADDR[4];       // 60H
     uint8_t       RESERVED1[0x90];  // 70H
     __O uint32_t  IENR[8];          // 100H
     uint8_t       RESERVED2[0x60];  // 120H
@@ -107,7 +107,7 @@ typedef struct
  *
  * @param   IRQn    - Interrupt Numbers
  */
-RV_STATIC_INLINE void PFIC_EnableIRQ(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE void PFIC_EnableIRQ(IRQn_Type IRQn)
 {
     PFIC->IENR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn)&0x1F));
 }
@@ -119,7 +119,7 @@ RV_STATIC_INLINE void PFIC_EnableIRQ(IRQn_Type IRQn)
  *
  * @param   IRQn    - Interrupt Numbers
  */
-RV_STATIC_INLINE void PFIC_DisableIRQ(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE void PFIC_DisableIRQ(IRQn_Type IRQn)
 {
     PFIC->IRER[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn)&0x1F));
     __nop();
@@ -136,7 +136,7 @@ RV_STATIC_INLINE void PFIC_DisableIRQ(IRQn_Type IRQn)
  * @return  1: Interrupt Enable
  *          0: Interrupt Disable
  */
-RV_STATIC_INLINE uint32_t PFIC_GetStatusIRQ(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE uint32_t PFIC_GetStatusIRQ(IRQn_Type IRQn)
 {
     return ((uint32_t)((PFIC->ISR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn)&0x1F))) ? 1 : 0));
 }
@@ -151,7 +151,7 @@ RV_STATIC_INLINE uint32_t PFIC_GetStatusIRQ(IRQn_Type IRQn)
  * @return  1: Interrupt Pending Enable
  *          0: Interrupt Pending Disable
  */
-RV_STATIC_INLINE uint32_t PFIC_GetPendingIRQ(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE uint32_t PFIC_GetPendingIRQ(IRQn_Type IRQn)
 {
     return ((uint32_t)((PFIC->IPR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn)&0x1F))) ? 1 : 0));
 }
@@ -163,7 +163,7 @@ RV_STATIC_INLINE uint32_t PFIC_GetPendingIRQ(IRQn_Type IRQn)
  *
  * @param   IRQn    - Interrupt Numbers
  */
-RV_STATIC_INLINE void PFIC_SetPendingIRQ(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE void PFIC_SetPendingIRQ(IRQn_Type IRQn)
 {
     PFIC->IPSR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn)&0x1F));
 }
@@ -175,7 +175,7 @@ RV_STATIC_INLINE void PFIC_SetPendingIRQ(IRQn_Type IRQn)
  *
  * @param   IRQn    - Interrupt Numbers
  */
-RV_STATIC_INLINE void PFIC_ClearPendingIRQ(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE void PFIC_ClearPendingIRQ(IRQn_Type IRQn)
 {
     PFIC->IPRR[((uint32_t)(IRQn) >> 5)] = (1 << ((uint32_t)(IRQn)&0x1F));
 }
@@ -190,7 +190,7 @@ RV_STATIC_INLINE void PFIC_ClearPendingIRQ(IRQn_Type IRQn)
  * @return  1: Interrupt Active
  *          0: Interrupt No Active.
  */
-RV_STATIC_INLINE uint32_t PFIC_GetActive(IRQn_Type IRQn)
+__attribute__((always_inline)) RV_STATIC_INLINE uint32_t PFIC_GetActive(IRQn_Type IRQn)
 {
     return ((uint32_t)((PFIC->IACTR[(uint32_t)(IRQn) >> 5] & (1 << ((uint32_t)(IRQn)&0x1F))) ? 1 : 0));
 }
@@ -204,115 +204,77 @@ RV_STATIC_INLINE uint32_t PFIC_GetActive(IRQn_Type IRQn)
  * @param   priority    - bit7:         pre-emption priority
  *                        bit6-bit4:    subpriority
  */
-RV_STATIC_INLINE void PFIC_SetPriority(IRQn_Type IRQn, uint8_t priority)
+__attribute__((always_inline)) RV_STATIC_INLINE void PFIC_SetPriority(IRQn_Type IRQn, uint8_t priority)
 {
     PFIC->IPRIOR[(uint32_t)(IRQn)] = priority;
 }
 
 /*********************************************************************
- * @fn      PFIC_EnableFastINT0
+ * @fn      SetVTFIRQ
  *
- * @brief   Set fast Interrupt 0
+ * @brief   Set VTF Interrupt
  *
- * @param   IRQn  - Interrupt Numbers
- * @param   addr  - interrupt service addr
+ * @param   addr - VTF interrupt service function base address.
+ *                  IRQn - Interrupt Numbers
+ *                  num - VTF Interrupt Numbers
+ *                  NewState -  DISABLE or ENABLE
+ *
+ * @return  none
  */
-RV_STATIC_INLINE void PFIC_EnableFastINT0(IRQn_Type IRQn, uint32_t addr)
-{
-    PFIC->IDCFGR[0] = IRQn;
-    PFIC->FIADDRR[0] = (addr & 0xFFFFFFFE) | 1;
+__attribute__((always_inline)) RV_STATIC_INLINE void SetVTFIRQ(uint32_t addr, IRQn_Type IRQn, uint8_t num, FunctionalState NewState){
+  if(num > 3)  return ;
+
+  if (NewState != DISABLE)
+  {
+      PFIC->VTFIDR[num] = IRQn;
+      PFIC->VTFADDR[num] = ((addr&0xFFFFFFFE)|0x1);
+  }
+  else{
+      PFIC->VTFIDR[num] = IRQn;
+      PFIC->VTFADDR[num] = ((addr&0xFFFFFFFE)&(~0x1));
+  }
 }
 
 /*********************************************************************
- * @fn      PFIC_EnableFastINT1
+ * @fn       _SEV
  *
- * @brief   Set fast Interrupt 1
+ * @brief   Set Event
  *
- * @param   IRQn  - Interrupt Numbers
- * @param   addr  - interrupt service addr
+ * @return  none
  */
-RV_STATIC_INLINE void PFIC_EnableFastINT1(IRQn_Type IRQn, uint32_t addr)
+__attribute__( ( always_inline ) ) RV_STATIC_INLINE void _SEV(void)
 {
-    PFIC->IDCFGR[1] = IRQn;
-    PFIC->FIADDRR[1] = (addr & 0xFFFFFFFE) | 1;
+
+    PFIC->SCTLR |= (1<<3)|(1<<5);
+
 }
 
 /*********************************************************************
- * @fn      PFIC_EnableFastINT2
- *
- * @brief   Set fast Interrupt 2
- *
- * @param   IRQn  - Interrupt Numbers
- * @param   addr  - interrupt service addr
- */
-RV_STATIC_INLINE void PFIC_EnableFastINT2(IRQn_Type IRQn, uint32_t addr)
-{
-    PFIC->IDCFGR[2] = IRQn;
-    PFIC->FIADDRR[2] = (addr & 0xFFFFFFFE) | 1;
-}
-
-/*********************************************************************
- * @fn      PFIC_EnableFastINT3
- *
- * @brief   Set fast Interrupt 3
- *
- * @param   IRQn  - Interrupt Numbers
- * @param   addr  - interrupt service addr
- */
-RV_STATIC_INLINE void PFIC_EnableFastINT3(IRQn_Type IRQn, uint32_t addr)
-{
-    PFIC->IDCFGR[3] = IRQn;
-    PFIC->FIADDRR[3] = (addr & 0xFFFFFFFE) | 1;
-}
-
-/*********************************************************************
- * @fn      PFIC_DisableFastINT0
- *
- * @brief   Disable fast Interrupt 0
- */
-RV_STATIC_INLINE void PFIC_DisableFastINT0(void)
-{
-    PFIC->FIADDRR[0] = PFIC->FIADDRR[0] & 0xFFFFFFFE;
-}
-
-/*********************************************************************
- * @fn      PFIC_DisableFastINT1
- *
- * @brief   Disable fast Interrupt 1
- */
-RV_STATIC_INLINE void PFIC_DisableFastINT1(void)
-{
-    PFIC->FIADDRR[1] = PFIC->FIADDRR[1] & 0xFFFFFFFE;
-}
-
-/*********************************************************************
- * @fn      PFIC_DisableFastINT2
- *
- * @brief   Disable fast Interrupt 2
- */
-RV_STATIC_INLINE void PFIC_DisableFastINT2(void)
-{
-    PFIC->FIADDRR[2] = PFIC->FIADDRR[2] & 0xFFFFFFFE;
-}
-
-/*********************************************************************
- * @fn      PFIC_DisableFastINT3
- *
- * @brief   Disable fast Interrupt 3
- */
-RV_STATIC_INLINE void PFIC_DisableFastINT3(void)
-{
-    PFIC->FIADDRR[3] = PFIC->FIADDRR[3] & 0xFFFFFFFE;
-}
-
-/*********************************************************************
- * @fn      __SEV
+ * @fn       _WFE
  *
  * @brief   Wait for Events
+ *
+ * @return  none
  */
-__attribute__((always_inline)) RV_STATIC_INLINE void __SEV(void)
+__attribute__( ( always_inline ) ) RV_STATIC_INLINE void _WFE(void)
 {
-    PFIC->SCTLR |= (1 << 3);
+    PFIC->SCTLR |= (1<<3);
+    asm volatile ("wfi");
+}
+
+
+/*********************************************************************
+ * @fn      __WFE
+ *
+ * @brief   Wait for Events
+ *
+ * @return  None
+ */
+__attribute__( ( always_inline ) ) RV_STATIC_INLINE void __WFE(void)
+{
+    _SEV();
+    _WFE();
+    _WFE();
 }
 
 /*********************************************************************
@@ -327,338 +289,190 @@ __attribute__((always_inline)) RV_STATIC_INLINE void __WFI(void)
 }
 
 /*********************************************************************
- * @fn      __WFE
- *
- * @brief   Wait for Events
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __WFE(void)
-{
-    PFIC->SCTLR |= (1 << 3) | (1 << 5); // (wfi->wfe)+(__sev)
-    __asm__ volatile("wfi");
-    PFIC->SCTLR |= (1 << 3);
-    __asm__ volatile("wfi");
-}
-
-/*********************************************************************
  * @fn      PFIC_SystemReset
  *
  * @brief   Initiate a system reset request
  */
-RV_STATIC_INLINE void PFIC_SystemReset(void)
+__attribute__((always_inline)) RV_STATIC_INLINE void PFIC_SystemReset(void)
 {
     PFIC->CFGR = PFIC_KEY3 | (1 << 7);
 }
 
-/*******************************************************************************
- * @fn      __AMOADD_W
+/*********************************************************************
+ *  @fn      __AMOADD_W
  *
- * @brief   caculate result = *addr + value, and save the result to addr.
+ *  @brief   Atomic Add with 32bit value
+ *              Atomically ADD 32bit value with value in memory using amoadd.d.
+ *              addr   Address pointer to data, address need to be 4byte aligned
+ *                        value  value to be ADDed
  *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
  *
- * @return  the new value in addr.
+ * @return  return memory value + add value
  */
-__attribute__((always_inline)) RV_STATIC_INLINE  int32_t __AMOADD_W(volatile int32_t *addr, int32_t value)
+__attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOADD_W(volatile int32_t *addr, int32_t value)
 {
-    register int32_t result;
+    int32_t result;
 
     __asm volatile ("amoadd.w %0, %2, %1" : \
             "=r"(result), "+A"(*addr) : "r"(value) : "memory");
     return *addr;
 }
 
-/*******************************************************************************
- * @fn      __VOID_AMOADD_W
- *
- * @brief   caculate result = *addr + value, and save the result to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
- *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE  void __VOID_AMOADD_W(volatile int32_t *addr, int32_t value)
-{
-    __asm volatile ("amoadd.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
-
-/*******************************************************************************
+/*********************************************************************
  * @fn      __AMOAND_W
  *
- * @brief   caculate result = *addr & value, and save the result to addr.
+ * @brief  Atomic And with 32bit value
+ *              Atomically AND 32bit value with value in memory using amoand.d.
+ *              addr   Address pointer to data, address need to be 4byte aligned
+ *              value  value to be ANDed
  *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
  *
- * @return  the new value in addr.
+ * @return  return memory value & and value
  */
-__attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOAND_W(volatile int32_t *addr, int32_t value) {
-    register int32_t result;
+__attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOAND_W(volatile int32_t *addr, int32_t value)
+{
+    int32_t result;
 
     __asm volatile ("amoand.w %0, %2, %1" : \
             "=r"(result), "+A"(*addr) : "r"(value) : "memory");
     return *addr;
 }
 
-/*******************************************************************************
- * @fn      __VOID_AMOAND_W
+/*********************************************************************
+ * @fn         __AMOMAX_W
  *
- * @brief   caculate result = *addr & value, and save the result to addr.
+ * @brief      Atomic signed MAX with 32bit value
+ * @details   Atomically signed max compare 32bit value with value in memory using amomax.d.
+ *                 addr   Address pointer to data, address need to be 4byte aligned
+ *                 value  value to be compared
  *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
  *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOAND_W(volatile int32_t *addr, int32_t value) {
-    __asm volatile ("amoand.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
-
-/*******************************************************************************
- * @fn      __AMOOR_W
- *
- * @brief   caculate result = *addr | value, and save the result to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
- *
- * @return  the new value in addr.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOOR_W(volatile int32_t *addr, int32_t value) {
-    register int32_t result;
-    __asm volatile ("amoor.w %0, %2, %1" : \
-            "=r"(result), "+A"(*addr) : "r"(value) : "memory");
-    return *addr;
-}
-
-/*******************************************************************************
- * @fn      __VOID_AMOOR_W
- *
- * @brief   caculate result = *addr | value, and save the result to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
- *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOOR_W(volatile int32_t *addr, int32_t value) {
-    __asm volatile ("amoor.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
-
-/*******************************************************************************
- * @fn      __AMOXOR_W
- *
- * @brief   caculate result = *addr ^ value, and save the result to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
- *
- * @return  the new value in addr.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOXOR_W(volatile int32_t *addr,uint32_t value) {
-    uint32_t result;
-    __asm volatile ("amoxor.w %0, %2, %1" : \
-            "=r"(result), "+A"(*addr) : "r"(value) : "memory");
-    return *addr;
-}
-
-/*******************************************************************************
- * @fn      __VOID_AMOXOR_W
- *
- * @brief   caculate result = *addr ^ value, and save the result to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the value.
- *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOXOR_W(volatile int32_t *addr,uint32_t value) {
-    __asm volatile ("amoxor.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
-
-/*******************************************************************************
- * @fn      __AMOSWAP_W
- *
- * @brief   swap value to addr, return the old value in addr.
- *
- * @param   addr        - the addr of value.
- * @param   newval      - the new value need to swap into addr.
- *
- * @return  the old value in addr.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOSWAP_W(volatile uint32_t *addr, uint32_t newval)
-{
-    register uint32_t result;
-
-    __asm volatile ("amoswap.w %0, %2, %1" : \
-            "=r"(result), "+A"(*addr) : "r"(newval) : "memory");
-    return result;
-}
-
-/*******************************************************************************
- * @fn      __VOID_AMOSWAP_W
- *
- * @brief   swap value to addr.
- *
- * @param   addr        - the addr of value.
- * @param   newval      - the new value need to swap into addr.
- *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOSWAP_W(volatile uint32_t *addr, uint32_t newval)
-{
-    __asm volatile ("amoswap.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(newval) : "memory");
-}
-
-/*******************************************************************************
- * @fn      __AMOMAXU_W
- *
- * @brief   Compare unsigned *addr and value, save the max value to addr,
- *          then return the new value in addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
- *
- * @return  the new value in addr.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOMAXU_W(volatile uint32_t *addr, uint32_t value)
-{
-    register uint32_t result;
-
-    __asm volatile ("amomaxu.w %0, %2, %1" : \
-            "=r"(result), "+A"(*addr) : "r"(value) : "memory");
-    return *addr;
-}
-
-/*******************************************************************************
- * @fn      __VOID_AMOMAXU_W
- *
- * @brief   Compare unsigned *addr and value, save the max value to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
- *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOMAXU_W(volatile uint32_t *addr, uint32_t value)
-{
-    __asm volatile ("amomaxu.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
-
-/*******************************************************************************
- * @fn      __AMOMAX_W
- *
- * @brief   Compare signed *addr and value, save the max value to addr,
- *          then return the new value in addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
- *
- * @return  the new value in addr.
+ * @return the bigger value
  */
 __attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOMAX_W(volatile int32_t *addr, int32_t value)
 {
-    register int32_t result;
+    int32_t result;
 
     __asm volatile ("amomax.w %0, %2, %1" : \
             "=r"(result), "+A"(*addr) : "r"(value) : "memory");
     return *addr;
 }
 
-/*******************************************************************************
- * @fn      __VOID_AMOMAX_W
+/*********************************************************************
+ * @fn        __AMOMAXU_W
  *
- * @brief   Compare signed *addr and value, save the max value to addr.
+ * @brief  Atomic unsigned MAX with 32bit value
+ *             Atomically unsigned max compare 32bit value with value in memory using amomaxu.d.
+ *             addr   Address pointer to data, address need to be 4byte aligned
+ *             value  value to be compared
  *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
- *
- * @return  None.
+ * @return  return the bigger value
  */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOMAX_W(volatile int32_t *addr, int32_t value)
+__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOMAXU_W(volatile uint32_t *addr, uint32_t value)
 {
-    __asm volatile ("amomax.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
+    uint32_t result;
 
-
-/*******************************************************************************
- * @fn      __AMOMINU_W
- *
- * @brief   Compare unsigned *addr and value, save the min value to addr,
- *          then return the new value in addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
- *
- * @return  the new value in addr.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOMINU_W(volatile uint32_t *addr, uint32_t value)
-{
-    register uint32_t result;
-
-    __asm volatile ("amominu.w %0, %2, %1" : \
+    __asm volatile ("amomaxu.w %0, %2, %1" : \
             "=r"(result), "+A"(*addr) : "r"(value) : "memory");
     return *addr;
 }
 
-/*******************************************************************************
- * @fn      __VOID_AMOMINU_W
- *
- * @brief   Compare unsigned *addr and value, save the min value to addr.
- *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
- *
- * @return  None.
- */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOMINU_W(volatile uint32_t *addr, uint32_t value)
-{
-    __asm volatile ("amominu.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
-}
-
-/*******************************************************************************
+/*********************************************************************
  * @fn      __AMOMIN_W
  *
- * @brief   Compare signed *addr and value, save the min value to addr,
- *          then return the new value in addr.
+ * @brief  Atomic signed MIN with 32bit value
+ *             Atomically signed min compare 32bit value with value in memory using amomin.d.
+ *             addr   Address pointer to data, address need to be 4byte aligned
+ *             value  value to be compared
  *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
  *
- * @return  the new value in addr.
+ * @return  the smaller value
  */
 __attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOMIN_W(volatile int32_t *addr, int32_t value)
 {
-    register int32_t result;
+    int32_t result;
 
     __asm volatile ("amomin.w %0, %2, %1" : \
             "=r"(result), "+A"(*addr) : "r"(value) : "memory");
     return *addr;
 }
 
-/*******************************************************************************
- * @fn      __VOID_AMOMIN_W
+/*********************************************************************
+ * @fn      __AMOMINU_W
  *
- * @brief   Compare signed *addr and value, save the min value to addr.
+ * @brief   Atomic unsigned MIN with 32bit value
+ *              Atomically unsigned min compare 32bit value with value in memory using amominu.d.
+ *              addr   Address pointer to data, address need to be 4byte aligned
+ *              value  value to be compared
  *
- * @param   addr    - the addr of value.
- * @param   value   - the new value need to compare with *addr.
  *
- * @return  None.
+ * @return the smaller value
  */
-__attribute__((always_inline)) RV_STATIC_INLINE void __VOID_AMOMIN_W(volatile int32_t *addr, int32_t value)
+__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOMINU_W(volatile uint32_t *addr, uint32_t value)
 {
-    __asm volatile ("amomin.w zero, %1, %0" : \
-            "+A"(*addr) : "r"(value) : "memory");
+    uint32_t result;
+
+    __asm volatile ("amominu.w %0, %2, %1" : \
+            "=r"(result), "+A"(*addr) : "r"(value) : "memory");
+    return *addr;
+}
+
+/*********************************************************************
+ * @fn           __AMOOR_W
+ *
+ * @brief       Atomic OR with 32bit value
+ * @details    Atomically OR 32bit value with value in memory using amoor.d.
+ *                  addr   Address pointer to data, address need to be 4byte aligned
+ *                  value  value to be ORed
+ *
+ *
+ * @return  return memory value | and value
+ */
+__attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOOR_W(volatile int32_t *addr, int32_t value)
+{
+    int32_t result;
+
+    __asm volatile ("amoor.w %0, %2, %1" : \
+            "=r"(result), "+A"(*addr) : "r"(value) : "memory");
+    return *addr;
+}
+
+/*********************************************************************
+ * @fn          __AMOSWAP_W
+ *
+ * @brief      Atomically swap new 32bit value into memory using amoswap.d.
+ *                  addr      Address pointer to data, address need to be 4byte aligned
+ *                  newval    New value to be stored into the address
+ *
+ * @return    return the original value in memory
+ */
+__attribute__((always_inline)) RV_STATIC_INLINE uint32_t __AMOSWAP_W(volatile uint32_t *addr, uint32_t newval)
+{
+    uint32_t result;
+
+    __asm volatile ("amoswap.w %0, %2, %1" : \
+            "=r"(result), "+A"(*addr) : "r"(newval) : "memory");
+    return result;
+}
+
+/*********************************************************************
+ * @fn        __AMOXOR_W
+ *
+ * @brief    Atomic XOR with 32bit value
+ * @details Atomically XOR 32bit value with value in memory using amoxor.d.
+ *               addr   Address pointer to data, address need to be 4byte aligned
+ *               value  value to be XORed
+ *
+ *
+ * @return  return memory value ^ and value
+ */
+__attribute__((always_inline)) RV_STATIC_INLINE int32_t __AMOXOR_W(volatile int32_t *addr, int32_t value)
+{
+    int32_t result;
+
+    __asm volatile ("amoxor.w %0, %2, %1" : \
+            "=r"(result), "+A"(*addr) : "r"(value) : "memory");
+    return *addr;
 }
 
 /**

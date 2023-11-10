@@ -135,8 +135,7 @@
 						</toolChain>
 					</folderInfo>
 					<sourceEntries>
-						<entry excluding="LiteOS/third_party/cmsis|LiteOS/testsuits|LiteOS/components/cppsupport|LiteOS/kal|LiteOS/components/exchook|LiteOS/components/fs|LiteOS/components/net|Startup" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
-						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Startup"/>
+						<entry excluding="Startup/startup_ch32v10x_5v.S|LiteOS/third_party/cmsis|LiteOS/testsuits|LiteOS/components/cppsupport|LiteOS/kal|LiteOS/components/exchook|LiteOS/components/fs|LiteOS/components/net" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

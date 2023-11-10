@@ -13,4 +13,4 @@ Series=CH58X
 RTOS=NoneOS
 Description=Website: http://www.wch.cn/products/CH583.html?\nROM(byte): 448K, SRAM(byte): 32K, CHIP PINS: 48, GPIO PORTS: 40.\nCH582M is a 32-bit RISC microcontroller integrating ble wireless communication. On chip integrated 2Mbps lower-power Bluetooth ble communication module 2 full speed USB hosts and device controllers and transceivers, 2SPIs, 4 serial ports, ADC touch key detection module, RTC and other rich peripheral resources.
 
-PeripheralVersion=1.8
+PeripheralVersion=1.9

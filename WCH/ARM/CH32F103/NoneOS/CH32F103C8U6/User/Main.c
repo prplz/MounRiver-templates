@@ -5,17 +5,17 @@
  * Date               : 2019/10/15
  * Description        : Main program body.
  *********************************************************************************
-* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* Attention: This software (modified or not) and binary are used for 
-* microcontroller manufactured by Nanjing Qinheng Microelectronics.
-*******************************************************************************/
+ * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ *******************************************************************************/
 
 /*
  *@Note 
- ADC DMA sampling routines:
-ADC channel 2 (PA2), the rule group channel obtains ADC conversion data 
-for 1024 consecutive times through DMA.
- 
+ *ADC DMA sampling routines:
+ *ADC channel 2 (PA2), the rule group channel obtains ADC conversion data 
+ *for 1024 consecutive times through DMA.
+ *
 */
 
 #include "debug.h"
@@ -161,11 +161,13 @@ u16 Get_ConversionVal(s16 val)
  */
 int main(void)
 {
-  u16 i;
+	u16 i;
 	
+	SystemCoreClockUpdate();
 	Delay_Init();
 	USART_Printf_Init(115200);
 	printf("SystemClk:%d\r\n",SystemCoreClock);
+	printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
 
 	ADC_Function_Init();
 	printf("CalibrattionValue:%d\n", Calibrattion_Val);

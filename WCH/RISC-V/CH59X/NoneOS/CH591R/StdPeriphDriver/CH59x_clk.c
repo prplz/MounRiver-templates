@@ -452,9 +452,15 @@ void RTC_SetCycle32k(uint32_t cyc)
  */
 uint32_t RTC_GetCycle32k(void)
 {
-    return R32_RTC_CNT_32K;
-}
+    volatile uint32_t i;
 
+    do
+    {
+        i = R32_RTC_CNT_32K;
+    } while(i != R32_RTC_CNT_32K);
+
+    return (i);
+}
 /*********************************************************************
  * @fn      RTC_TMRFunCfg
  *

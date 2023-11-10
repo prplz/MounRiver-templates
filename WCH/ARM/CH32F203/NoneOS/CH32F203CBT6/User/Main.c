@@ -12,11 +12,11 @@
 
 /*
  *@Note 
- ADC DMA sampling routines:
- ADC channel 2(PA2), the regular group channel obtains 1024 times 
-of ADC conversion data continuously through DMA. 
- 
-*/
+ *ADC DMA sampling routines:
+ *ADC channel 2(PA2), the regular group channel obtains 1024 times 
+ *of ADC conversion data continuously through DMA. 
+ *
+ */
 
 #include "debug.h"
 
@@ -62,7 +62,8 @@ void ADC_Function_Init(void)
 	ADC_StartCalibration(ADC1);
 	while(ADC_GetCalibrationStatus(ADC1));
 	Calibrattion_Val = Get_CalibrationValue(ADC1);	
-
+	
+	
 }
 
 /*********************************************************************
@@ -164,20 +165,20 @@ u16 Get_ConversionVal(s16 val)
 int main(void)
 {
 	u16 i;
-
+	SystemCoreClockUpdate();
 	Delay_Init();
 	USART_Printf_Init(115200);
 	printf("SystemClk:%d\r\n",SystemCoreClock);
-
-  ADC_Function_Init();
-  printf("CalibrattionValue:%d\n", Calibrattion_Val);
-  
+	printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
+	ADC_Function_Init();
+	printf("CalibrattionValue:%d\n", Calibrattion_Val);
+	
 	DMA_Tx_Init( DMA1_Channel1, (u32)&ADC1->RDATAR, (u32)TxBuf, 1024 );
 	DMA_Cmd( DMA1_Channel1, ENABLE );
 
 	ADC_RegularChannelConfig(ADC1, ADC_Channel_2, 1, ADC_SampleTime_239Cycles5 );
 	ADC_SoftwareStartConvCmd(ADC1, ENABLE);
-  Delay_Ms(50);
+	Delay_Ms(50);
 	ADC_SoftwareStartConvCmd(ADC1, DISABLE);
 
 	for(i=0; i<1024; i++){

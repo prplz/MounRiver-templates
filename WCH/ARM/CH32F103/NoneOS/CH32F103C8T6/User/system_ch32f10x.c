@@ -114,47 +114,54 @@ void SystemInit (void)
  *
  * @return  none
  */
-void SystemCoreClockUpdate (void)
+void SystemCoreClockUpdate( void )
 {
-  uint32_t tmp = 0, pllmull = 0, pllsource = 0;
-    
-  tmp = RCC->CFGR0 & RCC_SWS;
-  
-  switch (tmp)
-  {
-    case 0x00:
-      SystemCoreClock = HSI_VALUE;
-      break;
-    case 0x04:  
-      SystemCoreClock = HSE_VALUE;
-      break;
-    case 0x08: 
-      pllmull = RCC->CFGR0 & RCC_PLLMULL;
-      pllsource = RCC->CFGR0 & RCC_PLLSRC; 
-      pllmull = ( pllmull >> 18) + 2;
-      if (pllsource == 0x00)
-      {
-        SystemCoreClock = (HSI_VALUE >> 1) * pllmull;
-      }
-      else
-      {    
-        if ((RCC->CFGR0 & RCC_PLLXTPRE) != (uint32_t)RESET)
-        {
-          SystemCoreClock = (HSE_VALUE >> 1) * pllmull;
-        }
-        else
-        {
-          SystemCoreClock = HSE_VALUE * pllmull;
-        }
-      }
-      break;
-    default:
-      SystemCoreClock = HSI_VALUE;
-      break;
-  }
- 
-  tmp = AHBPrescTable[((RCC->CFGR0 & RCC_HPRE) >> 4)];
-  SystemCoreClock >>= tmp;  
+    uint32_t tmp = 0, pllmull = 0, pllsource = 0;
+
+    tmp = RCC->CFGR0 & RCC_SWS;
+
+    switch( tmp )
+    {
+        case 0x00:
+            SystemCoreClock = HSI_VALUE;
+            break;
+        case 0x04:
+            SystemCoreClock = HSE_VALUE;
+            break;
+        case 0x08:
+            pllmull = RCC->CFGR0 & RCC_PLLMULL;
+            pllsource = RCC->CFGR0 & RCC_PLLSRC;
+            pllmull = ( pllmull >> 18 ) + 2;
+            if( pllsource == 0x00 )
+            {
+                if( EXTEN->EXTEN_CTR & EXTEN_PLL_HSI_PRE )
+                {
+                    SystemCoreClock = ( HSI_VALUE ) * pllmull;
+                }
+                else
+                {
+                    SystemCoreClock = ( HSI_VALUE >> 1 ) * pllmull;
+                }
+            }
+            else
+            {
+                if( ( RCC->CFGR0 & RCC_PLLXTPRE ) != ( uint32_t )RESET )
+                {
+                    SystemCoreClock = ( HSE_VALUE >> 1 ) * pllmull;
+                }
+                else
+                {
+                    SystemCoreClock = HSE_VALUE * pllmull;
+                }
+            }
+            break;
+        default:
+            SystemCoreClock = HSI_VALUE;
+            break;
+    }
+
+    tmp = AHBPrescTable[( ( RCC->CFGR0 & RCC_HPRE ) >> 4 )];
+    SystemCoreClock >>= tmp;
 }
 
 
@@ -167,6 +174,7 @@ void SystemCoreClockUpdate (void)
  */
 static void SetSysClock(void)
 {
+   //GPIO_IPD_Unused();
 #ifdef SYSCLK_FREQ_HSE
     SetSysClockToHSE();
 #elif defined SYSCLK_FREQ_48MHz_HSE

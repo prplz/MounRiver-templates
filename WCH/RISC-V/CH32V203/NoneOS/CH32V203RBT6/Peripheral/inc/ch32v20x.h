@@ -4,11 +4,11 @@
  * Version            : V1.0.0
  * Date               : 2021/06/06
  * Description        : CH32V20x Device Peripheral Access Layer Header File.
-*********************************************************************************
-* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
-* Attention: This software (modified or not) and binary are used for 
-* microcontroller manufactured by Nanjing Qinheng Microelectronics.
-*******************************************************************************/
+ *********************************************************************************
+ * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
+ * Attention: This software (modified or not) and binary are used for 
+ * microcontroller manufactured by Nanjing Qinheng Microelectronics.
+ *******************************************************************************/
 #ifndef __CH32V20x_H
 #define __CH32V20x_H
 
@@ -523,22 +523,64 @@ typedef struct
     uint16_t      RESERVED7;
     __IO uint16_t CCER;
     uint16_t      RESERVED8;
-    __IO uint16_t CNT;
-    uint16_t      RESERVED9;
+    union
+    {
+        __IO uint32_t CNT_R32;
+        struct
+        {
+            __IO uint16_t CNT;
+            uint16_t      RESERVED9;
+        };
+    };
     __IO uint16_t PSC;
     uint16_t      RESERVED10;
-    __IO uint16_t ATRLR;
-    uint16_t      RESERVED11;
+    union
+    {
+        __IO uint32_t ATRLR_R32;
+        struct
+        {
+            __IO uint16_t ATRLR;
+            uint16_t      RESERVED11;
+        };
+    };
     __IO uint16_t RPTCR;
     uint16_t      RESERVED12;
-    __IO uint16_t CH1CVR;
-    uint16_t      RESERVED13;
-    __IO uint16_t CH2CVR;
-    uint16_t      RESERVED14;
-    __IO uint16_t CH3CVR;
-    uint16_t      RESERVED15;
-    __IO uint16_t CH4CVR;
-    uint16_t      RESERVED16;
+    union
+    {
+        __IO uint32_t CH1CVR_R32;
+        struct
+        {
+            __IO uint16_t CH1CVR;
+            uint16_t      RESERVED13;
+        };
+    };
+    union
+    {
+        __IO uint32_t CH2CVR_R32;
+        struct
+        {
+            __IO uint16_t CH2CVR;
+            uint16_t      RESERVED14;
+        };
+    };
+    union
+    {
+        __IO uint32_t CH3CVR_R32;
+        struct
+        {
+            __IO uint16_t CH3CVR;
+            uint16_t      RESERVED15;
+        };
+    };
+    union
+    {
+        __IO uint32_t CH4CVR_R32;
+        struct
+        {
+            __IO uint16_t CH4CVR;
+            uint16_t      RESERVED16;
+        };
+    };
     __IO uint16_t BDTR;
     uint16_t      RESERVED17;
     __IO uint16_t DMACFGR;

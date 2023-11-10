@@ -38,6 +38,12 @@
 
 #define HSI_VALUE    ((uint32_t)8000000) /* Value of the Internal oscillator in Hz */
 
+/* CH32F20x Standard Peripheral Library version number */
+#define __CH32F20x_STDPERIPH_VERSION_MAIN   (0x01) /* [15:8] main version */
+#define __CH32F20x_STDPERIPH_VERSION_SUB    (0x08) /* [7:0] sub version */
+#define __CH32F20x_STDPERIPH_VERSION        ( (__CH32F20x_STDPERIPH_VERSION_MAIN << 8)\
+                                             |(__CH32F20x_STDPERIPH_VERSION_SUB << 0))
+
 /* Interrupt Number Definition, according to the selected device */	 
 typedef enum IRQn
 {
@@ -716,28 +722,70 @@ typedef struct
   uint16_t  RESERVED7;
   __IO uint16_t CCER;
   uint16_t  RESERVED8;
-  __IO uint16_t CNT;
-  uint16_t  RESERVED9;
+  union
+  {
+      __IO uint32_t CNT_R32;
+      struct
+      {
+          __IO uint16_t CNT;
+          uint16_t      RESERVED9;
+      };
+  };
   __IO uint16_t PSC;
-  uint16_t  RESERVED10;
-  __IO uint16_t ATRLR;
-  uint16_t  RESERVED11;
+  uint16_t      RESERVED10;
+  union
+  {
+      __IO uint32_t ATRLR_R32;
+      struct
+      {
+          __IO uint16_t ATRLR;
+          uint16_t      RESERVED11;
+      };
+  };
   __IO uint16_t RPTCR;
-  uint16_t  RESERVED12;
-  __IO uint16_t CH1CVR;
-  uint16_t  RESERVED13;
-  __IO uint16_t CH2CVR;
-  uint16_t  RESERVED14;
-  __IO uint16_t CH3CVR;
-  uint16_t  RESERVED15;
-  __IO uint16_t CH4CVR;
-  uint16_t  RESERVED16;
+  uint16_t      RESERVED12;
+  union
+  {
+      __IO uint32_t CH1CVR_R32;
+      struct
+      {
+          __IO uint16_t CH1CVR;
+          uint16_t      RESERVED13;
+      };
+  };
+  union
+  {
+      __IO uint32_t CH2CVR_R32;
+      struct
+      {
+          __IO uint16_t CH2CVR;
+          uint16_t      RESERVED14;
+      };
+  };
+  union
+  {
+      __IO uint32_t CH3CVR_R32;
+      struct
+      {
+          __IO uint16_t CH3CVR;
+          uint16_t      RESERVED15;
+      };
+  };
+  union
+  {
+      __IO uint32_t CH4CVR_R32;
+      struct
+      {
+          __IO uint16_t CH4CVR;
+          uint16_t      RESERVED16;
+      };
+  };
   __IO uint16_t BDTR;
-  uint16_t  RESERVED17;
+  uint16_t      RESERVED17;
   __IO uint16_t DMACFGR;
-  uint16_t  RESERVED18;
+  uint16_t      RESERVED18;
   __IO uint16_t DMAADR;
-  uint16_t  RESERVED19;
+  uint16_t      RESERVED19;
 } TIM_TypeDef;
 
 /* Universal Synchronous Asynchronous Receiver Transmitter */

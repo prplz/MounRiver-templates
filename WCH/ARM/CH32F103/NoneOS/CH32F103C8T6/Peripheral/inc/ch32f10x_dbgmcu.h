@@ -51,7 +51,7 @@
 uint32_t DBGMCU_GetREVID(void);
 uint32_t DBGMCU_GetDEVID(void);
 void DBGMCU_Config(uint32_t DBGMCU_Periph, FunctionalState NewState);
-
+uint32_t DBGMCU_GetCHIPID( void );
 #ifdef __cplusplus
 }
 #endif

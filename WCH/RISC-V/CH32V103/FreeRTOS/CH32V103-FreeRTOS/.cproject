@@ -122,8 +122,9 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-						<sourceEntries>
-						<entry excluding="FreeRTOS/portable/Common/mpu_wrappers.c" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+					<sourceEntries>
+						<entry excluding="Startup|FreeRTOS/portable/Common/mpu_wrappers.c" flags="VALUE_WORKSPACE_PATH" kind="sourcePath" name=""/>
+						<entry excluding="startup_ch32v10x_5v.S" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Startup"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

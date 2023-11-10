@@ -326,9 +326,14 @@ void LowPower_Sleep(uint16_t rm)
 
     sys_safe_access_enable();
     R8_SLP_POWER_CTRL |= RB_RAM_RET_LV;
-    R8_PLL_CONFIG |= (1 << 5);
     R16_POWER_PLAN = power_plan;
     sys_safe_access_disable();
+    if((rm & RB_XT_PRE_EN) == 0)
+    {
+        sys_safe_access_enable();
+        R8_PLL_CONFIG |= (1 << 5);
+        sys_safe_access_disable();
+    }
 
     __WFI();
     __nop();
@@ -338,9 +343,13 @@ void LowPower_Sleep(uint16_t rm)
     R16_POWER_PLAN &= ~RB_XT_PRE_EN;
     sys_safe_access_disable();
 
-    sys_safe_access_enable();
-    R8_PLL_CONFIG &= ~(1 << 5);
-    sys_safe_access_disable();
+    if((rm & RB_XT_PRE_EN) == 0)
+    {
+        sys_safe_access_enable();
+        R8_PLL_CONFIG &= ~(1 << 5);
+        sys_safe_access_disable();
+        DelayUs(20);
+    }
 }
 
 /*********************************************************************

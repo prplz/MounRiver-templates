@@ -89,9 +89,9 @@ UINT8 CtrlSetUsbIntercace( UINT8 cfg );
 
 void    USB_HostInit( void );                     
 UINT8 InitRootDevice( PUINT8 DataBuf ); 
-UINT8   HubGetPortStatus( UINT8 HubPortIndex );        // 查询HUB端口状态,返回在TxBuffer中
-UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  // 设置HUB端口特性
-UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  // 清除HUB端口特性
+UINT8   HubGetPortStatus( UINT8 HubPortIndex );       
+UINT8   HubSetPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  
+UINT8   HubClearPortFeature( UINT8 HubPortIndex, UINT8 FeatureSelt );  
 #ifdef __cplusplus
 }
 #endif

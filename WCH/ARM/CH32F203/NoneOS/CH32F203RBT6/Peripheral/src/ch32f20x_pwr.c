@@ -376,7 +376,7 @@ void PWR_EnterSTANDBYMode_RAM_LV_VBAT_EN( void )
  * @brief   Enters STOP mode with RAM data retention function and LV mode on.
  *
  * @param   PWR_Regulator - specifies the regulator state in STOP mode.
- *            PWR_Regulator_ON - STOP mode with regulator ON
+ *
  *            PWR_Regulator_LowPower - STOP mode with regulator in low power mode
  *          PWR_STOPEntry - specifies if STOP mode in entered with WFI or WFE instruction.
  *            PWR_STOPEntry_WFI - enter STOP mode with WFI instruction
@@ -392,14 +392,10 @@ void PWR_EnterSTOPMode_RAM_LV( uint32_t PWR_Regulator, uint8_t PWR_STOPEntry )
     tmpreg |= PWR_Regulator;
 	
 #if defined (CH32F20x_D8) || defined (CH32F20x_D8C)	|| defined (CH32F20x_D8W)	
-    //2K+30K in standby power.
-    tmpreg |= ( ( uint32_t )1 << 16 ) | ( ( uint32_t )1 << 17 );
-    //2K+30K in standby LV .
+
     tmpreg |= ( ( uint32_t )1 << 20 );
 #else
-    //RAM in standby power.
-    tmpreg |= ( ( uint32_t )1 << 16 );
-    //RAM in standby LV .
+
     tmpreg |= ( ( uint32_t )1 << 20 );	
 	
 #endif

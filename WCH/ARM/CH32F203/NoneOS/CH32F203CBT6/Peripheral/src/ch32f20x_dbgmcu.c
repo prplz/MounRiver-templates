@@ -85,6 +85,30 @@ void DBGMCU_Config( uint32_t DBGMCU_Periph, FunctionalState NewState )
         DBGMCU->CFGR &= ~DBGMCU_Periph;
     }
 }
+/*********************************************************************
+ * @fn      DBGMCU_GetCHIPID
+ *
+ * @brief   Returns the CHIP identifier.
+ *
+ * @return Device identifier.
+ *          ChipID List-
+ *          CH32F207VCT6-0x207004x8
+ *          CH32F205RBT6-0x205004x8
+ *          CH32F203VCT6-0x203004x4
+ *          CH32F203RCT6-0x203104x4
+ *          CH32F203CBT6-0x203204x4
+ *          CH32F203RBT6-0x203304x4
+ *          CH32F203C8U6-0x203004x0
+ *          CH32F203C8T6-0x203104x0
+ *          CH32F203K8T6-0x203204x0
+ *          CH32F203C6T6-0x203304x0
+ *          CH32F208WBU6-0x208004xC
+ *          CH32F208RBT6-0x208104xC
+ */
+uint32_t DBGMCU_GetCHIPID( void )
+{
+    return( *( uint32_t * )0x1FFFF704 );
+}
 
 
 

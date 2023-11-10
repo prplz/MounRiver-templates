@@ -34,7 +34,7 @@
 
 /* CH32V30x Standard Peripheral Library version number */
 #define __CH32V30x_STDPERIPH_VERSION_MAIN   (0x02) /* [15:8] main version */
-#define __CH32V30x_STDPERIPH_VERSION_SUB    (0x01) /* [7:0] sub version */
+#define __CH32V30x_STDPERIPH_VERSION_SUB    (0x02) /* [7:0] sub version */
 #define __CH32V30x_STDPERIPH_VERSION        ( (__CH32V30x_STDPERIPH_VERSION_MAIN << 8)\
                                              |(__CH32V30x_STDPERIPH_VERSION_SUB << 0))
 
@@ -4455,7 +4455,7 @@ typedef struct
 #define  RCC_PLLXTPRE_HSE                ((uint32_t)0x00000000)        /* HSE clock not divided for PLL entry */
 #define  RCC_PLLXTPRE_HSE_Div2           ((uint32_t)0x00020000)        /* HSE clock divided by 2 for PLL entry */
 
-/* for other CH32V30x */
+/* CH32V303x */
 #define  RCC_PLLMULL2                    ((uint32_t)0x00000000)        /* PLL input clock*2 */
 #define  RCC_PLLMULL3                    ((uint32_t)0x00040000)        /* PLL input clock*3 */
 #define  RCC_PLLMULL4                    ((uint32_t)0x00080000)        /* PLL input clock*4 */
@@ -4472,7 +4472,7 @@ typedef struct
 #define  RCC_PLLMULL15                   ((uint32_t)0x00340000)        /* PLL input clock*15 */
 #define  RCC_PLLMULL16                   ((uint32_t)0x00380000)        /* PLL input clock*16 */
 #define  RCC_PLLMULL18                   ((uint32_t)0x003C0000)        /* PLL input clock*18 */
-/* for CH32V307 */
+/* CH32V307x-CH32V305x */
 #define  RCC_PLLMULL18_EXTEN             ((uint32_t)0x00000000)        /* PLL input clock*18 */
 #define  RCC_PLLMULL3_EXTEN              ((uint32_t)0x00040000)        /* PLL input clock*3 */
 #define  RCC_PLLMULL4_EXTEN              ((uint32_t)0x00080000)        /* PLL input clock*4 */
